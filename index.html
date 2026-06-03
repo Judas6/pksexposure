@@ -46,7 +46,7 @@
     <canvas id="particle-canvas"></canvas>
 
     <!-- NAVBAR -->
-    <nav class="leather border-b-4 border-[#facc15] sticky top-0 z-50">
+    <nav class="leather border-b-4 border-[#facc15] sticky top-0 z-50 bg-[#111827]">
         <div class="max-w-screen-2xl mx-auto px-6 md:px-12">
             <div class="flex justify-between items-center h-20 md:h-24">
                 <div class="flex items-center gap-x-4">
@@ -77,7 +77,7 @@
 
     <div class="max-w-screen-2xl mx-auto px-6 md:px-12">
 
-        <!-- LANDING PAGE -->
+        <!-- LANDING -->
         <div id="home-page" class="page">
             <div class="hero-bg rounded-3xl mt-8 py-16 md:py-24 px-6 md:px-20 text-center relative">
                 <div class="inline-flex items-center gap-x-3 bg-[#9f1239] text-white text-sm md:text-base font-bold tracking-[1px] px-8 py-4 rounded-3xl mb-8">
@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        <!-- GALLERY PAGE -->
+        <!-- GALLERY -->
         <div id="gallery-page" class="page hidden">
             <div class="mt-12">
                 <h2 class="section-header text-[#facc15]">PERMANENT EXPOSURE ARCHIVE</h2>
@@ -125,14 +125,14 @@
             <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
         </div>
 
-        <!-- SLAVE ID GENERATOR PAGE -->
+        <!-- SLAVE ID GENERATOR -->
         <div id="generator-page" class="page hidden">
             <div class="mt-12 grid md:grid-cols-12 gap-12">
                 <div class="md:col-span-5">
                     <h2 class="section-header mb-8">OFFICIAL SLAVE ID CARD GENERATOR</h2>
                     <div class="bg-[#1f2937] rounded-3xl p-8 md:p-10 space-y-8">
-                        <div class="space-y-2">
-                            <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">CARD BACKGROUND STYLE</label>
+                        <!-- Form fields -->
+                        <div class="space-y-2"><label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">CARD BACKGROUND STYLE</label>
                             <select id="bg-select" onchange="updateIDPreview()" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-xl font-semibold">
                                 <option value="classic">Australian Blue Official</option>
                                 <option value="leather">Leather Prison</option>
@@ -140,10 +140,7 @@
                                 <option value="gold">Gold Chain Master</option>
                             </select>
                         </div>
-                        <div class="space-y-2">
-                            <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">FULL NAME</label>
-                            <input id="name-input" value="Peter William Kay" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold">
-                        </div>
+                        <div class="space-y-2"><label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">FULL NAME</label><input id="name-input" value="Peter William Kay" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold"></div>
                         <div class="grid grid-cols-2 gap-6">
                             <div class="space-y-2"><label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">AGE</label><input id="age-input" value="34" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold"></div>
                             <div class="space-y-2"><label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">LOCATION</label><input id="location-input" value="Adelaide, SA, Australia" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold"></div>
@@ -173,6 +170,7 @@
                         </div>
                         <div id="id-front" class="id-card mx-auto relative">
                             <div class="hologram-overlay"></div>
+                            <!-- ID Front Content -->
                             <div class="bg-[#0a2540] h-8 flex items-center px-5 text-white text-[10px] font-bold tracking-[1px] relative z-20">MASTER JUDAS HIERARCHY • ADELAIDE SLAVE ID • AUSTRALIA</div>
                             <div class="p-5 flex gap-5 relative z-20">
                                 <div class="w-32 h-40 border-4 border-[#facc15] rounded-xl overflow-hidden flex-shrink-0 bg-black relative">
@@ -239,12 +237,48 @@
                     <strong>Visit Period:</strong> 7 full days / 8 nights<br>
                     <strong>Total Investment for Adelaide Trip:</strong> <span class="font-black text-3xl">€2,100</span> (non-refundable gift covering flight contribution, transfers, and full immersive experience)<br>
                     <span class="text-xs block mt-1 text-red-700">All toys, restraints, hypnosis tools, cleaning supplies, photoshoots, pub visits, beach activities, and future Portugal visits are provided completely FREE as Master’s reward for commitment.</span>
-                    <!-- Full contract body from previous version (unchanged) -->
-                    <p class="my-8">Peter, this version is fully customized for your cravings...</p>
-                    <!-- (The rest of the contract text is exactly as in the last complete version) -->
-                    <button onclick="downloadSignedContract()" class="mt-12 w-full max-w-md mx-auto py-6 text-3xl font-semibold bg-gradient-to-r from-[#facc15] to-[#9f1239] text-black rounded-3xl flex items-center justify-center gap-x-4">
-                        DOWNLOAD SIGNED CONTRACT (PNG) &amp; SEND TO MASTER <span class="text-4xl">⬇️</span>
-                    </button>
+
+                    <p class="my-8">Peter, this version is fully customized for your cravings: heavy public online exposure, serving as human toilet (including pub scenes), deep hypnosis, naked photoshoots, nude beach slavery, and the addictive hostage feeling in your own home. Everything remains 100% consensual adult fantasy. You control the safeword.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 bg-white/30 rounded-3xl p-8 mb-12">
+                        <div><strong class="text-[#9f1239]">Safeword:</strong> “RED” instantly stops any activity. Aftercare is given after every intense session (especially toilet use, hypnosis, or exposure). All photos, videos, and posts stay strictly within your “GREEN-LIGHT-FOR-POSTING.txt”. Phone under full Master control.</div>
+                        <div><strong class="text-[#9f1239]">Week Overview:</strong> Your Adelaide house becomes my private prison. You will be hypnotized daily to deepen addiction to exposure, toilet service, and total surrender. Most non-active time in bondage.</div>
+                        <div><strong class="text-[#9f1239]">Future Portugal Visits:</strong> Complete €2,100 payment today and unlock 3 free 7–10 day hostage visits per year to Lisbon. Full 24/7 ownership, hypnosis, toilet use, public exposure — travel costs on Peter.</div>
+                    </div>
+
+                    <h3 class="text-3xl font-semibold mb-8 text-[#9f1239]">Detailed 7-Day Activity Plan</h3>
+                    <div class="space-y-10 text-sm md:text-base">
+                        <div><strong>Day 1:</strong> Arrival &amp; Total Surrender – Kneeling greeting, phone handover, immediate collaring. Hostage Declaration video + first hypnosis session installing triggers for piss addiction and exposure craving. Evening: First human toilet training + light bondage. Night: Chained to bed with hypnosis loop.</div>
+                        <div><strong>Day 2:</strong> Bondage Immersion + First Pub Piss Feeding – Morning: Hypnosis + toilet service. Midday: Subtle public outing. Afternoon: Naked photoshoot in your home. Evening: Pub Visit — Master Judas drinks several beers at a chosen Adelaide pub. You serve as human toilet. Night: Bondage + online exposure post.</div>
+                        <div><strong>Day 3:</strong> Nude Beach Slavery – Morning: Toilet ritual + hypnosis. Midday: Drive to Maslin Beach area. You act as my naked slave. Afternoon: Return home for heavy bondage + more toilet use. Evening: Second Pub Piss Feeding. Night: Live phone-controlled exposure session while bound.</div>
+                        <div><strong>Day 4:</strong> Mid-Week Peak (Intense Hostage Day) – Morning: Multiple toilet sessions + hypnosis. Midday: Home naked photoshoot marathon. Afternoon: Extended hypnosis + mummification. Evening: Pub Visit #3. Night: Major approved public online exposure drop + final bondage as prisoner.</div>
+                        <div><strong>Day 5:</strong> Hypnosis &amp; Degradation – Morning: Toilet + hypnosis for long-term triggers. Midday: Another nude beach return or home outdoor naked shoot. Afternoon: Bondage while you create video confessions. Evening: Pub piss feeding + creative degradation play. Night: Locked as furniture.</div>
+                        <div><strong>Day 6:</strong> Public &amp; Exposure Climax – Morning: Intensive toilet training + hypnosis. Midday: Bold naked photoshoot + possible short nude beach revisit. Afternoon: Hypnosis + you beg for more exposure while restrained. Evening: Final Pub Visit. Night: Big online post + reflection journal.</div>
+                        <div><strong>Day 7:</strong> Finale &amp; Aftercare – Morning: Grand toilet session + sealing hypnosis. Midday: Final naked photoshoot + light public task. Evening: Closing pub piss feeding (if desired) + full worship. Night: Last hostage night in chains with praise and aftercare.</div>
+                        <div><strong>Day 8:</strong> Departure – Light ritual, final photos, emotional release from hostage headspace.</div>
+                    </div>
+
+                    <h3 class="text-3xl font-semibold mt-16 mb-6 text-[#9f1239]">Pricing</h3>
+                    <p class="text-2xl font-semibold">€2,100 is the non-refundable gift solely for the complete Adelaide Hostage Week trip. Everything else is provided completely FREE as Master’s reward for your commitment.</p>
+
+                    <div class="mt-16 text-center border-t-4 border-[#9f1239] pt-12">
+                        <p class="text-3xl mb-8">Sign below to lock in your Adelaide exposure week</p>
+                        <div class="grid grid-cols-2 gap-12 max-w-2xl mx-auto">
+                            <div>
+                                <p class="uppercase text-sm tracking-widest text-[#9f1239] mb-2">Master Judas</p>
+                                <input id="master-sig" type="text" placeholder="Type signature here" class="w-full border-b-4 border-[#9f1239] text-4xl font-light bg-transparent focus:outline-none">
+                                <p class="text-xs text-[#9f1239] mt-1">Date _________</p>
+                            </div>
+                            <div>
+                                <p class="uppercase text-sm tracking-widest text-[#9f1239] mb-2">Slave Peter William Kay</p>
+                                <input id="slave-sig" type="text" placeholder="Type signature here" class="w-full border-b-4 border-[#9f1239] text-4xl font-light bg-transparent focus:outline-none">
+                                <p class="text-xs text-[#9f1239] mt-1">Date _________</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadSignedContract()" class="mt-12 w-full max-w-md mx-auto py-6 text-3xl font-semibold bg-gradient-to-r from-[#facc15] to-[#9f1239] text-black rounded-3xl flex items-center justify-center gap-x-4">
+                            DOWNLOAD SIGNED CONTRACT (PNG) &amp; SEND TO MASTER <span class="text-4xl">⬇️</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -256,10 +290,8 @@
     </footer>
 
     <script>
-        // Tailwind
         function initTailwind() { return { config(userConfig = {}) { return { content: [], theme: { extend: {} }, plugins: [], ...userConfig } }, theme: { extend: {} } } }
 
-        // Page navigation (fixed and reliable)
         function showPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
             const target = document.getElementById(page + '-page');
@@ -267,7 +299,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Mobile menu
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             const hamburger = document.querySelector('.hamburger');
@@ -275,19 +306,19 @@
             if (hamburger) hamburger.classList.toggle('active');
         }
 
-        // Live view counter
+        // Live visitor counter
         let viewCount = 1000;
         function startViewCounter() {
             document.getElementById('view-count').textContent = viewCount.toLocaleString('en-US');
             setInterval(() => {
-                if (Math.random() > 0.35) {
+                if (Math.random() > 0.4) {
                     viewCount += Math.floor(Math.random() * 5) + 1;
                     document.getElementById('view-count').textContent = viewCount.toLocaleString('en-US');
                 }
             }, 6500);
         }
 
-        // Gallery (with likes + fresh random comments)
+        // Gallery with likes + random comments
         let galleryImages = JSON.parse(localStorage.getItem('peterAdelaideGalleryFinal')) || [];
         const nicknames = ["AdelaideSub87","PissBoyPete","JudasOwned24","SAfaggot69","BeachSlaveAU","HypnoToy34","ToiletForJudas","NakedAdelaide","MasterJudasPet","ExposedDownUnder"];
         const commentTemplates = ["This pathetic faggot belongs on his knees forever 😂","Master Judas owns this worthless piss-drinker","Adelaide's biggest shame is now public property","That tiny dick deserves to stay locked","Can't wait to see him drinking in the pub again","Total degradation goals. Owned.","Hypnotized and exposed — perfect slave","Nude beach slavery looks so natural on him","Peter is living the dream of every true faggot","More public exposure please Master Judas 🔥"];
@@ -351,19 +382,129 @@
             e.target.value = '';
         }
 
-        // ID Card functions (full)
-        function previewCardPhoto(e) { /* same as before */ }
-        function liveUpdateCard() { /* same as before */ }
-        function generateCard() { /* same as before */ }
-        function downloadCard() { /* same as before */ }
-        function toggleCardSide(side) { /* same as before */ }
-        function updateIDPreview() { /* same as before */ }
+        // ID Card functions
+        function previewCardPhoto(e) {
+            const reader = new FileReader();
+            reader.onload = ev => {
+                const img = document.getElementById('card-photo');
+                img.src = ev.target.result;
+                img.classList.remove('hidden');
+                document.getElementById('card-photo-placeholder').classList.add('hidden');
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+        function liveUpdateCard() {
+            const map = {
+                'name-input': 'card-name',
+                'age-input': 'card-age',
+                'location-input': 'card-location',
+                'realid-input': 'card-realid',
+                'socials-input': 'card-socials',
+                'slave-number-input': 'card-slave-number',
+                'dick-input': 'card-dick-size'
+            };
+            Object.keys(map).forEach(key => {
+                const input = document.getElementById(key);
+                const target = document.getElementById(map[key]);
+                if (input && target) input.addEventListener('input', () => target.textContent = input.value || '—');
+            });
+        }
+
+        function generateCard() {
+            const card = document.getElementById('id-front');
+            card.classList.add('scale-105');
+            setTimeout(() => card.classList.remove('scale-105'), 400);
+        }
+
+        function downloadCard() {
+            html2canvas(document.getElementById('id-front'), { scale: 4, backgroundColor: '#0a2540' }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'PETER-WILLIAM-KAY-ADELAIDE-SLAVE-ID.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        function toggleCardSide(side) {
+            document.getElementById('id-front').classList.toggle('hidden', side === 'back');
+            document.getElementById('id-back').classList.toggle('hidden', side === 'front');
+        }
+
+        function updateIDPreview() {
+            const bg = document.getElementById('bg-select').value;
+            const front = document.getElementById('id-front');
+            front.classList.remove('id-background-classic','id-background-leather','id-background-blood','id-background-gold');
+            if (bg !== 'classic') front.classList.add(`id-background-${bg}`);
+        }
 
         // Contract download
-        function downloadSignedContract() { /* same as before */ }
+        function downloadSignedContract() {
+            html2canvas(document.getElementById('contract-content'), { scale: 3, backgroundColor: '#f8f1e3' }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'PETER-WILLIAM-KAY-SIGNED-HOSTAGE-CONTRACT.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
 
         // Particles
-        function initParticles() { /* same as before */ }
+        function initParticles() {
+            const canvas = document.getElementById('particle-canvas');
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+            camera.position.z = 45;
+
+            const positions = new Float32Array(1200 * 3);
+            const colors = new Float32Array(1200 * 3);
+            const sizes = new Float32Array(1200);
+            const goldColor = new THREE.Color('#facc15');
+            const bloodColor = new THREE.Color('#9f1239');
+
+            for (let i = 0; i < 1200 * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 90;
+                positions[i + 1] = (Math.random() - 0.5) * 90;
+                positions[i + 2] = (Math.random() - 0.5) * 90;
+                const useGold = Math.random() > 0.4;
+                const color = useGold ? goldColor : bloodColor;
+                colors[i] = color.r; colors[i+1] = color.g; colors[i+2] = color.b;
+                sizes[i/3] = Math.random() * 1.8 + 0.4;
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+            const material = new THREE.PointsMaterial({ size: 0.22, vertexColors: true, transparent: true, opacity: 0.65, blending: THREE.AdditiveBlending, depthTest: false });
+            const particlesSystem = new THREE.Points(geometry, material);
+            scene.add(particlesSystem);
+
+            let time = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.0008;
+                particlesSystem.rotation.y = Math.sin(time * 0.2) * 0.08;
+                particlesSystem.rotation.x = Math.cos(time * 0.15) * 0.04;
+                const posAttr = particlesSystem.geometry.attributes.position;
+                for (let i = 0; i < posAttr.count; i++) {
+                    const iy = i * 3 + 1;
+                    posAttr.array[iy] += Math.sin(time * 8 + i) * 0.0008;
+                }
+                posAttr.needsUpdate = true;
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
 
         window.onload = () => {
             initTailwind();
@@ -372,7 +513,7 @@
             initParticles();
             startViewCounter();
             showPage('home');
-            console.log('%c✅ FULL WEBSITE FIXED & IMPROVED — ALL PAGES WORKING', 'color:#facc15; font-weight:700');
+            console.log('%c✅ FULL WEBSITE FIXED & IMPROVED — ALL PAGES WORKING PERFECTLY', 'color:#facc15; font-weight:700');
         };
     </script>
 </body>
