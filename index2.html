@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASTER JUDAS • ADELAIDE HOSTAGE PROTOCOL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&amp;display=swap');
+        
+        :root {
+            --gold: #facc15;
+            --blood: #9f1239;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, transform;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .title-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+
+        .hero-bg {
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1114 100%);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(to right, var(--gold), var(--blood));
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* REAL AUSTRALIAN-STYLE ID CARD WITH HOLOGRAPHIC SECURITY */
+        .id-card {
+            width: 100%;
+            max-width: 520px;
+            aspect-ratio: 1.586 / 1;
+            background: linear-gradient(145deg, #0a2540, #112b4e);
+            border: 14px solid #facc15;
+            border-radius: 12px;
+            box-shadow: 
+                0 0 0 18px #111827,
+                25px 25px 50px -12px rgb(159 18 57),
+                inset 0 0 80px rgba(249, 204, 21, 0.3);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .id-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(135deg, transparent, transparent 28px, rgba(250, 204, 21, 0.08) 28px, rgba(250, 204, 21, 0.08) 56px);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* HOLOGRAPHIC SECURITY LAYER */
+        .hologram-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            pointer-events: none;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.35) 45%,
+                transparent 55%,
+                rgba(255, 255, 255, 0.35) 100%
+            );
+            animation: hologram-shimmer 6s linear infinite;
+            mix-blend-mode: screen;
+            opacity: 0.65;
+        }
+
+        @keyframes hologram-shimmer {
+            0%   { transform: translateX(-150%); }
+            100% { transform: translateX(300%); }
+        }
+
+        /* Extra holographic foil texture */
+        .hologram-overlay::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(250, 204, 21, 0.4) 10%, transparent 60%);
+            animation: hologram-rotate 12s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes hologram-rotate {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        .section-header {
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            line-height: 1.05;
+            letter-spacing: -3px;
+            background: linear-gradient(to right, #facc15, #9f1239);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .leather {
+            background: #111827;
+            background-image: 
+                radial-gradient(circle at 30% 30%, rgba(249, 115, 22, 0.12) 1px, transparent 0),
+                radial-gradient(circle at 70% 70%, rgba(249, 115, 22, 0.12) 1px, transparent 0);
+            background-size: 70px 70px;
+        }
+
+        .contract-paper {
+            background: #f8f1e3;
+            color: #111827;
+            box-shadow: 30px 30px 60px -20px rgb(159 18 57);
+            border: 24px solid #9f1239;
+        }
+        
+        .glass {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(16px);
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 28px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.75;
+        }
+
+        /* Smaller, cleaner fonts for ID */
+        .id-text-name { font-size: 1.65rem; line-height: 1.1; }
+        .id-text-label { font-size: 0.62rem; letter-spacing: 1.5px; }
+        .id-text-value { font-size: 1.05rem; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-[#111827] text-white">
+
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- NAVBAR -->
+    <nav class="leather border-b-4 border-[#facc15] sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto px-6 md:px-12">
+            <div class="flex justify-between items-center h-20 md:h-24">
+                <div class="flex items-center gap-x-4">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-[#9f1239] flex items-center justify-center text-4xl rotate-45 shadow-2xl text-white">⛓️</div>
+                    <h1 class="title-font text-3xl md:text-5xl tracking-[-3px] text-[#facc15]">MASTER JUDAS</h1>
+                </div>
+
+                <div class="hidden md:flex items-center gap-x-10 text-lg font-medium">
+                    <a onclick="showPage('home')" class="nav-link cursor-pointer">LANDING</a>
+                    <a onclick="showPage('gallery')" class="nav-link cursor-pointer">GALLERY</a>
+                    <a onclick="showPage('generator')" class="nav-link cursor-pointer">SLAVE ID</a>
+                    <a onclick="showPage('contract')" class="nav-link cursor-pointer">CONTRACT</a>
+                </div>
+
+                <div class="hidden md:flex items-center bg-[#1f2937] px-6 h-12 rounded-3xl border border-[#9f1239]">
+                    <span class="font-semibold text-[#facc15] mr-3 text-sm">CURRENT SLAVE</span>
+                    <span class="px-5 py-1 bg-[#9f1239] rounded-2xl font-black text-sm">PETER WILLIAM KAY</span>
+                    <span class="ml-4 text-xs text-amber-300">ADELAIDE • BEGGING FOR EXPOSURE</span>
+                </div>
+
+                <button onclick="toggleMobileMenu()" class="md:hidden hamburger flex flex-col justify-center gap-y-1.5">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="hidden md:hidden pb-6 border-t border-[#9f1239]/30">
+                <div class="flex flex-col gap-y-6 text-xl font-medium pt-6">
+                    <a onclick="showPage('home');toggleMobileMenu()" class="nav-link">LANDING</a>
+                    <a onclick="showPage('gallery');toggleMobileMenu()" class="nav-link">GALLERY</a>
+                    <a onclick="showPage('generator');toggleMobileMenu()" class="nav-link">SLAVE ID</a>
+                    <a onclick="showPage('contract');toggleMobileMenu()" class="nav-link">CONTRACT</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-screen-2xl mx-auto px-6 md:px-12">
+
+        <!-- HOME -->
+        <div id="home-page" class="page">
+            <div class="hero-bg rounded-3xl mt-8 py-16 md:py-24 px-6 md:px-20 text-center relative">
+                <div class="inline-flex items-center gap-x-3 bg-[#9f1239] text-white text-sm md:text-base font-bold tracking-[1px] px-8 py-4 rounded-3xl mb-8">
+                    <div class="w-3 h-3 bg-white rounded-full animate-pulse"></div>
+                    ADELAIDE HOSTAGE PROTOCOL – LIVE
+                </div>
+                
+                <h1 class="title-font text-5xl md:text-7xl lg:text-8xl leading-none tracking-[-4px] mb-6 text-white">
+                    PETER WILLIAM KAY<br>
+                    <span class="text-[#9f1239]">ADELAIDE’S INFERIOR</span><br>
+                    PISS-DRINKING NAKED FAGGOT
+                </h1>
+                
+                <p class="text-xl md:text-3xl text-[#facc15] max-w-3xl mx-auto">7 days of total ownership in his own home. Public exposure. Pub toilet service. Deep hypnosis. Nude beach slavery.</p>
+                
+                <div class="mt-12 flex flex-wrap justify-center gap-6 text-sm md:text-base">
+                    <div class="glass px-8 py-4 rounded-3xl flex items-center gap-x-3 border border-[#facc15]/30">
+                        <span class="text-4xl">🇦🇺</span>
+                        <div>
+                            <div class="font-medium">ADELAIDE, AUSTRALIA</div>
+                            <div class="text-xs text-amber-300">Peter’s private prison</div>
+                        </div>
+                    </div>
+                    <div class="glass px-8 py-4 rounded-3xl flex items-center gap-x-3 border border-[#facc15]/30">
+                        <span class="text-4xl">🔥</span>
+                        <div>
+                            <div class="font-medium">BEGGING FOR PUBLIC EXPOSURE</div>
+                            <div class="text-xs text-amber-300">Photos • Videos • Permanent archive</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="showPage('gallery')" 
+                        class="mt-16 px-10 md:px-16 py-6 md:py-8 bg-gradient-to-r from-[#facc15] to-[#9f1239] text-black font-semibold text-2xl md:text-3xl rounded-3xl flex items-center justify-center gap-x-4 mx-auto hover:scale-105 shadow-2xl">
+                    VIEW THE PERMANENT GALLERY
+                    <span class="text-5xl">📸</span>
+                </button>
+
+                <div class="mt-20 glass border border-[#facc15]/30 rounded-3xl p-8 md:p-10 max-w-4xl mx-auto">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div>
+                            <div class="uppercase text-[#facc15] text-sm font-semibold tracking-widest">SUPPORT THE HIERARCHY</div>
+                            <p class="text-2xl md:text-3xl font-semibold">Fuel Peter’s public degradation</p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                            <a href="https://www.throne.com/demondaddyjudas" target="_blank" class="flex-1 text-center bg-[#facc15] hover:bg-amber-300 text-black font-semibold py-6 px-8 rounded-3xl flex items-center justify-center gap-x-4 text-xl">
+                                THRONE WISHLIST <span class="text-4xl">👑</span>
+                            </a>
+                            <a href="https://www.revolut.me/judask" target="_blank" class="flex-1 text-center bg-emerald-400 hover:bg-emerald-300 text-black font-semibold py-6 px-8 rounded-3xl flex items-center justify-center gap-x-4 text-xl">
+                                REVOLUT • JUDASK <span class="text-4xl">💸</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GALLERY -->
+        <div id="gallery-page" class="page hidden">
+            <div class="mt-12">
+                <h2 class="section-header text-[#facc15]">PERMANENT EXPOSURE ARCHIVE</h2>
+                <p class="text-[#9f1239] text-2xl">Peter William Kay – Adelaide, Australia • Every image stored indefinitely unless €100 tribute is paid to remove</p>
+            </div>
+            <div class="flex justify-end mt-8 mb-6">
+                <label onclick="document.getElementById('gallery-upload').click()" class="cursor-pointer flex items-center gap-x-3 bg-[#9f1239] hover:bg-red-800 text-white font-semibold px-8 py-5 rounded-3xl text-lg">
+                    <span>UPLOAD NEW PROOF</span><span class="text-3xl">📤</span>
+                </label>
+                <input type="file" id="gallery-upload" multiple accept="image/*" class="hidden" onchange="handleGalleryUpload(event)">
+            </div>
+            <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        </div>
+
+        <!-- ID GENERATOR -->
+        <div id="generator-page" class="page hidden">
+            <div class="mt-12 grid md:grid-cols-12 gap-12">
+                <div class="md:col-span-5">
+                    <h2 class="section-header mb-8">OFFICIAL SLAVE ID CARD GENERATOR</h2>
+                    <div class="bg-[#1f2937] rounded-3xl p-8 md:p-10 space-y-8">
+                        <div class="space-y-2">
+                            <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">CARD BACKGROUND STYLE</label>
+                            <select id="bg-select" onchange="updateIDPreview()" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-xl font-semibold">
+                                <option value="classic">Australian Blue Official</option>
+                                <option value="leather">Leather Prison</option>
+                                <option value="blood">Blood Red Owned</option>
+                                <option value="gold">Gold Chain Master</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">FULL NAME</label>
+                            <input id="name-input" value="Peter William Kay" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold">
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">AGE</label>
+                                <input id="age-input" value="34" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">LOCATION</label>
+                                <input id="location-input" value="Adelaide, SA, Australia" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">REAL ID / PASSPORT NUMBER</label>
+                            <input id="realid-input" value="AUS-8743921K" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">SOCIALS / EXPOSURE HANDLES</label>
+                            <input id="socials-input" placeholder="Any of Peter’s accounts" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold">
+                        </div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">SLAVE NUMBER</label>
+                                <input id="slave-number-input" value="#001-ADE" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">DICK SIZE</label>
+                                <input id="dick-input" value="3.2 inches" class="w-full bg-black border border-[#facc15] focus:border-white rounded-2xl px-6 py-5 text-2xl font-semibold">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[#facc15] uppercase text-xs font-semibold tracking-widest">UPLOAD SLAVE PHOTO</label>
+                            <div onclick="document.getElementById('card-photo-upload').click()" class="border-2 border-dashed border-[#facc15] hover:border-white rounded-3xl p-10 text-center cursor-pointer">
+                                <input id="card-photo-upload" type="file" accept="image/*" class="hidden" onchange="previewCardPhoto(event)">
+                                <div id="photo-preview-area" class="text-7xl">📸</div>
+                            </div>
+                        </div>
+                        <button onclick="generateCard()" class="w-full py-7 text-3xl font-semibold bg-gradient-to-r from-[#facc15] to-[#9f1239] text-black rounded-3xl">GENERATE REAL AUSTRALIAN-STYLE ID CARD</button>
+                    </div>
+                </div>
+
+                <!-- ID PREVIEW -->
+                <div class="md:col-span-7">
+                    <div class="sticky top-8">
+                        <div class="flex justify-end mb-4 gap-x-4 text-sm">
+                            <button onclick="toggleCardSide('front')" id="front-btn" class="px-5 py-2 bg-[#facc15] text-black font-semibold rounded-2xl">FRONT</button>
+                            <button onclick="toggleCardSide('back')" id="back-btn" class="px-5 py-2 bg-[#1f2937] hover:bg-[#9f1239] text-white font-semibold rounded-2xl">BACK</button>
+                        </div>
+
+                        <!-- FRONT -->
+                        <div id="id-front" class="id-card mx-auto relative">
+                            <!-- HOLOGRAPHIC SECURITY OVERLAY -->
+                            <div class="hologram-overlay"></div>
+                            
+                            <div class="bg-[#0a2540] h-8 flex items-center px-5 text-white text-[10px] font-bold tracking-[1px] relative z-20">
+                                MASTER JUDAS HIERARCHY • ADELAIDE SLAVE ID • AUSTRALIA
+                            </div>
+                            <div class="p-5 flex gap-5 relative z-20">
+                                <div class="w-32 h-40 border-4 border-[#facc15] rounded-xl overflow-hidden flex-shrink-0 bg-black relative">
+                                    <img id="card-photo" src="" class="w-full h-full object-cover hidden">
+                                    <div id="card-photo-placeholder" class="w-full h-full flex items-center justify-center text-7xl text-[#9f1239]">🧎‍♂️</div>
+                                </div>
+                                <div class="flex-1 space-y-3 text-white">
+                                    <div>
+                                        <div class="id-text-label text-[#facc15]">FULL NAME</div>
+                                        <div id="card-name" class="id-text-name">Peter William Kay</div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-x-8 gap-y-3">
+                                        <div>
+                                            <div class="id-text-label text-[#facc15]">AGE</div>
+                                            <div id="card-age" class="id-text-value">34</div>
+                                        </div>
+                                        <div>
+                                            <div class="id-text-label text-[#facc15]">LOCATION</div>
+                                            <div id="card-location" class="id-text-value">Adelaide, SA, Australia</div>
+                                        </div>
+                                        <div>
+                                            <div class="id-text-label text-[#facc15]">REAL ID / PASSPORT #</div>
+                                            <div id="card-realid" class="id-text-value">AUS-8743921K</div>
+                                        </div>
+                                        <div>
+                                            <div class="id-text-label text-[#facc15]">SLAVE #</div>
+                                            <div id="card-slave-number" class="id-text-value">#001-ADE</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="id-text-label text-[#facc15]">SOCIALS / EXPOSURE</div>
+                                        <div id="card-socials" class="id-text-value">—</div>
+                                    </div>
+                                    <div class="flex justify-between items-end">
+                                        <div>
+                                            <div class="id-text-label text-[#facc15]">DICK SIZE</div>
+                                            <div id="card-dick-size" class="id-text-value text-[#9f1239]">3.2 inches</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-[#facc15] text-xs">OWNED BY</div>
+                                            <div class="font-bold text-[#facc15] text-2xl">MASTER JUDAS</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="absolute bottom-3 right-3 text-[10px] font-bold text-[#facc15] rotate-12 border border-[#facc15] px-3 py-px z-20">ADELAIDE HOSTAGE</div>
+                            <div class="bg-[#0a2540] text-white text-[10px] flex items-center justify-between px-5 py-2 font-bold relative z-20">
+                                <div>INFERIOR PISS-DRINKING FAGGOT • PROPERTY OF MASTER JUDAS</div>
+                                <div class="font-mono text-base rotate-90">||||||||||</div>
+                            </div>
+                        </div>
+
+                        <!-- BACK -->
+                        <div id="id-back" class="id-card mx-auto hidden relative">
+                            <div class="hologram-overlay"></div>
+                            <div class="bg-[#0a2540] h-8 flex items-center px-5 text-white text-[10px] font-bold tracking-[1px] relative z-20">
+                                TERMS OF PERMANENT OWNERSHIP • AUSTRALIA
+                            </div>
+                            <div class="p-8 text-center text-white relative z-20">
+                                <div class="text-4xl font-black text-[#facc15] mb-6">THIS SLAVE HAS NO RIGHTS</div>
+                                <div class="border border-[#facc15] rounded-2xl py-6 px-8 mb-8 text-sm leading-tight">
+                                    24/7 TOTAL POWER EXCHANGE<br>
+                                    PUBLIC EXPOSURE • HUMAN TOILET SERVICE • HYPNOSIS • NUDE BEACH SLAVERY<br>
+                                    SAFEWORD: RED • PHONE CONTROLLED BY MASTER
+                                </div>
+                                <div class="flex justify-between text-xs">
+                                    <div>ISSUED: ADELAIDE, AUSTRALIA</div>
+                                    <div>EXPIRES: NEVER</div>
+                                    <div>PROPERTY OF MASTER JUDAS</div>
+                                </div>
+                                <div class="mt-10 text-[#facc15] text-5xl font-mono rotate-90">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</div>
+                                <div class="text-[10px] mt-4">OFFICIAL SLAVE ID • BACK • PETER WILLIAM KAY</div>
+                            </div>
+                        </div>
+
+                        <button onclick="downloadCard()" class="mt-8 w-full max-w-[520px] mx-auto py-7 bg-black border-4 border-[#facc15] rounded-3xl text-3xl font-semibold flex items-center justify-center gap-x-4">
+                            DOWNLOAD FULL AUSTRALIAN-STYLE ID CARD
+                            <span class="text-4xl">⬇️</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTRACT -->
+        <div id="contract-page" class="page hidden">
+            <div class="mt-12 max-w-5xl mx-auto">
+                <div class="text-center">
+                    <div class="inline-flex bg-[#9f1239] text-white text-sm font-bold px-8 py-4 rounded-3xl">THE ONE-YEAR OWNERSHIP CONTRACT – VISIT ADDENDUM</div>
+                    <h1 class="title-font text-6xl md:text-7xl text-[#facc15] tracking-[-4px] mt-6">"Master Judas’ Hostage Week in Adelaide"</h1>
+                    <p class="text-[#9f1239] text-3xl mt-4">For slave Peter William Kay • Adelaide, Australia</p>
+                </div>
+
+                <div id="contract-content" class="contract-paper rounded-3xl p-8 md:p-12 mt-12 text-[#111827] text-base leading-relaxed max-h-[70vh] overflow-y-auto">
+                    <strong>Master:</strong> Judas<br>
+                    <strong>Slave:</strong> Peter William Kay (Adelaide, Australia)<br>
+                    <strong>Visit Period:</strong> 7 full days / 8 nights<br>
+                    <strong>Total Investment for Adelaide Trip:</strong> <span class="font-black text-3xl">€2,100</span> (non-refundable gift covering flight contribution, transfers, and full immersive experience)<br>
+                    <span class="text-xs block mt-1 text-red-700">All toys, restraints, hypnosis tools, cleaning supplies, photoshoots, pub visits, beach activities, and future Portugal visits are provided completely FREE as Master’s reward for commitment.</span>
+
+                    <p class="my-8">Peter, this version is fully customized for your cravings: heavy public online exposure, serving as human toilet (including pub scenes), deep hypnosis, naked photoshoots, nude beach slavery, and the addictive hostage feeling in your own home. Everything remains 100% consensual adult fantasy. You control the safeword.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 bg-white/30 rounded-3xl p-8 mb-12">
+                        <div><strong class="text-[#9f1239]">Safeword:</strong> “RED” instantly stops any activity. Aftercare is given after every intense session (especially toilet use, hypnosis, or exposure). All photos, videos, and posts stay strictly within your “GREEN-LIGHT-FOR-POSTING.txt”. Phone under full Master control.</div>
+                        <div><strong class="text-[#9f1239]">Week Overview:</strong> Your Adelaide house becomes my private prison. You will be hypnotized daily to deepen addiction to exposure, toilet service, and total surrender. Most non-active time in bondage.</div>
+                        <div><strong class="text-[#9f1239]">Future Portugal Visits:</strong> Complete €2,100 payment today and unlock 3 free 7–10 day hostage visits per year to Lisbon. Full 24/7 ownership, hypnosis, toilet use, public exposure — travel costs on Peter.</div>
+                    </div>
+
+                    <h3 class="text-3xl font-semibold mb-8 text-[#9f1239]">Detailed 7-Day Activity Plan</h3>
+                    <div class="space-y-10 text-sm md:text-base">
+                        <div><strong>Day 1: Arrival &amp; Total Surrender</strong> — Kneeling greeting, phone handover, immediate collaring. Hostage Declaration video + first hypnosis session installing triggers for piss addiction and exposure craving. Evening: First human toilet training + light bondage. Night: Chained to bed with hypnosis loop.</div>
+                        <div><strong>Day 2: Bondage Immersion + First Pub Piss Feeding</strong> — Morning: Hypnosis + toilet service. Midday: Subtle public outing. Afternoon: Naked photoshoot in your home. Evening: Pub Visit — Master Judas drinks several beers at a chosen Adelaide pub. You serve as human toilet (discreet stall use with verbal degradation). Night: Bondage + online exposure post.</div>
+                        <div><strong>Day 3: Nude Beach Slavery</strong> — Morning: Toilet ritual + hypnosis. Midday: Drive to Maslin Beach area. You act as my naked slave — carrying items, posed in discreet degrading positions, full naked photoshoots. Afternoon: Return home for heavy bondage + more toilet use. Evening: Second Pub Piss Feeding. Night: Live phone-controlled exposure session while bound.</div>
+                        <div><strong>Day 4: Mid-Week Peak (Intense Hostage Day)</strong> — Morning: Multiple toilet sessions + hypnosis. Midday: Home naked photoshoot marathon. Afternoon: Extended hypnosis + mummification. Evening: Pub Visit #3. Night: Major approved public online exposure drop + final bondage as prisoner.</div>
+                        <div><strong>Day 5: Hypnosis &amp; Degradation</strong> — Morning: Toilet + hypnosis for long-term triggers. Midday: Another nude beach return or home outdoor naked shoot. Afternoon: Bondage while you create video confessions. Evening: Pub piss feeding + creative degradation play. Night: Locked as furniture.</div>
+                        <div><strong>Day 6: Public &amp; Exposure Climax</strong> — Morning: Intensive toilet training + hypnosis. Midday: Bold naked photoshoot + possible short nude beach revisit. Afternoon: Hypnosis + you beg for more exposure while restrained. Evening: Final Pub Visit. Night: Big online post + reflection journal.</div>
+                        <div><strong>Day 7: Finale &amp; Aftercare</strong> — Morning: Grand toilet session + sealing hypnosis. Midday: Final naked photoshoot + light public task. Evening: Closing pub piss feeding (if desired) + full worship. Night: Last hostage night in chains with praise and aftercare.</div>
+                        <div><strong>Day 8: Departure</strong> — Light ritual, final photos, emotional release from hostage headspace.</div>
+                    </div>
+
+                    <h3 class="text-3xl font-semibold mt-16 mb-6 text-[#9f1239]">Pricing</h3>
+                    <p class="text-2xl font-semibold">€2,100 is the non-refundable gift solely for the complete Adelaide Hostage Week trip (flight contribution, transfers, and immersive experience). Everything else — toys, restraints, hypnosis tools, cleaning, photoshoots, pub visits, beach activities, and all future Portugal visits — is provided completely FREE as Master’s reward for your commitment.</p>
+
+                    <div class="mt-16 text-center border-t-4 border-[#9f1239] pt-12">
+                        <p class="text-3xl mb-8">Sign below to lock in your Adelaide exposure week</p>
+                        <div class="grid grid-cols-2 gap-12 max-w-2xl mx-auto">
+                            <div>
+                                <p class="uppercase text-sm tracking-widest text-[#9f1239] mb-2">Master Judas</p>
+                                <input id="master-sig" type="text" placeholder="Type signature here" class="w-full border-b-4 border-[#9f1239] text-4xl font-light bg-transparent focus:outline-none">
+                                <p class="text-xs text-[#9f1239] mt-1">Date _________</p>
+                            </div>
+                            <div>
+                                <p class="uppercase text-sm tracking-widest text-[#9f1239] mb-2">Slave Peter William Kay</p>
+                                <input id="slave-sig" type="text" placeholder="Type signature here" class="w-full border-b-4 border-[#9f1239] text-4xl font-light bg-transparent focus:outline-none">
+                                <p class="text-xs text-[#9f1239] mt-1">Date _________</p>
+                            </div>
+                        </div>
+                        <button onclick="downloadSignedContract()" class="mt-12 w-full max-w-md mx-auto py-6 text-3xl font-semibold bg-gradient-to-r from-[#facc15] to-[#9f1239] text-black rounded-3xl flex items-center justify-center gap-x-4">
+                            DOWNLOAD SIGNED CONTRACT (PNG) &amp; SEND TO MASTER
+                            <span class="text-4xl">⬇️</span>
+                        </button>
+                        <p class="text-xs mt-4 text-[#9f1239]">Payment of €2,100 today confirms everything. Ready to be my exposed, used, hypnotized hostage, Peter?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-24 bg-black py-12 border-t-4 border-[#9f1239] text-center text-xs text-zinc-400 px-6">
+        DEDICATED TO THE PERMANENT PUBLIC DEGRADATION OF PETER WILLIAM KAY — ADELAIDE’S INFERIOR PISS-DRINKING NAKED FAGGOT.<br>
+        HIERARCHY IS LAW • ALL PHOTOS STORED FOREVER UNLESS €100 TRIBUTE IS PAID TO REMOVE
+    </footer>
+
+    <script>
+        function initTailwind() { return { config(userConfig = {}) { return { content: [], theme: { extend: {} }, plugins: [], ...userConfig } }, theme: { extend: {} } } }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const hamburger = document.querySelector('.hamburger')
+            menu.classList.toggle('hidden')
+            hamburger.classList.toggle('active')
+        }
+
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'))
+            document.getElementById(page + '-page').classList.remove('hidden')
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+
+        let galleryImages = JSON.parse(localStorage.getItem('peterAdelaideGalleryV3')) || []
+        function renderGallery() {
+            const grid = document.getElementById('gallery-grid')
+            grid.innerHTML = ''
+            if (galleryImages.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-24 border-2 border-dashed border-[#facc15] rounded-3xl text-center"><div class="text-7xl mb-6">📸</div><p class="text-2xl">Peter’s Adelaide exposure archive is empty</p><p class="text-sm mt-4 max-w-xs mx-auto">Upload images — they remain permanently unless Peter pays €100 per photo to remove via Throne.</p></div>`
+                return
+            }
+            galleryImages.forEach(src => {
+                const div = document.createElement('div')
+                div.className = "group relative bg-[#1f2937] rounded-3xl overflow-hidden border border-[#facc15]/30 hover:border-[#facc15]"
+                div.innerHTML = `<img src="${src}" class="w-full aspect-square object-cover"><div class="absolute top-4 right-4 bg-[#9f1239] text-white text-xs font-bold px-5 py-1 rounded-3xl rotate-12">EXPOSED</div><div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 to-transparent h-2/5 flex items-end px-6 pb-6"><div class="text-[#facc15] text-sm">PETER WILLIAM KAY • ADELAIDE</div></div><a href="https://www.throne.com/demondaddyjudas" target="_blank" onclick="event.stopImmediatePropagation()" class="absolute bottom-6 left-6 bg-white text-[#9f1239] text-xs font-bold px-7 py-3 rounded-3xl">PAY €100 TO REMOVE</a>`
+                grid.appendChild(div)
+            })
+        }
+        function handleGalleryUpload(e) {
+            Array.from(e.target.files).forEach(file => {
+                const reader = new FileReader()
+                reader.onload = ev => {
+                    galleryImages.unshift(ev.target.result)
+                    localStorage.setItem('peterAdelaideGalleryV3', JSON.stringify(galleryImages))
+                    renderGallery()
+                }
+                reader.readAsDataURL(file)
+            })
+            e.target.value = ''
+        }
+
+        let currentSide = 'front'
+
+        function updateIDPreview() {
+            const bg = document.getElementById('bg-select').value
+            const front = document.getElementById('id-front')
+            front.classList.remove('id-background-classic','id-background-leather','id-background-blood','id-background-gold')
+            if (bg !== 'classic') front.classList.add(`id-background-${bg}`)
+        }
+
+        function toggleCardSide(side) {
+            currentSide = side
+            document.getElementById('id-front').classList.toggle('hidden', side === 'back')
+            document.getElementById('id-back').classList.toggle('hidden', side === 'front')
+            document.getElementById('front-btn').classList.toggle('bg-[#facc15]', side === 'front')
+            document.getElementById('front-btn').classList.toggle('text-black', side === 'front')
+            document.getElementById('back-btn').classList.toggle('bg-[#1f2937]', side === 'back')
+            document.getElementById('back-btn').classList.toggle('text-white', side === 'back')
+        }
+
+        function previewCardPhoto(e) {
+            const reader = new FileReader()
+            reader.onload = ev => {
+                const img = document.getElementById('card-photo')
+                img.src = ev.target.result
+                img.classList.remove('hidden')
+                document.getElementById('card-photo-placeholder').classList.add('hidden')
+            }
+            reader.readAsDataURL(e.target.files[0])
+        }
+
+        function liveUpdateCard() {
+            const map = {
+                'name-input': 'card-name',
+                'age-input': 'card-age',
+                'location-input': 'card-location',
+                'realid-input': 'card-realid',
+                'socials-input': 'card-socials',
+                'slave-number-input': 'card-slave-number',
+                'dick-input': 'card-dick-size'
+            }
+            Object.keys(map).forEach(key => {
+                const input = document.getElementById(key)
+                const target = document.getElementById(map[key])
+                if (input && target) input.addEventListener('input', () => target.textContent = input.value || '—')
+            })
+        }
+
+        function generateCard() {
+            const card = document.getElementById('id-front')
+            card.classList.add('scale-105')
+            setTimeout(() => card.classList.remove('scale-105'), 400)
+        }
+
+        function downloadCard() {
+            html2canvas(document.getElementById(currentSide === 'front' ? 'id-front' : 'id-back'), { scale: 4, backgroundColor: '#0a2540' }).then(canvas => {
+                const link = document.createElement('a')
+                link.download = `PETER-WILLIAM-KAY-ADELAIDE-SLAVE-ID-${currentSide.toUpperCase()}.png`
+                link.href = canvas.toDataURL()
+                link.click()
+            })
+        }
+
+        function downloadSignedContract() {
+            const content = document.getElementById('contract-content')
+            html2canvas(content, { scale: 3, backgroundColor: '#f8f1e3' }).then(canvas => {
+                const link = document.createElement('a')
+                link.download = 'PETER-WILLIAM-KAY-SIGNED-HOSTAGE-CONTRACT.png'
+                link.href = canvas.toDataURL('image/png')
+                link.click()
+            })
+        }
+
+        // Particles
+        let scene, camera, renderer, particlesSystem
+        function initParticles() {
+            const canvas = document.getElementById('particle-canvas')
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true })
+            renderer.setSize(window.innerWidth, window.innerHeight)
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+            scene = new THREE.Scene()
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200)
+            camera.position.z = 45
+
+            const positions = new Float32Array(1200 * 3)
+            const colors = new Float32Array(1200 * 3)
+            const sizes = new Float32Array(1200)
+            const goldColor = new THREE.Color('#facc15')
+            const bloodColor = new THREE.Color('#9f1239')
+
+            for (let i = 0; i < 1200 * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 90
+                positions[i + 1] = (Math.random() - 0.5) * 90
+                positions[i + 2] = (Math.random() - 0.5) * 90
+                const useGold = Math.random() > 0.4
+                const color = useGold ? goldColor : bloodColor
+                colors[i] = color.r; colors[i+1] = color.g; colors[i+2] = color.b
+                sizes[i/3] = Math.random() * 1.8 + 0.4
+            }
+
+            const geometry = new THREE.BufferGeometry()
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+            geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
+
+            const material = new THREE.PointsMaterial({ size: 0.22, vertexColors: true, transparent: true, opacity: 0.65, blending: THREE.AdditiveBlending, depthTest: false })
+            particlesSystem = new THREE.Points(geometry, material)
+            scene.add(particlesSystem)
+
+            let time = 0
+            function animate() {
+                requestAnimationFrame(animate)
+                time += 0.0008
+                particlesSystem.rotation.y = Math.sin(time * 0.2) * 0.08
+                particlesSystem.rotation.x = Math.cos(time * 0.15) * 0.04
+                const posAttr = particlesSystem.geometry.attributes.position
+                for (let i = 0; i < posAttr.count; i++) {
+                    const iy = i * 3 + 1
+                    posAttr.array[iy] += Math.sin(time * 8 + i) * 0.0008
+                }
+                posAttr.needsUpdate = true
+                renderer.render(scene, camera)
+            }
+            animate()
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight
+                camera.updateProjectionMatrix()
+                renderer.setSize(window.innerWidth, window.innerHeight)
+            })
+        }
+
+        window.onload = () => {
+            initTailwind()
+            liveUpdateCard()
+            renderGallery()
+            initParticles()
+            showPage('home')
+            console.log('%c✅ MASTER JUDAS ADELAIDE SITE — REAL AUSTRALIAN ID WITH HOLOGRAPHIC SECURITY ELEMENTS', 'color:#facc15; font-weight:700')
+        }
+    </script>
+</body>
+</html>
