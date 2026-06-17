@@ -2,682 +2,829 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>TRUMP: BUILD THE WALL! – PS1 VOXEL EDITION</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;}
+html,body{width:100%;height:100%;overflow:hidden;background:#0a0a0a;display:flex;justify-content:center;align-items:center;font-family:'Courier New',monospace;}
 
-body {
-    background:#0a0a0a;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    overflow:hidden;
-    font-family:'Courier New', monospace;
+/* ── TV FRAME ── */
+#tv{
+  position:relative;
+  width:min(100vw, calc(100vh * 4 / 3));
+  height:min(100vh, calc(100vw * 3 / 4));
+  background:linear-gradient(145deg,#2c2c2c,#1a1a1a);
+  border-radius:min(3vw,4vh);
+  padding:min(2.5vw,3.2vh);
+  box-shadow:inset 0 0 0 2px #444,0 0 0 3px #0a0a0a,0 25px 70px rgba(0,0,0,.85),0 0 120px rgba(0,0,0,.5);
+}
+#tv::before{
+  content:'';position:absolute;bottom:min(1.2vw,1.6vh);right:min(2vw,2.5vh);
+  width:min(.6vw,.8vh);height:min(.6vw,.8vh);
+  background:#00ff44;border-radius:50%;
+  box-shadow:0 0 6px #00ff44,0 0 14px #00ff44;
+  animation:led 3s ease-in-out infinite;z-index:200;
+}
+#tv::after{
+  content:'SONY TRINITRON';position:absolute;bottom:min(.6vw,.8vh);left:50%;transform:translateX(-50%);
+  color:#444;font-size:min(1vw,1.3vh);letter-spacing:5px;font-weight:bold;z-index:200;
+}
+@keyframes led{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* ── SCREEN ── */
+#screen{
+  position:relative;width:100%;height:100%;background:#000;
+  border-radius:min(1.5vw,2vh);overflow:hidden;
+  box-shadow:inset 0 0 40px rgba(0,0,0,.9),inset 0 0 0 1px #333;
+}
+#screen::after{
+  content:'';position:absolute;inset:0;z-index:999;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.07) 0%,transparent 55%);
+  border-radius:inherit;
 }
 
-#wrap {
-    position:relative;
-    width: min(100vw, calc(100vh * 4/3));
-    aspect-ratio:4/3;
+/* ── STARTUP ── */
+#startup{position:absolute;inset:0;z-index:50;background:#000;}
+
+#tap-screen{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;background:#000;z-index:10;
+}
+.tv-icon{font-size:min(8vw,10vh);margin-bottom:min(2vw,2.5vh);}
+.tap-label{color:#aaa;font-size:min(2.5vw,3vh);letter-spacing:4px;animation:bk .9s step-end infinite;}
+@keyframes bk{0%,100%{opacity:1}50%{opacity:0}}
+
+#static-cv{
+  position:absolute;inset:0;width:100%;height:100%;
+  image-rendering:pixelated;display:none;z-index:2;
 }
 
-#gc {
-    width:100%; height:100%;
-    image-rendering:pixelated;
-    image-rendering:crisp-edges;
-    display:block;
+#crt-on{position:absolute;inset:0;display:none;z-index:3;background:#000;overflow:hidden;}
+#crt-line{
+  position:absolute;inset:0;
+  background:#fff;
+  transform:scaleY(0.003);transform-origin:center;
+  transition:transform .75s ease-out;
+  box-shadow:0 0 30px #fff,0 0 60px rgba(255,255,255,.4),0 0 100px rgba(200,220,255,.2);
 }
 
-/* PS1 CRT scanlines */
-#crt {
-    position:absolute; inset:0; pointer-events:none; z-index:5;
-    background: repeating-linear-gradient(
-        0deg,
-        transparent 0, transparent 3px,
-        rgba(0,0,0,0.13) 3px, rgba(0,0,0,0.13) 4px
-    );
+#sce-screen{
+  position:absolute;inset:0;display:none;flex-direction:column;
+  justify-content:center;align-items:center;background:#000;z-index:4;
 }
+#sce-text{color:#eeeeee;font-size:min(2.5vw,3vh);letter-spacing:.4em;text-align:center;opacity:0;transition:opacity 1.4s ease;}
+#sce-sub{color:#777;font-size:min(1.4vw,1.8vh);letter-spacing:.4em;margin-top:min(.8vw,1vh);opacity:0;transition:opacity 1.4s ease .5s;}
 
-#vignette {
-    position:absolute; inset:0; pointer-events:none; z-index:6;
-    background:radial-gradient(ellipse at 50% 50%, transparent 52%, rgba(0,0,0,0.8) 100%);
+#ps-screen{
+  position:absolute;inset:0;display:none;flex-direction:column;
+  justify-content:center;align-items:center;background:#000;z-index:4;
 }
+#ps-logo{opacity:0;transition:opacity .7s ease;display:flex;align-items:flex-end;gap:min(.5vw,.6vh);}
+.ps-p{font-size:min(16vw,20vh);font-weight:900;color:#003087;font-style:italic;line-height:1;text-shadow:0 0 30px rgba(0,48,135,.5);}
+.ps-s{font-size:min(16vw,20vh);font-weight:900;color:#e4000f;font-style:italic;line-height:1;margin-bottom:-min(1.5vw,2vh);text-shadow:0 0 30px rgba(228,0,15,.5);}
+#ps-bars{opacity:0;transition:opacity .7s ease .4s;display:flex;gap:min(.3vw,.4vh);margin-top:min(2vw,2.5vh);height:min(1vw,1.3vh);width:min(22vw,28vh);}
+.ps-bar{flex:1;height:100%;}
 
-/* HUD */
-#hud {
-    position:absolute; inset:0; pointer-events:none; z-index:7;
+#load-screen{
+  position:absolute;inset:0;display:none;flex-direction:column;
+  justify-content:center;align-items:center;background:#000;z-index:4;
 }
-
-.ht {
-    position:absolute;
-    color:#FFD700;
-    font-size:clamp(9px,1.7vw,17px);
-    font-weight:bold;
-    text-shadow:2px 2px 0 #000,-1px -1px 0 #000;
-    letter-spacing:1px;
-    line-height:1.7;
+#disc{
+  width:min(9vw,12vh);height:min(9vw,12vh);border-radius:50%;
+  background:conic-gradient(#cc0000 0deg,#ff9900 90deg,#009900 180deg,#0033cc 270deg,#cc0000 360deg);
+  position:relative;animation:spin 1s linear infinite;
+  box-shadow:0 0 20px rgba(255,255,255,.15);margin-bottom:min(2vw,2.5vh);
 }
+#disc::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28%;height:28%;background:#0a0a0a;border-radius:50%;}
+@keyframes spin{to{transform:rotate(360deg)}}
+#load-txt{color:#666;font-size:min(1.8vw,2.2vh);letter-spacing:3px;animation:bk .7s step-end infinite;}
 
-#htl { top:2%; left:2%; }
-#htr { top:2%; right:2%; text-align:right; color:#FF6666; }
-#hbl { bottom:2%; left:2%; color:#66FF66; }
-#hbr { bottom:2%; right:2%; text-align:right; color:#999; font-size:clamp(7px,1.1vw,12px); }
+/* ── GAME CANVAS ── */
+#gc{width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;display:block;opacity:0;transition:opacity .6s ease;}
 
-/* Screens */
-.screen {
-    position:absolute; inset:0;
-    display:flex; flex-direction:column;
-    justify-content:center; align-items:center;
-    z-index:20; text-align:center; padding:5%;
+/* ── CRT OVERLAY ── */
+#crt-over{
+  position:absolute;inset:0;pointer-events:none;z-index:5;border-radius:inherit;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(0,0,0,.11) 3px,rgba(0,0,0,.11) 4px);
 }
+#vignette{position:absolute;inset:0;pointer-events:none;z-index:6;border-radius:inherit;background:radial-gradient(ellipse at 50% 50%,transparent 50%,rgba(0,0,0,.78) 100%);}
 
-#smenu { background:rgba(0,0,0,0.88); }
-#swin  { background:rgba(0,15,0,0.92); display:none; }
-#slose { background:rgba(20,0,0,0.92); display:none; }
+/* ── HUD ── */
+#hud{position:absolute;inset:0;pointer-events:none;z-index:7;}
+.ht{position:absolute;font-weight:bold;font-size:clamp(8px,1.6vw,17px);text-shadow:2px 2px 0 #000,-1px -1px 0 #000;letter-spacing:1px;line-height:1.8;}
+#htl{top:2%;left:2%;color:#FFD700;}
+#htr{top:2%;right:2%;text-align:right;color:#FF6666;}
+#hbl{bottom:2%;left:2%;color:#66FF66;}
+#hbr{bottom:2%;right:2%;text-align:right;color:#888;font-size:clamp(7px,1.1vw,12px);line-height:1.8;}
 
-.gtitle {
-    font-size:clamp(22px,4.8vw,52px);
-    color:#FFD700;
-    text-shadow:3px 3px 0 #8B6914, 0 0 30px rgba(255,215,0,.45);
-    letter-spacing:4px; line-height:1.1; margin-bottom:6px;
+/* ── GAME SCREENS ── */
+.gscreen{position:absolute;inset:0;z-index:20;display:none;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5%;}
+#smenu{background:rgba(0,0,0,.9);}
+#swin{background:rgba(0,14,0,.92);}
+#slose{background:rgba(18,0,0,.92);}
+.gtitle{font-size:clamp(18px,4.5vw,50px);color:#FFD700;text-shadow:3px 3px 0 #8B6914,0 0 28px rgba(255,215,0,.4);letter-spacing:3px;line-height:1.15;margin-bottom:6px;}
+.gsub{font-size:clamp(10px,1.8vw,20px);color:#FF4444;letter-spacing:3px;margin-bottom:20px;}
+.ibox{border:2px solid rgba(255,215,0,.35);padding:10px 18px;margin-bottom:18px;color:#DDD;font-size:clamp(8px,1.3vw,13px);line-height:2.2;letter-spacing:1px;}
+.blk{font-size:clamp(11px,1.9vw,20px);color:#fff;letter-spacing:3px;animation:bk .9s step-end infinite;cursor:pointer;}
+.rbig{font-size:clamp(24px,5vw,56px);letter-spacing:3px;margin-bottom:12px;}
+.rsub{font-size:clamp(11px,1.8vw,20px);letter-spacing:2px;margin-bottom:8px;}
+.rscr{color:#AAA;font-size:clamp(10px,1.5vw,16px);margin-bottom:24px;}
+.gbtn{background:#FFD700;color:#000;border:none;padding:10px 28px;font-family:'Courier New',monospace;font-size:clamp(10px,1.5vw,15px);font-weight:bold;letter-spacing:3px;cursor:pointer;}
+.gbtn:active{background:#FFA500;}
+
+/* ── MOBILE CONTROLS ── */
+#mctrl{position:absolute;inset:0;z-index:8;pointer-events:none;display:none;}
+#joy-zone{position:absolute;left:0;bottom:0;width:42%;height:42%;pointer-events:all;display:flex;justify-content:center;align-items:center;}
+#joy-base{width:min(20vw,15vh);height:min(20vw,15vh);border:3px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(255,255,255,.05);position:relative;}
+#joy-stick{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(9vw,7vh);height:min(9vw,7vh);background:rgba(255,255,255,.55);border-radius:50%;border:2px solid rgba(255,255,255,.7);}
+#btn-jump{position:absolute;right:4%;bottom:5%;width:min(16vw,13vh);height:min(16vw,13vh);border-radius:50%;background:rgba(180,20,20,.8);border:3px solid rgba(255,255,255,.5);color:#fff;font-size:min(6vw,5vh);pointer-events:all;z-index:9;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-weight:bold;text-shadow:1px 1px 3px #000;}
+#btn-jump:active{background:rgba(255,50,50,.9);}
+#btn-right-zone{position:absolute;right:0;bottom:0;width:58%;height:58%;pointer-events:all;background:transparent;}
+@media(pointer:coarse){
+  #mctrl{display:block;}
+  #hbl{bottom:46%;}
+  #hbr{display:none;}
 }
-
-.gsub {
-    font-size:clamp(11px,1.9vw,21px);
-    color:#FF4444; letter-spacing:3px; margin-bottom:26px;
-}
-
-.infobox {
-    border:2px solid rgba(255,215,0,.4);
-    padding:14px 22px; margin-bottom:22px;
-    color:#DDD; font-size:clamp(9px,1.4vw,15px);
-    line-height:2.1; letter-spacing:1px;
-}
-
-.blink {
-    font-size:clamp(13px,2vw,22px);
-    color:#fff; letter-spacing:4px;
-    animation:bl .9s step-end infinite;
-}
-@keyframes bl { 0%,100%{opacity:1} 50%{opacity:0} }
-
-.rbig {
-    font-size:clamp(28px,5.5vw,58px);
-    letter-spacing:4px; margin-bottom:14px;
-}
-.rsub  { font-size:clamp(13px,2vw,22px); letter-spacing:2px; margin-bottom:8px; }
-.rscr  { color:#AAA; font-size:clamp(11px,1.6vw,18px); margin-bottom:26px; }
-
-.btn {
-    background:#FFD700; color:#000; border:none;
-    padding:11px 30px;
-    font-family:'Courier New',monospace;
-    font-size:clamp(11px,1.6vw,17px);
-    font-weight:bold; letter-spacing:3px; cursor:pointer;
-}
-.btn:hover { background:#FFA500; }
 </style>
 </head>
 <body>
-<div id="wrap">
+<div id="tv">
+ <div id="screen">
+
+  <!-- STARTUP OVERLAY -->
+  <div id="startup">
+   <div id="tap-screen">
+    <div class="tv-icon">📺</div>
+    <div class="tap-label">▶ TAP TO POWER ON ◀</div>
+   </div>
+   <canvas id="static-cv"></canvas>
+   <div id="crt-on"><div id="crt-line"></div></div>
+   <div id="sce-screen">
+    <div id="sce-text">SONY COMPUTER ENTERTAINMENT</div>
+    <div id="sce-sub">PRESENTS</div>
+   </div>
+   <div id="ps-screen">
+    <div id="ps-logo"><span class="ps-p">P</span><span class="ps-s">S</span></div>
+    <div id="ps-bars">
+     <div class="ps-bar" style="background:#003087"></div>
+     <div class="ps-bar" style="background:#e4000f"></div>
+     <div class="ps-bar" style="background:#009900"></div>
+     <div class="ps-bar" style="background:#f5a623"></div>
+    </div>
+   </div>
+   <div id="load-screen">
+    <div id="disc"></div>
+    <div id="load-txt">NOW LOADING...</div>
+   </div>
+  </div>
+
+  <!-- GAME -->
   <canvas id="gc"></canvas>
-  <div id="crt"></div>
+  <div id="crt-over"></div>
   <div id="vignette"></div>
 
   <div id="hud">
-    <div class="ht" id="htl">SCORE: <span id="ss">0</span><br>$: <span id="sc">0</span> &nbsp; MAGA: <span id="sh">0</span></div>
-    <div class="ht" id="htr">WALL-O-METER<br><span id="sw">░░░░░░░░░░ 0%</span></div>
-    <div class="ht" id="hbl">HP: <span id="shp">♥♥♥♥♥</span></div>
-    <div class="ht" id="hbr">WASD/ARROWS: MOVE<br>Q/E: TURN<br>SPACE: JUMP<br>CLICK: MOUSE LOOK</div>
+   <div class="ht" id="htl">SCORE: <span id="ss">0</span><br>$: <span id="sc">0</span> &nbsp; MAGA: <span id="sh">0</span></div>
+   <div class="ht" id="htr">WALL-O-METER<br><span id="sw">░░░░░░░░░░ 0%</span></div>
+   <div class="ht" id="hbl">HP: <span id="shp">♥♥♥♥♥</span></div>
+   <div class="ht" id="hbr">WASD: MOVE &nbsp; Q/E: TURN<br>SPACE: JUMP &nbsp; CLICK: LOOK</div>
   </div>
 
-  <div class="screen" id="smenu">
-    <div class="gtitle">TRUMP:<br>BUILD THE WALL!</div>
-    <div class="gsub">★ PS1 VOXEL EDITION ★</div>
-    <div class="infobox">
-      COLLECT GOLD COINS &nbsp;&nbsp;+100 PTS<br>
-      COLLECT MAGA HATS &nbsp;&nbsp;+500 PTS<br>
-      COLLECT WALL BRICKS &nbsp;+200 PTS<br>
-      AVOID FAKE NEWS REPORTERS!<br>
-      <br>
-      BUILD ALL 15 WALL PIECES TO WIN!
-    </div>
-    <div class="blink">▶ PRESS SPACE TO PLAY ◀</div>
+  <div class="gscreen" id="smenu">
+   <div class="gtitle">TRUMP:<br>BUILD THE WALL!</div>
+   <div class="gsub">★ PS1 VOXEL EDITION ★</div>
+   <div class="ibox">
+    COLLECT GOLD COINS &nbsp;&nbsp;&nbsp;+100 PTS<br>
+    COLLECT MAGA HATS &nbsp;&nbsp;&nbsp;+500 PTS<br>
+    COLLECT WALL BRICKS &nbsp;+200 PTS<br>
+    AVOID FAKE NEWS REPORTERS!<br><br>
+    BUILD ALL 15 WALL PIECES TO WIN!
+   </div>
+   <div class="blk" id="startbtn">▶ PRESS START ◀</div>
   </div>
 
-  <div class="screen" id="swin">
-    <div class="rbig" style="color:#FFD700">THE WALL IS BUILT!</div>
-    <div class="rsub" style="color:#44FF44">AMERICA IS GREAT AGAIN!</div>
-    <div class="rscr">FINAL SCORE: <span id="wsco">0</span></div>
-    <button class="btn" onclick="resetGame()">PLAY AGAIN</button>
+  <div class="gscreen" id="swin">
+   <div class="rbig" style="color:#FFD700">THE WALL IS BUILT!</div>
+   <div class="rsub" style="color:#44FF44">AMERICA IS GREAT AGAIN!</div>
+   <div class="rscr">FINAL SCORE: <span id="wsco">0</span></div>
+   <button class="gbtn" onclick="resetGame()">PLAY AGAIN</button>
   </div>
 
-  <div class="screen" id="slose">
-    <div class="rbig" style="color:#FF4444">FAKE NEWS WINS!</div>
-    <div class="rsub" style="color:#FF6666">YOU'VE BEEN CANCELLED!</div>
-    <div class="rscr">SCORE: <span id="lsco">0</span></div>
-    <button class="btn" onclick="resetGame()">TRY AGAIN</button>
+  <div class="gscreen" id="slose">
+   <div class="rbig" style="color:#FF4444">FAKE NEWS WINS!</div>
+   <div class="rsub" style="color:#FF6666">YOU HAVE BEEN CANCELLED!</div>
+   <div class="rscr">SCORE: <span id="lsco">0</span></div>
+   <button class="gbtn" onclick="resetGame()">TRY AGAIN</button>
   </div>
+
+  <!-- MOBILE CONTROLS -->
+  <div id="mctrl">
+   <div id="joy-zone">
+    <div id="joy-base"><div id="joy-stick"></div></div>
+   </div>
+   <div id="btn-right-zone"></div>
+   <div id="btn-jump">✕</div>
+  </div>
+
+ </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 <script>
 'use strict';
+// ══════════════════════════════════════════════════════════════════════
+//  TRUMP: BUILD THE WALL! — PS1 Voxel Edition
+//  Full PS1 startup sequence + retro audio + mobile controls
+// ══════════════════════════════════════════════════════════════════════
 
-// ── CONSTANTS ──────────────────────────────────────────────────────────
-const RW = 320, RH = 240;          // PS1 render resolution
-const WORLD_R   = 22;
-const GRAVITY   = -24;
-const JUMP_V    = 9;
-const SPD       = 6;
-const CAM_D     = 6;
-const CAM_H     = 3;
-const WALL_GOAL = 15;
-const SNAP      = 90;              // PS1 vertex snap granularity
+// ── AUDIO ENGINE ──────────────────────────────────────────────────────
+let actx=null, masterGain=null, musicGain=null;
+let musicPlaying=false, musicTimer=null;
 
-// ── RENDERER ───────────────────────────────────────────────────────────
-const canvas = document.getElementById('gc');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: false });
-renderer.setSize(RW, RH);
-renderer.setPixelRatio(1);
+function initAudio(){
+  if(actx) return;
+  actx=new(window.AudioContext||window.webkitAudioContext)();
+  masterGain=actx.createGain(); masterGain.gain.value=0.72; masterGain.connect(actx.destination);
+  musicGain=actx.createGain(); musicGain.gain.value=0.38; musicGain.connect(masterGain);
+}
 
-const scene  = new THREE.Scene();
-scene.background = new THREE.Color(0x4466BB);
-scene.fog = new THREE.Fog(0x4466BB, 28, 72);
+function note(freq,startT,dur,vol=0.12,type='sine',dst){
+  if(!actx)return;
+  const o=actx.createOscillator(), g=actx.createGain();
+  o.type=type; o.frequency.value=freq;
+  o.connect(g); g.connect(dst||masterGain);
+  const t=startT;
+  g.gain.setValueAtTime(0,t);
+  g.gain.linearRampToValueAtTime(vol,t+0.015);
+  g.gain.setValueAtTime(vol,Math.max(t+0.015,t+dur-0.04));
+  g.gain.linearRampToValueAtTime(0,t+dur);
+  o.start(t); o.stop(t+dur);
+}
 
-const camera = new THREE.PerspectiveCamera(65, RW / RH, 0.1, 100);
-camera.position.set(0, 4, 12);
+// PS1 iconic boot chord
+function playBootChord(){
+  if(!actx)return;
+  const n=actx.currentTime;
+  // low drone builds up
+  note(55,  n+0.00, 4.5, 0.28,'sine');
+  note(110, n+0.15, 4.2, 0.18,'sine');
+  // ascending cascade
+  note(165, n+0.70, 3.5, 0.13,'sine');
+  note(220, n+1.00, 3.2, 0.12,'sine');
+  note(330, n+1.35, 3.0, 0.10,'sine');
+  note(440, n+1.70, 2.8, 0.09,'sine');
+  note(550, n+2.00, 2.5, 0.07,'sine');
+  // crystalline highs
+  note(660, n+2.20, 2.5, 0.06,'sine');
+  note(880, n+2.50, 2.3, 0.05,'sine');
+  note(1100,n+2.75, 2.0, 0.035,'sine');
+  note(1320,n+3.00, 1.8, 0.025,'sine');
+  // final sustained chord
+  note(220, n+3.00, 2.2, 0.16,'sine');
+  note(330, n+3.00, 2.2, 0.13,'sine');
+  note(440, n+3.00, 2.2, 0.11,'sine');
+  note(550, n+3.00, 2.2, 0.07,'sine');
+  note(660, n+3.00, 2.2, 0.05,'sine');
+}
 
-scene.add(new THREE.AmbientLight(0xffffff, 0.78));
-const sun = new THREE.DirectionalLight(0xffffdd, 0.55);
-sun.position.set(2, 5, 1);
-scene.add(sun);
+// Menu music — A minor chiptune loop
+const B=60/120; // beat at 120 BPM = 0.5s
+const MMEL=[
+  [440,B*0,B*.4],[523,B*.5,B*.4],[659,B*1,B*.4],[784,B*1.5,B*.35],
+  [659,B*2,B*.55],[587,B*3,B*.4],[523,B*3.5,B*.4],[440,B*4,B*.8],
+  [523,B*5,B*.4],[587,B*5.5,B*.4],[659,B*6,B*.4],[784,B*6.5,B*.35],
+  [659,B*7,B*.8],[523,B*8,B*.4],[440,B*8.5,B*.4],[392,B*9,B*.55],
+  [440,B*10,B*.4],[523,B*10.5,B*.4],[587,B*11,B*.8],
+  [523,B*12,B*.4],[440,B*12.5,B*.4],[392,B*13,B*.4],[330,B*13.5,B*.4],
+  [440,B*14,B*2]
+];
+const MBAS=[
+  [110,B*0,B*.85],[110,B*2,B*.85],[130,B*4,B*.85],[130,B*6,B*.85],
+  [87, B*8,B*.85],[87, B*10,B*.85],[110,B*12,B*.85],[98, B*14,B*.85]
+];
+const MCHD=[ {t:B*0,n:[220,277,330]},{t:B*4,n:[196,247,294]},{t:B*8,n:[175,220,261]},{t:B*12,n:[196,247,330]} ];
+const MLOOP=B*16;
 
-// ── MATERIALS (flat shaded = PS1 look) ────────────────────────────────
-function m(hex){ return new THREE.MeshLambertMaterial({ color:hex, flatShading:true }); }
-const M = {
-    grass:m(0x44AA44),  grass2:m(0x338833),
-    dirt:m(0x886644),   stone:m(0x888888),   stone2:m(0x666666),
-    gold:m(0xFFD700),   goldDk:m(0xB8860B),
-    orange:m(0xFF8C00), yellow:m(0xFFEE00),
-    navy:m(0x1a1a6e),   red:m(0xCC1111),
-    white:m(0xFFFFFF),  skin:m(0xFFCCAA),
-    wall:m(0xCCBBAA),   wallDk:m(0xAA9988),
-    dark:m(0x222222),   repC:m(0x222244),
-    camC:m(0x0a0a0a),   magaRed:m(0xBB0000),
-    glass:m(0x88BBEE),  towerG:m(0xFFD700),
-    leaves:m(0x226622), trunk:m(0x664422),
-    leafB:m(0x1A5C1A),  cloud:m(0xEEEEFF),
-    coin:m(0xFFD700),   brickPc:m(0xCCBBAA),
-    sky:m(0x4466BB),
+function schedMusic(at){
+  MMEL.forEach(([f,t,d])=>note(f,at+t,d,0.09,'square',musicGain));
+  MBAS.forEach(([f,t,d])=>note(f,at+t,d,0.17,'triangle',musicGain));
+  MCHD.forEach(c=>c.n.forEach(f=>note(f,at+c.t,B*3.5,0.042,'sine',musicGain)));
+  for(let i=1;i<16;i+=2) note(160+Math.random()*40,at+i*B,0.055,0.058,'sawtooth',musicGain);
+}
+
+function startMusic(){
+  if(!actx||musicPlaying)return;
+  musicPlaying=true;
+  (function loop(){
+    if(!musicPlaying)return;
+    schedMusic(actx.currentTime+0.05);
+    musicTimer=setTimeout(loop,(MLOOP-0.12)*1000);
+  })();
+}
+
+function stopMusic(){
+  musicPlaying=false;
+  if(musicTimer){clearTimeout(musicTimer);musicTimer=null;}
+}
+
+// SFX
+function sfxCoin(){if(!actx)return;note(660,actx.currentTime,0.06,0.22,'square');note(1320,actx.currentTime+0.07,0.09,0.17,'square');}
+function sfxHat(){if(!actx)return;[440,660,880].forEach((f,i)=>note(f,actx.currentTime+i*.08,0.1,0.17,'square'));}
+function sfxBrick(){if(!actx)return;note(220,actx.currentTime,0.1,0.22,'sawtooth');note(330,actx.currentTime+0.05,0.1,0.13,'sawtooth');}
+function sfxHit(){if(!actx)return;note(150,actx.currentTime,0.15,0.35,'sawtooth');note(75,actx.currentTime+0.1,0.2,0.25,'sine');}
+function sfxWin(){if(!actx)return;[523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>note(f,actx.currentTime,0.32,0.2,'square'),i*120));}
+
+// ── STARTUP SEQUENCE ──────────────────────────────────────────────────
+const $=id=>document.getElementById(id);
+const tapScr=$('tap-screen'), staticCv=$('static-cv');
+const crtOn=$('crt-on'), crtLine=$('crt-line');
+const sceScr=$('sce-screen'), sceTxt=$('sce-text'), sceSub=$('sce-sub');
+const psScr=$('ps-screen'), psLogo=$('ps-logo'), psBars=$('ps-bars');
+const loadScr=$('load-screen');
+const startupEl=$('startup'), gc=$('gc');
+let startupDone=false;
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+function animStatic(ms){
+  return new Promise(r=>{
+    staticCv.style.display='block';
+    const ctx=staticCv.getContext('2d');
+    staticCv.width=80; staticCv.height=60;
+    const end=Date.now()+ms;
+    (function frame(){
+      const d=ctx.createImageData(80,60);
+      for(let i=0;i<d.data.length;i+=4){
+        const v=Math.random()*255|0;
+        d.data[i]=d.data[i+1]=d.data[i+2]=v; d.data[i+3]=255;
+      }
+      ctx.putImageData(d,0,0);
+      if(Date.now()<end) requestAnimationFrame(frame);
+      else{staticCv.style.display='none';r();}
+    })();
+  });
+}
+
+async function runStartup(){
+  // 1. TV static
+  await animStatic(1300);
+
+  // 2. CRT power-on line
+  crtOn.style.display='block';
+  await sleep(40);
+  crtLine.style.transition='transform .75s ease-out';
+  crtLine.style.transform='scaleY(1)';
+  await sleep(900);
+  crtOn.style.display='none';
+  crtLine.style.transform='scaleY(0.003)';
+  crtLine.style.transition='none';
+
+  // 3. Sony screen + boot chord
+  sceScr.style.display='flex';
+  await sleep(80);
+  sceTxt.style.opacity='1';
+  sceSub.style.opacity='1';
+  playBootChord();
+  await sleep(3600);
+  sceScr.style.display='none';
+  sceTxt.style.opacity='0';
+  sceSub.style.opacity='0';
+
+  // 4. PlayStation logo
+  psScr.style.display='flex';
+  await sleep(80);
+  psLogo.style.opacity='1';
+  await sleep(450);
+  psBars.style.opacity='1';
+  await sleep(2400);
+  psScr.style.display='none';
+  psLogo.style.opacity='0';
+  psBars.style.opacity='0';
+
+  // 5. Now Loading
+  loadScr.style.display='flex';
+  await sleep(2800);
+  loadScr.style.display='none';
+
+  // 6. Game on
+  startupEl.style.display='none';
+  gc.style.opacity='1';
+  gState='menu';
+  $('smenu').style.display='flex';
+  startMusic();
+}
+
+function beginStartup(){
+  if(startupDone)return;
+  startupDone=true;
+  tapScr.style.display='none';
+  initAudio();
+  runStartup();
+}
+
+['click','touchend'].forEach(ev=>{
+  tapScr.addEventListener(ev,e=>{e.preventDefault();beginStartup();},{once:true,passive:false});
+});
+document.addEventListener('keydown',e=>{if(e.code==='Space'&&!startupDone)beginStartup();});
+
+// ── THREE.JS ──────────────────────────────────────────────────────────
+const RW=320,RH=240,SNAP=90;
+const renderer=new THREE.WebGLRenderer({canvas:gc,antialias:false});
+renderer.setSize(RW,RH);renderer.setPixelRatio(1);
+
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x4466BB);
+scene.fog=new THREE.Fog(0x4466BB,26,68);
+
+const camera=new THREE.PerspectiveCamera(65,RW/RH,0.1,100);
+camera.position.set(0,4,12);
+
+scene.add(new THREE.AmbientLight(0xffffff,0.78));
+const sun=new THREE.DirectionalLight(0xffffdd,0.55);
+sun.position.set(2,5,1);scene.add(sun);
+
+// Materials
+function m(c){return new THREE.MeshLambertMaterial({color:c,flatShading:true});}
+const M={
+  grass:m(0x44AA44),grass2:m(0x338833),stone:m(0x888888),stone2:m(0x666666),
+  gold:m(0xFFD700),goldDk:m(0xB8860B),
+  orange:m(0xFF8C00),yellow:m(0xFFEE00),navy:m(0x1a1a6e),red:m(0xCC1111),
+  white:m(0xFFFFFF),dark:m(0x1a1a1a),skin:m(0xFFCCAA),
+  wall:m(0xCCBBAA),wallDk:m(0xAA9988),
+  repC:m(0x222244),camC:m(0x080808),magaRed:m(0xBB0000),
+  glass:m(0x88BBEE),towerG:m(0xFFD700),
+  leaves:m(0x226622),trunk:m(0x664422),leafB:m(0x1A5C1A),
+  cloud:m(0xEEEEFF),coin:m(0xFFD700),brick:m(0xCCBBAA),
 };
-
-function box(mat, x,y,z, sx=1,sy=1,sz=1){
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz), mat);
-    mesh.position.set(x,y,z);
-    return mesh;
+function bx(mat,x,y,z,sx=1,sy=1,sz=1){
+  const mesh=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),mat);
+  mesh.position.set(x,y,z);return mesh;
 }
 
 // ── WORLD ──────────────────────────────────────────────────────────────
-const worldGrp = new THREE.Group(); scene.add(worldGrp);
-const platforms = []; // {x,z,w,d,h} for collision
-
-const PLAT_DEFS = [
-    {x:-7,z:-8, w:4,d:4,h:2}, {x:6,z:-6,  w:3,d:3,h:3},
-    {x:-11,z:4, w:5,d:3,h:2}, {x:8,z:6,   w:4,d:4,h:2},
-    {x:0,z:-12, w:6,d:3,h:1}, {x:-15,z:-4,w:3,d:3,h:3},
-    {x:12,z:-10,w:3,d:3,h:2}, {x:-8,z:12, w:4,d:4,h:1},
-    {x:5,z:14,  w:3,d:3,h:2}, {x:-3,z:8,  w:4,d:2,h:2},
+const WR=22;
+const worldGrp=new THREE.Group();scene.add(worldGrp);
+const platforms=[];
+const PDEFS=[
+  {x:-7,z:-8,w:4,d:4,h:2},{x:6,z:-6,w:3,d:3,h:3},
+  {x:-11,z:4,w:5,d:3,h:2},{x:8,z:6,w:4,d:4,h:2},
+  {x:0,z:-12,w:6,d:3,h:1},{x:-15,z:-4,w:3,d:3,h:3},
+  {x:12,z:-10,w:3,d:3,h:2},{x:-8,z:12,w:4,d:4,h:1},
+  {x:5,z:14,w:3,d:3,h:2},{x:-3,z:8,w:4,d:2,h:2},
 ];
 
 function buildWorld(){
-    while(worldGrp.children.length) worldGrp.remove(worldGrp.children[0]);
-    platforms.length = 0;
-
-    // Ground tiles
-    for(let x=-WORLD_R; x<WORLD_R; x++){
-        for(let z=-WORLD_R; z<WORLD_R; z++){
-            const alt = (Math.abs(x)+Math.abs(z))%2===0;
-            worldGrp.add(box(alt?M.grass:M.grass2, x+.5,-.5,z+.5));
-        }
-    }
-
-    // Boundary walls
-    for(let i=-WORLD_R; i<WORLD_R; i++){
-        for(let h=0;h<3;h++){
-            worldGrp.add(box(M.stone,  i+.5, h+.5, -WORLD_R+.5));
-            worldGrp.add(box(M.stone,  i+.5, h+.5,  WORLD_R-.5));
-            worldGrp.add(box(M.stone, -WORLD_R+.5, h+.5, i+.5));
-            worldGrp.add(box(M.stone,  WORLD_R-.5, h+.5, i+.5));
-        }
-    }
-
-    // Platforms
-    PLAT_DEFS.forEach(p => {
-        for(let bx=0;bx<p.w;bx++) for(let bz=0;bz<p.d;bz++) for(let by=0;by<p.h;by++){
-            worldGrp.add(box(by%2===0?M.stone:M.stone2, p.x+bx+.5, by+.5, p.z+bz+.5));
-        }
-        platforms.push({ x:p.x, z:p.z, w:p.w, d:p.d, h:p.h });
-    });
-
-    // Trump Tower (background)
-    buildTower(16, 0, -19);
-
-    // Wall foundation
-    for(let wx=-8;wx<9;wx++){
-        worldGrp.add(box(M.wallDk, wx+.5,-.5,-WORLD_R+3.5));
-    }
-
-    // Trees
-    [[-12,-16],[12,-14],[-16,8],[14,10],[-6,16],
-     [8,-18],[16,-6],[-18,-12],[4,18],[-16,16],
-     [18,2],[-4,-18],[0,20],[15,15],[-18,5]].forEach(([tx,tz])=>addTree(tx,tz));
-
-    // Decorative clouds
-    [[-2,18,-26],[10,16,-23],[-9,20,-29]].forEach(([cx,cy,cz])=>{
-        worldGrp.add(box(M.cloud, cx, cy, cz, 6,1.5,2));
-        worldGrp.add(box(M.cloud, cx+2,cy+1,cz, 3,1,2));
-    });
+  while(worldGrp.children.length)worldGrp.remove(worldGrp.children[0]);
+  platforms.length=0;
+  for(let x=-WR;x<WR;x++)for(let z=-WR;z<WR;z++)
+    worldGrp.add(bx((Math.abs(x)+Math.abs(z))%2===0?M.grass:M.grass2,x+.5,-.5,z+.5));
+  for(let i=-WR;i<WR;i++)for(let h=0;h<3;h++){
+    worldGrp.add(bx(M.stone,i+.5,h+.5,-WR+.5));
+    worldGrp.add(bx(M.stone,i+.5,h+.5,WR-.5));
+    worldGrp.add(bx(M.stone,-WR+.5,h+.5,i+.5));
+    worldGrp.add(bx(M.stone,WR-.5,h+.5,i+.5));
+  }
+  PDEFS.forEach(p=>{
+    for(let bx2=0;bx2<p.w;bx2++)for(let bz=0;bz<p.d;bz++)for(let by=0;by<p.h;by++)
+      worldGrp.add(bx(by%2===0?M.stone:M.stone2,p.x+bx2+.5,by+.5,p.z+bz+.5));
+    platforms.push({x:p.x,z:p.z,w:p.w,d:p.d,h:p.h});
+  });
+  buildTower(16,0,-19);
+  for(let wx=-8;wx<9;wx++)worldGrp.add(bx(M.wallDk,wx+.5,-.5,-WR+3.5));
+  [[-12,-16],[12,-14],[-16,8],[14,10],[-6,16],[8,-18],
+   [16,-6],[-18,-12],[4,18],[-16,16],[18,2],[-4,-18],[0,20],[15,15],[-18,5]
+  ].forEach(([tx,tz])=>addTree(tx,tz));
+  [[-2,18,-26],[10,16,-23],[-9,20,-29]].forEach(([cx,cy,cz])=>{
+    worldGrp.add(bx(M.cloud,cx,cy,cz,6,1.5,2));
+    worldGrp.add(bx(M.cloud,cx+2,cy+1,cz,3,1,2));
+  });
 }
-
 function buildTower(x,y,z){
-    for(let ty=0;ty<26;ty++){
-        const mat = ty%4===0 ? M.towerG : M.glass;
-        for(let tx=0;tx<5;tx++) for(let tz=0;tz<5;tz++)
-            worldGrp.add(box(mat, x+tx, y+ty, z+tz));
-    }
-    for(let tx=1;tx<4;tx++) for(let tz=1;tz<4;tz++)
-        worldGrp.add(box(M.towerG, x+tx, y+26, z+tz));
-    worldGrp.add(box(M.gold, x+1.5, y+27.5, z+1.5, 3,.6,3));
+  for(let ty=0;ty<26;ty++){
+    const mat=ty%4===0?M.towerG:M.glass;
+    for(let tx=0;tx<5;tx++)for(let tz=0;tz<5;tz++)
+      worldGrp.add(bx(mat,x+tx,y+ty,z+tz));
+  }
+  for(let tx=1;tx<4;tx++)for(let tz=1;tz<4;tz++)worldGrp.add(bx(M.towerG,x+tx,y+26,z+tz));
+  worldGrp.add(bx(M.gold,x+1.5,y+27.5,z+1.5,3,.6,3));
 }
-
 function addTree(tx,tz){
-    worldGrp.add(box(M.trunk,  tx, .5,  tz,  .6,2,.6));
-    worldGrp.add(box(M.leaves, tx, 2.5, tz,  2.5,2,2.5));
-    worldGrp.add(box(M.leafB,  tx, 3.5, tz,  1.5,1.2,1.5));
+  worldGrp.add(bx(M.trunk,tx,.5,tz,.6,2,.6));
+  worldGrp.add(bx(M.leaves,tx,2.5,tz,2.5,2,2.5));
+  worldGrp.add(bx(M.leafB,tx,3.5,tz,1.5,1.2,1.5));
 }
 
-// ── TRUMP VOXEL CHARACTER ─────────────────────────────────────────────
-const playerGrp = new THREE.Group(); scene.add(playerGrp);
-
+// ── TRUMP CHARACTER ───────────────────────────────────────────────────
+const pGrp=new THREE.Group();scene.add(pGrp);
 function buildTrump(){
-    while(playerGrp.children.length) playerGrp.remove(playerGrp.children[0]);
-    // Legs
-    playerGrp.add(box(M.navy,  -.22,-.25,0,  .3,.6,.4));
-    playerGrp.add(box(M.navy,   .22,-.25,0,  .3,.6,.4));
-    // Shoes
-    playerGrp.add(box(M.dark,  -.22,-.66,.08, .33,.18,.52));
-    playerGrp.add(box(M.dark,   .22,-.66,.08, .33,.18,.52));
-    // Suit body
-    playerGrp.add(box(M.navy,   0,.55,0,  .85,1.1,.65));
-    // White shirt
-    playerGrp.add(box(M.white,  0,.6,-.34, .27,.5,.04));
-    // Red tie (iconic)
-    playerGrp.add(box(M.red,    0,.5,-.35, .17,.78,.03));
-    playerGrp.add(box(M.red,    0,.12,-.35,.22,.18,.03));  // wider tie bottom
-    // Jacket lapels
-    playerGrp.add(box(M.navy,  -.26,.7,-.34, .15,.45,.04));
-    playerGrp.add(box(M.navy,   .26,.7,-.34, .15,.45,.04));
-    // Hands
-    playerGrp.add(box(M.orange,-.56,.5,0,  .23,.23,.23));
-    playerGrp.add(box(M.orange, .56,.5,0,  .23,.23,.23));
-    // Head (signature orange)
-    playerGrp.add(box(M.orange, 0,1.65,0,  .78,.76,.72));
-    // Iconic hair
-    playerGrp.add(box(M.yellow, 0,2.1,.04,  .78,.24,.52));   // top swoop
-    playerGrp.add(box(M.yellow,-.4,1.84,0,  .1,.4,.5));      // left
-    playerGrp.add(box(M.yellow, .4,1.84,0,  .1,.4,.5));      // right
-    playerGrp.add(box(M.yellow, 0,2.0,-.38, .55,.2,.12));    // front swoop
-    playerGrp.add(box(M.yellow, -.05,2.22,.06, .55,.1,.4));  // very top
-    playerGrp.add(box(M.goldDk,  0,2.3,0,  .4,.1,.3));       // highlight
-    // Eyes
-    playerGrp.add(box(M.white,-.19,1.73,-.37, .16,.11,.03));
-    playerGrp.add(box(M.white, .19,1.73,-.37, .16,.11,.03));
-    playerGrp.add(box(M.dark, -.19,1.73,-.39, .08,.08,.02));
-    playerGrp.add(box(M.dark,  .19,1.73,-.39, .08,.08,.02));
-    // Pursed mouth
-    playerGrp.add(box(M.red,   0,1.58,-.38, .28,.07,.02));
-    // Small hands joke (very slightly smaller)
-    playerGrp.add(box(M.orange,-.56,.5,0,  .21,.21,.21));
-    playerGrp.add(box(M.orange, .56,.5,0,  .21,.21,.21));
+  while(pGrp.children.length)pGrp.remove(pGrp.children[0]);
+  pGrp.add(bx(M.navy,-.22,-.25,0,.3,.6,.4)); pGrp.add(bx(M.navy,.22,-.25,0,.3,.6,.4));
+  pGrp.add(bx(M.dark,-.22,-.66,.08,.33,.18,.52)); pGrp.add(bx(M.dark,.22,-.66,.08,.33,.18,.52));
+  pGrp.add(bx(M.navy,0,.55,0,.85,1.1,.65));
+  pGrp.add(bx(M.white,0,.6,-.34,.27,.5,.04));
+  pGrp.add(bx(M.red,0,.5,-.35,.17,.78,.03));
+  pGrp.add(bx(M.red,0,.12,-.35,.22,.18,.03));
+  pGrp.add(bx(M.navy,-.26,.7,-.34,.15,.45,.04)); pGrp.add(bx(M.navy,.26,.7,-.34,.15,.45,.04));
+  pGrp.add(bx(M.orange,-.56,.5,0,.22,.22,.22)); pGrp.add(bx(M.orange,.56,.5,0,.22,.22,.22));
+  pGrp.add(bx(M.orange,0,1.65,0,.78,.76,.72));
+  pGrp.add(bx(M.yellow,0,2.1,.04,.78,.24,.52));
+  pGrp.add(bx(M.yellow,-.4,1.84,0,.1,.4,.5)); pGrp.add(bx(M.yellow,.4,1.84,0,.1,.4,.5));
+  pGrp.add(bx(M.yellow,0,2.0,-.38,.55,.2,.12));
+  pGrp.add(bx(M.yellow,-.05,2.22,.06,.55,.1,.4));
+  pGrp.add(bx(M.goldDk,0,2.3,0,.4,.1,.3));
+  pGrp.add(bx(M.white,-.19,1.73,-.37,.16,.11,.03)); pGrp.add(bx(M.white,.19,1.73,-.37,.16,.11,.03));
+  pGrp.add(bx(M.dark,-.19,1.73,-.39,.08,.08,.02)); pGrp.add(bx(M.dark,.19,1.73,-.39,.08,.08,.02));
+  pGrp.add(bx(M.red,0,1.58,-.38,.28,.07,.02));
 }
 buildTrump();
-playerGrp.position.set(0,1,5);
+pGrp.position.set(0,1,5);
 
-// ── COLLECTIBLES ───────────────────────────────────────────────────────
-const collectGrp = new THREE.Group(); scene.add(collectGrp);
-let collectibles = [];
-
-function rnd(){ return (Math.random()-.5)*(WORLD_R*2-7); }
-
+// ── COLLECTIBLES ──────────────────────────────────────────────────────
+const WG=15;
+const cGrp=new THREE.Group();scene.add(cGrp);
+let collectibles=[];
+function rnd(){return(Math.random()-.5)*(WR*2-7);}
 function spawnCollectibles(){
-    while(collectGrp.children.length) collectGrp.remove(collectGrp.children[0]);
-    collectibles = [];
-
-    // Gold coins
-    for(let i=0;i<20;i++){
-        const cm = box(M.coin, rnd(),1,rnd(), .6,.6,.6);
-        collectGrp.add(cm);
-        collectibles.push({ mesh:cm, type:'coin', active:true });
-    }
-
-    // MAGA hats
-    for(let i=0;i<10;i++){
-        const g = new THREE.Group();
-        g.add(box(M.magaRed,  0,0,0,   .9,.12,.9));
-        g.add(box(M.magaRed,  0,.28,.1,.65,.44,.62));
-        g.add(box(M.white,    0,.22,.33,.48,.12,.05));
-        g.position.set(rnd(),1.3,rnd());
-        collectGrp.add(g);
-        collectibles.push({ mesh:g, type:'hat', active:true });
-    }
-
-    // Wall bricks
-    for(let i=0;i<WALL_GOAL;i++){
-        const bm = box(M.brickPc, rnd(),1,rnd(), .76,.76,.76);
-        collectGrp.add(bm);
-        collectibles.push({ mesh:bm, type:'brick', active:true });
-    }
+  while(cGrp.children.length)cGrp.remove(cGrp.children[0]);
+  collectibles=[];
+  for(let i=0;i<20;i++){const cm=bx(M.coin,rnd(),1,rnd(),.6,.6,.6);cGrp.add(cm);collectibles.push({mesh:cm,type:'coin',active:true});}
+  for(let i=0;i<10;i++){
+    const g=new THREE.Group();
+    g.add(bx(M.magaRed,0,0,0,.9,.12,.9));
+    g.add(bx(M.magaRed,0,.28,.1,.65,.44,.62));
+    g.add(bx(M.white,0,.22,.33,.48,.12,.05));
+    g.position.set(rnd(),1.3,rnd());
+    cGrp.add(g);collectibles.push({mesh:g,type:'hat',active:true});
+  }
+  for(let i=0;i<WG;i++){const bm=bx(M.brick,rnd(),1,rnd(),.76,.76,.76);cGrp.add(bm);collectibles.push({mesh:bm,type:'brick',active:true});}
 }
 spawnCollectibles();
 
-// ── BUILT WALL ─────────────────────────────────────────────────────────
-const wallGrp = new THREE.Group(); scene.add(wallGrp);
-
-function addWallSegment(n){
-    const col = (n-1)%17, row = Math.floor((n-1)/17);
-    const wx = col-8;
-    wallGrp.add(box(M.wall,  wx+.5, row*2+.5,  -WORLD_R+3.5));
-    wallGrp.add(box(M.wallDk,wx+.5, row*2+1.5, -WORLD_R+3.5));
+const wGrp=new THREE.Group();scene.add(wGrp);
+function addWallSeg(n){
+  const col=(n-1)%17,row=Math.floor((n-1)/17),wx=col-8;
+  wGrp.add(bx(M.wall,wx+.5,row*2+.5,-WR+3.5));
+  wGrp.add(bx(M.wallDk,wx+.5,row*2+1.5,-WR+3.5));
 }
 
-// ── ENEMIES (Fake News Reporters) ─────────────────────────────────────
-const enemyGrp = new THREE.Group(); scene.add(enemyGrp);
-let enemies = [];
-
+// ── ENEMIES ───────────────────────────────────────────────────────────
+const eGrp=new THREE.Group();scene.add(eGrp);
+let enemies=[];
 function buildReporter(){
-    const g = new THREE.Group();
-    g.add(box(M.repC,  0,.5,0,  .7,1,.55));
-    g.add(box(M.skin,  0,1.55,0,.6,.6,.6));
-    // Camera mic
-    g.add(box(M.camC, -.55,1.5,-.25, .5,.35,.4));
-    g.add(box(M.white,-.55,1.5,-.48, .2,.2,.06));
-    // Microphone
-    g.add(box(M.dark,  .35,1.7,-.32,.1,.25,.1));
-    g.add(box(M.white, .35,1.85,-.32,.18,.18,.18));
-    g.add(box(M.repC, -.18,-.2,0, .27,.6,.4));
-    g.add(box(M.repC,  .18,-.2,0, .27,.6,.4));
-    return g;
+  const g=new THREE.Group();
+  g.add(bx(M.repC,0,.5,0,.7,1,.55));
+  g.add(bx(M.skin,0,1.55,0,.6,.6,.6));
+  g.add(bx(M.camC,-.55,1.5,-.25,.5,.35,.4));
+  g.add(bx(M.white,-.55,1.5,-.48,.2,.2,.06));
+  g.add(bx(M.dark,.35,1.7,-.32,.1,.25,.1));
+  g.add(bx(M.white,.35,1.85,-.32,.18,.18,.18));
+  g.add(bx(M.dark,-.18,-.2,0,.27,.6,.4));
+  g.add(bx(M.dark,.18,-.2,0,.27,.6,.4));
+  return g;
 }
-
 function spawnEnemies(){
-    while(enemyGrp.children.length) enemyGrp.remove(enemyGrp.children[0]);
-    enemies = [];
-    for(let i=0;i<8;i++){
-        let ex,ez;
-        do { ex=rnd(); ez=rnd(); } while(Math.hypot(ex,ez-5)<8);
-        const r = buildReporter();
-        r.position.set(ex,1,ez);
-        enemyGrp.add(r);
-        enemies.push({ mesh:r, speed:1.8+Math.random()*1.5, active:true });
-    }
+  while(eGrp.children.length)eGrp.remove(eGrp.children[0]);
+  enemies=[];
+  for(let i=0;i<8;i++){
+    let ex,ez;
+    do{ex=rnd();ez=rnd();}while(Math.hypot(ex,ez-5)<8);
+    const r=buildReporter();r.position.set(ex,1,ez);
+    eGrp.add(r);enemies.push({mesh:r,speed:1.8+Math.random()*1.5,active:true});
+  }
 }
 spawnEnemies();
 
-// ── PLAYER STATE ───────────────────────────────────────────────────────
-const P = {
-    pos: new THREE.Vector3(0,1,5),
-    vel: new THREE.Vector3(0,0,0),
-    yaw: 0, pitch: 0,
-    onGround: true,
-    invincible: 0,
-    flashT: 0,
-};
+// ── PLAYER ────────────────────────────────────────────────────────────
+const GV=-24,JV=9,SPD=6,CD=6,CH=3;
+const P={pos:new THREE.Vector3(0,1,5),vel:new THREE.Vector3(0,0,0),
+  yaw:0,pitch:0,onGround:true,invincible:0,flashT:0};
 
-// ── GAME STATE ─────────────────────────────────────────────────────────
-let gState = 'menu';
-let score=0, coins=0, hats=0, wallPcs=0, hp=5;
+// ── GAME STATE ────────────────────────────────────────────────────────
+let gState='startup';
+let score=0,coins=0,hats=0,wallPcs=0,hp=5;
 
-// ── INPUT ──────────────────────────────────────────────────────────────
-const K = {};
-const mouse = { dx:0, dy:0, locked:false };
+// ── INPUT ─────────────────────────────────────────────────────────────
+const K={};
+const mouse={dx:0,dy:0,locked:false};
 
-document.addEventListener('keydown', e=>{
-    K[e.code]=true;
-    if(e.code==='Space'){ e.preventDefault(); if(gState==='menu') startGame(); }
+document.addEventListener('keydown',e=>{
+  K[e.code]=true;
+  if(e.code==='Space'){e.preventDefault();if(gState==='menu')startPlaying();}
 });
-document.addEventListener('keyup',   e=>{ K[e.code]=false; });
+document.addEventListener('keyup',e=>K[e.code]=false);
+gc.addEventListener('click',()=>{if(gState==='playing')gc.requestPointerLock();});
+document.addEventListener('pointerlockchange',()=>{mouse.locked=document.pointerLockElement===gc;});
+document.addEventListener('mousemove',e=>{if(mouse.locked){mouse.dx+=e.movementX;mouse.dy+=e.movementY;}});
 
-canvas.addEventListener('click',()=>{
-    if(gState==='playing'){ canvas.requestPointerLock(); ensureAudio(); }
-});
-document.addEventListener('pointerlockchange',()=>{
-    mouse.locked = document.pointerLockElement===canvas;
-});
-document.addEventListener('mousemove',e=>{
-    if(mouse.locked){ mouse.dx+=e.movementX; mouse.dy+=e.movementY; }
-});
+$('startbtn').addEventListener('click',()=>{if(gState==='menu')startPlaying();});
+$('startbtn').addEventListener('touchend',e=>{e.preventDefault();if(gState==='menu')startPlaying();},{passive:false});
 
-// ── AUDIO (Web Audio API beeps = PS1 chiptune feel) ───────────────────
-let actx=null;
-function ensureAudio(){
-    if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)();
+// ── MOBILE JOYSTICK ───────────────────────────────────────────────────
+const joyZone=$('joy-zone'), joyStick=$('joy-stick'), joyBase=$('joy-base');
+const JOY={active:false,id:null,ox:0,oy:0,x:0,y:0};
+const JR=38;
+
+function updateJoy(cx,cy){
+  const dx=cx-JOY.ox, dy=cy-JOY.oy;
+  const dist=Math.hypot(dx,dy), cap=Math.min(dist,JR);
+  const ang=Math.atan2(dy,dx);
+  const nx=Math.cos(ang)*cap, ny=Math.sin(ang)*cap;
+  JOY.x=nx/JR; JOY.y=ny/JR;
+  joyStick.style.transform=`translate(calc(-50% + ${nx}px),calc(-50% + ${ny}px))`;
 }
-function beep(f1,f2,dur,vol=.22,type='square'){
-    if(!actx)return;
-    const o=actx.createOscillator(), g=actx.createGain();
-    o.type=type; o.connect(g); g.connect(actx.destination);
-    o.frequency.setValueAtTime(f1,actx.currentTime);
-    if(f2) o.frequency.linearRampToValueAtTime(f2,actx.currentTime+dur*.6);
-    g.gain.setValueAtTime(vol,actx.currentTime);
-    g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+dur);
-    o.start(); o.stop(actx.currentTime+dur);
-}
-const sfxCoin  = ()=>beep(660,1320,.14,.2);
-const sfxHat   = ()=>{ beep(440,880,.22,.28); setTimeout(()=>beep(880,1320,.15,.2),110); };
-const sfxBrick = ()=>beep(220,330,.18,.22,'sawtooth');
-const sfxHit   = ()=>beep(150,55,.28,.38,'sawtooth');
-const sfxWin   = ()=>[523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,f*1.5,.28,.22),i*115));
+function resetJoy(){JOY.active=false;JOY.x=0;JOY.y=0;joyStick.style.transform='translate(-50%,-50%)';}
 
-// ── GROUND HEIGHT ──────────────────────────────────────────────────────
+joyZone.addEventListener('touchstart',e=>{
+  e.preventDefault();
+  const t=e.changedTouches[0];
+  const br=joyBase.getBoundingClientRect();
+  JOY.active=true;JOY.id=t.identifier;
+  JOY.ox=br.left+br.width/2;JOY.oy=br.top+br.height/2;
+  updateJoy(t.clientX,t.clientY);
+},{passive:false});
+joyZone.addEventListener('touchmove',e=>{
+  e.preventDefault();
+  for(const t of e.changedTouches)if(t.identifier===JOY.id)updateJoy(t.clientX,t.clientY);
+},{passive:false});
+joyZone.addEventListener('touchend',e=>{e.preventDefault();resetJoy();},{passive:false});
+joyZone.addEventListener('touchcancel',e=>{e.preventDefault();resetJoy();},{passive:false});
+
+// Jump button + right zone
+function doJump(e){
+  e.preventDefault();
+  if(gState==='menu'){startPlaying();return;}
+  if(gState==='playing'&&P.onGround){P.vel.y=JV;P.onGround=false;}
+}
+$('btn-jump').addEventListener('touchstart',doJump,{passive:false});
+$('btn-jump').addEventListener('mousedown',doJump,{passive:false});
+$('btn-right-zone').addEventListener('touchstart',doJump,{passive:false});
+
+// ── GROUND CHECK ──────────────────────────────────────────────────────
 function groundAt(x,z){
-    for(const p of platforms){
-        if(x>=p.x && x<p.x+p.w && z>=p.z && z<p.z+p.d) return p.h;
-    }
-    return 0;
+  for(const p of platforms)if(x>=p.x&&x<p.x+p.w&&z>=p.z&&z<p.z+p.d)return p.h;
+  return 0;
 }
 
-// ── PLAYER UPDATE ──────────────────────────────────────────────────────
+// ── PLAYER UPDATE ─────────────────────────────────────────────────────
 function updatePlayer(dt){
-    // Mouse look
-    if(mouse.locked){
-        P.yaw   -= mouse.dx*.003;
-        P.pitch -= mouse.dy*.003;
-        P.pitch = Math.max(-.45,Math.min(.5,P.pitch));
-    }
-    mouse.dx=0; mouse.dy=0;
+  if(mouse.locked){
+    P.yaw-=mouse.dx*.003;
+    P.pitch-=mouse.dy*.003;
+    P.pitch=Math.max(-.45,Math.min(.5,P.pitch));
+  }
+  mouse.dx=0;mouse.dy=0;
 
-    // Keyboard turn (Q/E or left/right arrows)
-    if(K['KeyQ']||K['ArrowLeft'])  P.yaw += 2*dt;
-    if(K['KeyE']||K['ArrowRight']) P.yaw -= 2*dt;
+  // Turn: keyboard Q/E/arrows or joystick x
+  if(K['KeyQ']||K['ArrowLeft'])P.yaw+=2*dt;
+  if(K['KeyE']||K['ArrowRight'])P.yaw-=2*dt;
+  if(JOY.active)P.yaw-=JOY.x*2.5*dt;
 
-    // WASD movement
-    let mx=0,mz=0;
-    if(K['KeyW']||K['ArrowUp'])   mz=-1;
-    if(K['KeyS']||K['ArrowDown']) mz= 1;
-    if(K['KeyA']) mx=-1;
-    if(K['KeyD']) mx= 1;
+  // Move
+  let mx=0,mz=0;
+  if(K['KeyW']||K['ArrowUp'])mz=-1;
+  if(K['KeyS']||K['ArrowDown'])mz=1;
+  if(K['KeyA'])mx=-1;
+  if(K['KeyD'])mx=1;
+  if(JOY.active)mz=JOY.y;
 
-    const c=Math.cos(P.yaw), s=Math.sin(P.yaw);
-    P.vel.x = (mx*c - mz*s)*SPD;
-    P.vel.z = (mx*s + mz*c)*SPD;
+  const c=Math.cos(P.yaw),s=Math.sin(P.yaw);
+  P.vel.x=(mx*c-mz*s)*SPD;
+  P.vel.z=(mx*s+mz*c)*SPD;
 
-    // Jump
-    if(K['Space'] && P.onGround){ P.vel.y=JUMP_V; P.onGround=false; ensureAudio(); }
+  if(K['Space']&&P.onGround){P.vel.y=JV;P.onGround=false;}
 
-    P.vel.y += GRAVITY*dt;
-    P.pos.x += P.vel.x*dt;
-    P.pos.y += P.vel.y*dt;
-    P.pos.z += P.vel.z*dt;
+  P.vel.y+=GV*dt;
+  P.pos.x+=P.vel.x*dt;
+  P.pos.y+=P.vel.y*dt;
+  P.pos.z+=P.vel.z*dt;
 
-    // Ground collision
-    const gy = groundAt(P.pos.x, P.pos.z)+.75;
-    if(P.pos.y < gy){ P.pos.y=gy; P.vel.y=0; P.onGround=true; }
+  const gy=groundAt(P.pos.x,P.pos.z)+.75;
+  if(P.pos.y<gy){P.pos.y=gy;P.vel.y=0;P.onGround=true;}
 
-    // Bounds
-    const B=WORLD_R-1.8;
-    P.pos.x=Math.max(-B,Math.min(B,P.pos.x));
-    P.pos.z=Math.max(-B,Math.min(B,P.pos.z));
+  const B=WR-1.8;
+  P.pos.x=Math.max(-B,Math.min(B,P.pos.x));
+  P.pos.z=Math.max(-B,Math.min(B,P.pos.z));
 
-    // Walk bob
-    const moving=(Math.abs(mx)+Math.abs(mz))>0;
-    const bob = moving && P.onGround ? Math.sin(Date.now()*.009)*.07 : 0;
-    playerGrp.position.set(P.pos.x, P.pos.y+bob, P.pos.z);
-    playerGrp.rotation.y = P.yaw+Math.PI;
+  const moving=(Math.abs(mx)+Math.abs(mz)+Math.abs(JOY.y))>0.05;
+  const bob=moving&&P.onGround?Math.sin(Date.now()*.009)*.07:0;
+  pGrp.position.set(P.pos.x,P.pos.y+bob,P.pos.z);
+  pGrp.rotation.y=P.yaw+Math.PI;
 
-    // Invincibility flash
-    if(P.invincible>0){
-        P.invincible-=dt; P.flashT+=dt;
-        playerGrp.visible = Math.floor(P.flashT*8)%2===0;
-    } else {
-        playerGrp.visible=true; P.flashT=0;
-    }
+  if(P.invincible>0){
+    P.invincible-=dt;P.flashT+=dt;
+    pGrp.visible=Math.floor(P.flashT*8)%2===0;
+  }else{pGrp.visible=true;P.flashT=0;}
 }
 
 // ── CAMERA ────────────────────────────────────────────────────────────
 function updateCamera(){
-    const tx = P.pos.x - Math.sin(P.yaw)*CAM_D;
-    const ty = P.pos.y + CAM_H + P.pitch*3;
-    const tz = P.pos.z - Math.cos(P.yaw)*CAM_D;
-
-    camera.position.x += (tx-camera.position.x)*.14;
-    camera.position.y += (ty-camera.position.y)*.14;
-    camera.position.z += (tz-camera.position.z)*.14;
-    camera.lookAt(P.pos.x, P.pos.y+1, P.pos.z);
-
-    // PS1 vertex snapping: quantize camera position
-    // This creates the signature PS1 geometry wobble as you move
-    camera.position.x = Math.round(camera.position.x*SNAP)/SNAP;
-    camera.position.y = Math.round(camera.position.y*SNAP)/SNAP;
-    camera.position.z = Math.round(camera.position.z*SNAP)/SNAP;
+  const tx=P.pos.x-Math.sin(P.yaw)*CD;
+  const ty=P.pos.y+CH+P.pitch*3;
+  const tz=P.pos.z-Math.cos(P.yaw)*CD;
+  camera.position.x+=(tx-camera.position.x)*.14;
+  camera.position.y+=(ty-camera.position.y)*.14;
+  camera.position.z+=(tz-camera.position.z)*.14;
+  camera.lookAt(P.pos.x,P.pos.y+1,P.pos.z);
+  // PS1 vertex snap
+  camera.position.x=Math.round(camera.position.x*SNAP)/SNAP;
+  camera.position.y=Math.round(camera.position.y*SNAP)/SNAP;
+  camera.position.z=Math.round(camera.position.z*SNAP)/SNAP;
 }
 
-// ── ENEMY AI ──────────────────────────────────────────────────────────
+// ── ENEMIES ───────────────────────────────────────────────────────────
 function updateEnemies(dt){
-    enemies.forEach(e=>{
-        if(!e.active) return;
-        const toP = new THREE.Vector3().subVectors(P.pos, e.mesh.position);
-        const dist = toP.length();
-        if(dist<22){
-            toP.normalize();
-            e.mesh.position.x += toP.x*e.speed*dt;
-            e.mesh.position.z += toP.z*e.speed*dt;
-            e.mesh.position.y = 1;
-            e.mesh.rotation.y = Math.atan2(toP.x,toP.z)+Math.PI;
-            // Camera flash animation
-            if(e.mesh.children[2]) e.mesh.children[2].rotation.y=Math.sin(Date.now()*.003)*.3;
-            if(dist<1.3 && P.invincible<=0){
-                hp--; P.invincible=1.5; sfxHit(); updateHUD();
-                if(hp<=0) endGame('lose');
-            }
-        }
-    });
+  enemies.forEach(e=>{
+    if(!e.active)return;
+    const d=new THREE.Vector3().subVectors(P.pos,e.mesh.position);
+    const dist=d.length();
+    if(dist<22){
+      d.normalize();
+      e.mesh.position.x+=d.x*e.speed*dt;
+      e.mesh.position.z+=d.z*e.speed*dt;
+      e.mesh.position.y=1;
+      e.mesh.rotation.y=Math.atan2(d.x,d.z)+Math.PI;
+      if(e.mesh.children[2])e.mesh.children[2].rotation.y=Math.sin(Date.now()*.003)*.3;
+      if(dist<1.3&&P.invincible<=0){
+        hp--;P.invincible=1.5;sfxHit();updateHUD();
+        if(hp<=0)endGame('lose');
+      }
+    }
+  });
 }
 
-// ── COLLECTIBLES ──────────────────────────────────────────────────────
+// ── PICKUPS ───────────────────────────────────────────────────────────
 function checkPickups(){
-    collectibles.forEach(c=>{
-        if(!c.active) return;
-        if(P.pos.distanceTo(c.mesh.position)<1.1){
-            c.active=false;
-            collectGrp.remove(c.mesh);
-            if(c.type==='coin')  { coins++;   score+=100; sfxCoin(); }
-            if(c.type==='hat')   { hats++;    score+=500; sfxHat(); }
-            if(c.type==='brick') { wallPcs++; score+=200; sfxBrick(); addWallSegment(wallPcs); }
-            updateHUD();
-            if(wallPcs>=WALL_GOAL) endGame('win');
-        }
-    });
+  collectibles.forEach(c=>{
+    if(!c.active)return;
+    if(P.pos.distanceTo(c.mesh.position)<1.1){
+      c.active=false;cGrp.remove(c.mesh);
+      if(c.type==='coin'){coins++;score+=100;sfxCoin();}
+      if(c.type==='hat'){hats++;score+=500;sfxHat();}
+      if(c.type==='brick'){wallPcs++;score+=200;sfxBrick();addWallSeg(wallPcs);}
+      updateHUD();
+      if(wallPcs>=WG)endGame('win');
+    }
+  });
 }
 
-function animatePickups(t){
-    collectibles.forEach((c,i)=>{
-        if(!c.active) return;
-        c.mesh.position.y = .9+Math.sin(t*2+i*.7)*.22;
-        c.mesh.rotation.y = t*.8+i;
-    });
+function animPickups(t){
+  collectibles.forEach((c,i)=>{
+    if(!c.active)return;
+    c.mesh.position.y=.9+Math.sin(t*2+i*.7)*.22;
+    c.mesh.rotation.y=t*.8+i;
+  });
 }
 
 // ── HUD ───────────────────────────────────────────────────────────────
 function updateHUD(){
-    document.getElementById('ss').textContent = score;
-    document.getElementById('sc').textContent = coins;
-    document.getElementById('sh').textContent = hats;
-    const pct = Math.floor((wallPcs/WALL_GOAL)*100);
-    const f   = Math.floor(pct/10);
-    document.getElementById('sw').textContent = '▓'.repeat(f)+'░'.repeat(10-f)+' '+pct+'%';
-    document.getElementById('shp').textContent = '♥'.repeat(hp)+'♡'.repeat(Math.max(0,5-hp));
+  $('ss').textContent=score; $('sc').textContent=coins; $('sh').textContent=hats;
+  const pct=Math.floor((wallPcs/WG)*100), f=Math.floor(pct/10);
+  $('sw').textContent='▓'.repeat(f)+'░'.repeat(10-f)+' '+pct+'%';
+  $('shp').textContent='♥'.repeat(hp)+'♡'.repeat(Math.max(0,5-hp));
 }
 
 // ── GAME FLOW ─────────────────────────────────────────────────────────
-function startGame(){
-    document.getElementById('smenu').style.display='none';
-    gState='playing';
-    ensureAudio();
+function startPlaying(){
+  $('smenu').style.display='none';
+  stopMusic();
+  gState='playing';
 }
 
-function endGame(result){
-    gState=result;
-    if(result==='win'){
-        document.getElementById('wsco').textContent=score;
-        document.getElementById('swin').style.display='flex';
-        sfxWin();
-    } else {
-        document.getElementById('lsco').textContent=score;
-        document.getElementById('slose').style.display='flex';
-    }
+function endGame(r){
+  gState=r;
+  if(r==='win'){$('wsco').textContent=score;$('swin').style.display='flex';sfxWin();}
+  else{$('lsco').textContent=score;$('slose').style.display='flex';}
 }
 
 function resetGame(){
-    score=0;coins=0;hats=0;wallPcs=0;hp=5;
-    P.pos.set(0,1,5); P.vel.set(0,0,0);
-    P.yaw=0; P.pitch=0; P.invincible=0; P.flashT=0; P.onGround=true;
-    while(wallGrp.children.length) wallGrp.remove(wallGrp.children[0]);
-    spawnCollectibles();
-    spawnEnemies();
-    updateHUD();
-    document.getElementById('swin').style.display='none';
-    document.getElementById('slose').style.display='none';
-    gState='playing';
+  score=0;coins=0;hats=0;wallPcs=0;hp=5;
+  P.pos.set(0,1,5);P.vel.set(0,0,0);P.yaw=0;P.pitch=0;P.invincible=0;P.flashT=0;P.onGround=true;
+  while(wGrp.children.length)wGrp.remove(wGrp.children[0]);
+  spawnCollectibles();spawnEnemies();updateHUD();
+  $('swin').style.display='none';$('slose').style.display='none';
+  gState='playing';
 }
 
 // ── MAIN LOOP ─────────────────────────────────────────────────────────
+buildWorld();updateHUD();
+
 let lastT=0;
 function loop(ts){
-    requestAnimationFrame(loop);
-    const dt=Math.min((ts-lastT)/1000,.05);
-    lastT=ts;
-    const t=ts/1000;
-
-    if(gState==='playing'){
-        updatePlayer(dt);
-        updateCamera();
-        updateEnemies(dt);
-        animatePickups(t);
-        checkPickups();
-    }
-
-    renderer.render(scene,camera);
+  requestAnimationFrame(loop);
+  const dt=Math.min((ts-lastT)/1000,.05);
+  lastT=ts;
+  const t=ts/1000;
+  if(gState==='playing'){
+    updatePlayer(dt);updateCamera();updateEnemies(dt);animPickups(t);checkPickups();
+  } else if(gState==='menu'){
+    camera.position.x=Math.sin(t*.12)*9;
+    camera.position.y=4.5;
+    camera.position.z=Math.cos(t*.12)*9+4;
+    camera.lookAt(0,1,0);
+  }
+  renderer.render(scene,camera);
 }
-
-// ── INIT ──────────────────────────────────────────────────────────────
-buildWorld();
-updateHUD();
 requestAnimationFrame(loop);
-
-console.log('%c🎮 TRUMP: BUILD THE WALL! – PS1 VOXEL EDITION', 'color:#FFD700;font-size:14px;font-weight:bold');
 </script>
 </body>
 </html>
