@@ -3,146 +3,187 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>TRUMP: BUILD THE WALL! – PS1 VOXEL EDITION</title>
+<title>MANDATE DIMENSION — PS1 HORROR</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;}
-html,body{width:100%;height:100%;overflow:hidden;background:#0a0a0a;display:flex;justify-content:center;align-items:center;font-family:'Courier New',monospace;}
+html,body{width:100%;height:100%;overflow:hidden;background:#050505;display:flex;justify-content:center;align-items:center;font-family:'Courier New',monospace;}
 
 /* ── TV FRAME ── */
 #tv{
   position:relative;
-  width:min(100vw, calc(100vh * 4 / 3));
-  height:min(100vh, calc(100vw * 3 / 4));
-  background:linear-gradient(145deg,#2c2c2c,#1a1a1a);
+  width:min(100vw,calc(100vh * 4/3));
+  height:min(100vh,calc(100vw * 3/4));
+  background:linear-gradient(145deg,#282828,#161616);
   border-radius:min(3vw,4vh);
-  padding:min(2.5vw,3.2vh);
-  box-shadow:inset 0 0 0 2px #444,0 0 0 3px #0a0a0a,0 25px 70px rgba(0,0,0,.85),0 0 120px rgba(0,0,0,.5);
+  padding:min(2.5vw,3vh);
+  box-shadow:
+    inset 0 0 0 2px #3a3a3a,
+    0 0 0 3px #0a0a0a,
+    0 30px 80px rgba(0,0,0,.95),
+    inset 0 2px 0 rgba(255,255,255,.05);
 }
 #tv::before{
-  content:'';position:absolute;bottom:min(1.2vw,1.6vh);right:min(2vw,2.5vh);
+  content:'';position:absolute;
+  bottom:min(1vw,1.4vh);right:min(2vw,2.4vh);
   width:min(.6vw,.8vh);height:min(.6vw,.8vh);
-  background:#00ff44;border-radius:50%;
-  box-shadow:0 0 6px #00ff44,0 0 14px #00ff44;
-  animation:led 3s ease-in-out infinite;z-index:200;
+  background:#00cc33;border-radius:50%;
+  box-shadow:0 0 5px #00cc33,0 0 12px #00cc33;
+  animation:led 2.8s ease-in-out infinite;z-index:200;
 }
 #tv::after{
-  content:'SONY TRINITRON';position:absolute;bottom:min(.6vw,.8vh);left:50%;transform:translateX(-50%);
-  color:#444;font-size:min(1vw,1.3vh);letter-spacing:5px;font-weight:bold;z-index:200;
+  content:'SONY TRINITRON';position:absolute;
+  bottom:min(.5vw,.7vh);left:50%;transform:translateX(-50%);
+  color:#3a3a3a;font-size:min(.9vw,1.2vh);letter-spacing:6px;font-weight:bold;z-index:200;
 }
-@keyframes led{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes led{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* ── SCREEN ── */
 #screen{
   position:relative;width:100%;height:100%;background:#000;
   border-radius:min(1.5vw,2vh);overflow:hidden;
-  box-shadow:inset 0 0 40px rgba(0,0,0,.9),inset 0 0 0 1px #333;
+  box-shadow:inset 0 0 60px rgba(0,0,0,1),inset 0 0 0 1px #2a2a2a;
 }
 #screen::after{
   content:'';position:absolute;inset:0;z-index:999;pointer-events:none;
-  background:linear-gradient(135deg,rgba(255,255,255,.07) 0%,transparent 55%);
+  background:linear-gradient(135deg,rgba(255,255,255,.055) 0%,transparent 60%);
   border-radius:inherit;
 }
 
-/* ── STARTUP ── */
+/* ── STARTUP OVERLAY ── */
 #startup{position:absolute;inset:0;z-index:50;background:#000;}
 
 #tap-screen{
   position:absolute;inset:0;display:flex;flex-direction:column;
   justify-content:center;align-items:center;background:#000;z-index:10;
 }
-.tv-icon{font-size:min(8vw,10vh);margin-bottom:min(2vw,2.5vh);}
-.tap-label{color:#aaa;font-size:min(2.5vw,3vh);letter-spacing:4px;animation:bk .9s step-end infinite;}
+.tv-icon{font-size:min(7vw,9vh);margin-bottom:min(2vw,2.5vh);}
+.tap-label{color:#666;font-size:min(2.2vw,2.8vh);letter-spacing:5px;animation:bk .9s step-end infinite;}
 @keyframes bk{0%,100%{opacity:1}50%{opacity:0}}
 
-#static-cv{
-  position:absolute;inset:0;width:100%;height:100%;
-  image-rendering:pixelated;display:none;z-index:2;
-}
+#static-cv{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;display:none;z-index:2;}
 
 #crt-on{position:absolute;inset:0;display:none;z-index:3;background:#000;overflow:hidden;}
 #crt-line{
   position:absolute;inset:0;
   background:#fff;
-  transform:scaleY(0.003);transform-origin:center;
-  transition:transform .75s ease-out;
-  box-shadow:0 0 30px #fff,0 0 60px rgba(255,255,255,.4),0 0 100px rgba(200,220,255,.2);
+  transform:scaleY(.003);transform-origin:center;
+  transition:transform .7s ease-out;
+  box-shadow:0 0 25px #fff,0 0 50px rgba(255,255,255,.3),0 0 100px rgba(180,200,255,.15);
 }
 
+/* ── SCE SCREEN ── */
 #sce-screen{
   position:absolute;inset:0;display:none;flex-direction:column;
   justify-content:center;align-items:center;background:#000;z-index:4;
 }
-#sce-text{color:#eeeeee;font-size:min(2.5vw,3vh);letter-spacing:.4em;text-align:center;opacity:0;transition:opacity 1.4s ease;}
-#sce-sub{color:#777;font-size:min(1.4vw,1.8vh);letter-spacing:.4em;margin-top:min(.8vw,1vh);opacity:0;transition:opacity 1.4s ease .5s;}
+#sce-text{color:#e8e8e8;font-size:min(2.4vw,2.9vh);letter-spacing:.45em;text-align:center;opacity:0;transition:opacity 1.5s ease;}
+#sce-sub{color:#666;font-size:min(1.3vw,1.7vh);letter-spacing:.5em;margin-top:min(.7vw,.9vh);opacity:0;transition:opacity 1.5s ease .6s;}
 
+/* ── PS1 LOGO SCREEN ── */
 #ps-screen{
   position:absolute;inset:0;display:none;flex-direction:column;
   justify-content:center;align-items:center;background:#000;z-index:4;
+  gap:min(1.5vw,2vh);
 }
-#ps-logo{opacity:0;transition:opacity .7s ease;display:flex;align-items:flex-end;gap:min(.5vw,.6vh);}
-.ps-p{font-size:min(16vw,20vh);font-weight:900;color:#003087;font-style:italic;line-height:1;text-shadow:0 0 30px rgba(0,48,135,.5);}
-.ps-s{font-size:min(16vw,20vh);font-weight:900;color:#e4000f;font-style:italic;line-height:1;margin-bottom:-min(1.5vw,2vh);text-shadow:0 0 30px rgba(228,0,15,.5);}
-#ps-bars{opacity:0;transition:opacity .7s ease .4s;display:flex;gap:min(.3vw,.4vh);margin-top:min(2vw,2.5vh);height:min(1vw,1.3vh);width:min(22vw,28vh);}
+#ps-logo-wrap{opacity:0;transition:opacity .6s ease;display:flex;flex-direction:column;align-items:center;gap:min(.5vw,.7vh);}
+#ps-svg-mark{width:min(42vw,56vh);height:auto;display:block;}
+#ps-wordmark{
+  color:#bbb;font-size:min(3.5vw,4.5vh);
+  font-style:italic;font-weight:900;
+  letter-spacing:.1em;
+  background:linear-gradient(180deg,#fff 0%,#aaa 50%,#777 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  font-family:'Arial Black','Impact',sans-serif;
+}
+#ps-bars-wrap{opacity:0;transition:opacity .6s ease .4s;display:flex;gap:min(.35vw,.45vh);width:min(38vw,50vh);height:min(.9vw,1.2vh);margin-top:min(.5vw,.7vh);}
 .ps-bar{flex:1;height:100%;}
 
+/* ── LOADING SCREEN ── */
 #load-screen{
   position:absolute;inset:0;display:none;flex-direction:column;
-  justify-content:center;align-items:center;background:#000;z-index:4;
+  justify-content:center;align-items:center;background:#000;z-index:4;gap:min(2vw,2.5vh);
 }
 #disc{
   width:min(9vw,12vh);height:min(9vw,12vh);border-radius:50%;
-  background:conic-gradient(#cc0000 0deg,#ff9900 90deg,#009900 180deg,#0033cc 270deg,#cc0000 360deg);
-  position:relative;animation:spin 1s linear infinite;
-  box-shadow:0 0 20px rgba(255,255,255,.15);margin-bottom:min(2vw,2.5vh);
+  background:conic-gradient(#003087 0deg,#e4000f 90deg,#009900 180deg,#f5a623 270deg,#003087 360deg);
+  position:relative;animation:spin 1.1s linear infinite;
+  box-shadow:0 0 16px rgba(255,255,255,.1);
 }
-#disc::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28%;height:28%;background:#0a0a0a;border-radius:50%;}
+#disc::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30%;height:30%;background:#080808;border-radius:50%;}
 @keyframes spin{to{transform:rotate(360deg)}}
-#load-txt{color:#666;font-size:min(1.8vw,2.2vh);letter-spacing:3px;animation:bk .7s step-end infinite;}
+#load-txt{color:#555;font-size:min(1.7vw,2.1vh);letter-spacing:3px;animation:bk .8s step-end infinite;}
 
 /* ── GAME CANVAS ── */
-#gc{width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;display:block;opacity:0;transition:opacity .6s ease;}
+#gc{width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;display:block;opacity:0;transition:opacity .7s ease;}
 
-/* ── CRT OVERLAY ── */
-#crt-over{
-  position:absolute;inset:0;pointer-events:none;z-index:5;border-radius:inherit;
-  background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(0,0,0,.11) 3px,rgba(0,0,0,.11) 4px);
-}
-#vignette{position:absolute;inset:0;pointer-events:none;z-index:6;border-radius:inherit;background:radial-gradient(ellipse at 50% 50%,transparent 50%,rgba(0,0,0,.78) 100%);}
+/* ── CRT EFFECTS ── */
+#crt-over{position:absolute;inset:0;pointer-events:none;z-index:5;border-radius:inherit;background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(0,0,0,.12) 3px,rgba(0,0,0,.12) 4px);}
+#vignette{position:absolute;inset:0;pointer-events:none;z-index:6;border-radius:inherit;background:radial-gradient(ellipse at 50% 50%,transparent 48%,rgba(0,0,0,.82) 100%);}
+
+/* Flicker overlay for horror */
+#flicker{position:absolute;inset:0;pointer-events:none;z-index:7;background:rgba(0,0,0,0);border-radius:inherit;}
 
 /* ── HUD ── */
-#hud{position:absolute;inset:0;pointer-events:none;z-index:7;}
-.ht{position:absolute;font-weight:bold;font-size:clamp(8px,1.6vw,17px);text-shadow:2px 2px 0 #000,-1px -1px 0 #000;letter-spacing:1px;line-height:1.8;}
-#htl{top:2%;left:2%;color:#FFD700;}
-#htr{top:2%;right:2%;text-align:right;color:#FF6666;}
-#hbl{bottom:2%;left:2%;color:#66FF66;}
-#hbr{bottom:2%;right:2%;text-align:right;color:#888;font-size:clamp(7px,1.1vw,12px);line-height:1.8;}
+#hud{position:absolute;inset:0;pointer-events:none;z-index:8;}
+.ht{position:absolute;font-weight:bold;font-size:clamp(7px,1.5vw,16px);text-shadow:2px 2px 0 #000,-1px -1px 0 #000;letter-spacing:1px;line-height:1.85;}
+#htl{top:2%;left:2%;color:#CC9900;}
+#htr{top:2%;right:2%;text-align:right;color:#880000;}
+#hbl{bottom:13%;left:2%;color:#446644;}
+#hbr{bottom:2%;right:2%;text-align:right;color:#555;font-size:clamp(6px,1vw,11px);line-height:1.8;}
+/* News ticker */
+#ticker{
+  position:absolute;bottom:0;left:0;right:0;height:min(4vw,5vh);
+  background:rgba(180,0,0,.85);display:flex;align-items:center;overflow:hidden;
+  pointer-events:none;z-index:9;border-top:1px solid #550000;
+}
+#ticker-inner{
+  white-space:nowrap;color:#ffcc00;font-size:clamp(7px,1.3vw,13px);
+  letter-spacing:1px;font-weight:bold;
+  animation:tick 38s linear infinite;
+  text-shadow:1px 1px 0 #000;
+}
+@keyframes tick{0%{transform:translateX(100vw)}100%{transform:translateX(-300%)}}
+#ticker-label{
+  padding:0 min(1vw,1.2vh);color:#fff;font-size:clamp(7px,1.1vw,11px);
+  font-weight:bold;letter-spacing:2px;white-space:nowrap;
+  border-right:1px solid #550000;background:rgba(100,0,0,.9);
+  height:100%;display:flex;align-items:center;
+}
 
 /* ── GAME SCREENS ── */
-.gscreen{position:absolute;inset:0;z-index:20;display:none;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5%;}
-#smenu{background:rgba(0,0,0,.9);}
-#swin{background:rgba(0,14,0,.92);}
-#slose{background:rgba(18,0,0,.92);}
-.gtitle{font-size:clamp(18px,4.5vw,50px);color:#FFD700;text-shadow:3px 3px 0 #8B6914,0 0 28px rgba(255,215,0,.4);letter-spacing:3px;line-height:1.15;margin-bottom:6px;}
-.gsub{font-size:clamp(10px,1.8vw,20px);color:#FF4444;letter-spacing:3px;margin-bottom:20px;}
-.ibox{border:2px solid rgba(255,215,0,.35);padding:10px 18px;margin-bottom:18px;color:#DDD;font-size:clamp(8px,1.3vw,13px);line-height:2.2;letter-spacing:1px;}
-.blk{font-size:clamp(11px,1.9vw,20px);color:#fff;letter-spacing:3px;animation:bk .9s step-end infinite;cursor:pointer;}
-.rbig{font-size:clamp(24px,5vw,56px);letter-spacing:3px;margin-bottom:12px;}
-.rsub{font-size:clamp(11px,1.8vw,20px);letter-spacing:2px;margin-bottom:8px;}
-.rscr{color:#AAA;font-size:clamp(10px,1.5vw,16px);margin-bottom:24px;}
-.gbtn{background:#FFD700;color:#000;border:none;padding:10px 28px;font-family:'Courier New',monospace;font-size:clamp(10px,1.5vw,15px);font-weight:bold;letter-spacing:3px;cursor:pointer;}
-.gbtn:active{background:#FFA500;}
+.gscreen{position:absolute;inset:0;z-index:20;display:none;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:5%;bottom:min(4vw,5vh);}
+#smenu{background:radial-gradient(ellipse at 50% 50%,rgba(10,5,2,.97) 0%,rgba(0,0,0,1) 100%);}
+#send1,#send2,#send3,#send4,#send5{background:rgba(0,0,0,.96);}
+.gtitle{font-size:clamp(16px,4vw,44px);color:#CC8800;text-shadow:3px 3px 0 #4A2E00,0 0 30px rgba(200,136,0,.35);letter-spacing:3px;line-height:1.15;margin-bottom:5px;}
+.gsub{font-size:clamp(9px,1.6vw,17px);color:#660000;letter-spacing:3px;margin-bottom:16px;}
+.gstory{font-size:clamp(8px,1.2vw,12px);color:#888;line-height:1.9;max-width:75%;margin-bottom:18px;letter-spacing:.5px;}
+.ibox{border:1px solid rgba(200,136,0,.3);padding:9px 16px;margin-bottom:16px;color:#AAA;font-size:clamp(7px,1.1vw,12px);line-height:2.1;letter-spacing:.5px;}
+.blk{font-size:clamp(10px,1.7vw,18px);color:#CC8800;letter-spacing:3px;animation:bk .9s step-end infinite;cursor:pointer;}
+.rbig{font-size:clamp(20px,4.5vw,50px);letter-spacing:3px;margin-bottom:10px;line-height:1.2;}
+.rsub{font-size:clamp(9px,1.5vw,16px);letter-spacing:2px;margin-bottom:6px;color:#888;}
+.rscr{color:#666;font-size:clamp(8px,1.3vw,14px);margin-bottom:20px;}
+.rtext{color:#666;font-size:clamp(7px,1.1vw,12px);line-height:1.9;max-width:70%;margin-bottom:18px;}
+.gbtn{background:#CC8800;color:#000;border:none;padding:9px 25px;font-family:'Courier New',monospace;font-size:clamp(9px,1.3vw,14px);font-weight:bold;letter-spacing:3px;cursor:pointer;margin-top:6px;}
+.gbtn:active{background:#FF9900;}
 
 /* ── MOBILE CONTROLS ── */
-#mctrl{position:absolute;inset:0;z-index:8;pointer-events:none;display:none;}
-#joy-zone{position:absolute;left:0;bottom:0;width:42%;height:42%;pointer-events:all;display:flex;justify-content:center;align-items:center;}
-#joy-base{width:min(20vw,15vh);height:min(20vw,15vh);border:3px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(255,255,255,.05);position:relative;}
-#joy-stick{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(9vw,7vh);height:min(9vw,7vh);background:rgba(255,255,255,.55);border-radius:50%;border:2px solid rgba(255,255,255,.7);}
-#btn-jump{position:absolute;right:4%;bottom:5%;width:min(16vw,13vh);height:min(16vw,13vh);border-radius:50%;background:rgba(180,20,20,.8);border:3px solid rgba(255,255,255,.5);color:#fff;font-size:min(6vw,5vh);pointer-events:all;z-index:9;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-weight:bold;text-shadow:1px 1px 3px #000;}
-#btn-jump:active{background:rgba(255,50,50,.9);}
-#btn-right-zone{position:absolute;right:0;bottom:0;width:58%;height:58%;pointer-events:all;background:transparent;}
+#mctrl{position:absolute;inset:0;z-index:10;pointer-events:none;display:none;}
+#joy-zone{position:absolute;left:0;bottom:min(4vw,5vh);width:40%;height:44%;pointer-events:all;display:flex;justify-content:center;align-items:center;opacity:.7;}
+#joy-base{width:min(19vw,14vh);height:min(19vw,14vh);border:2px solid rgba(200,136,0,.4);border-radius:50%;background:rgba(100,68,0,.08);position:relative;}
+#joy-stick{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(8.5vw,6.5vh);height:min(8.5vw,6.5vh);background:rgba(200,136,0,.55);border-radius:50%;border:2px solid rgba(200,136,0,.7);}
+#btn-jump{
+  position:absolute;right:4%;bottom:calc(min(4vw,5vh) + 6%);
+  width:min(15vw,12vh);height:min(15vw,12vh);border-radius:50%;
+  background:rgba(150,0,0,.8);border:2px solid rgba(200,0,0,.6);
+  color:#fff;font-size:min(5.5vw,4.2vh);pointer-events:all;z-index:11;
+  display:flex;align-items:center;justify-content:center;
+  font-family:sans-serif;font-weight:bold;text-shadow:1px 1px 2px #000;
+}
+#btn-jump:active{background:rgba(220,0,0,.9);}
+#rzone{position:absolute;right:0;bottom:min(4vw,5vh);width:60%;height:44%;pointer-events:all;background:transparent;}
 @media(pointer:coarse){
   #mctrl{display:block;}
-  #hbl{bottom:46%;}
+  #hbl{bottom:58%;}
   #hbr{display:none;}
 }
 </style>
@@ -151,7 +192,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0a0a;display:flex
 <div id="tv">
  <div id="screen">
 
-  <!-- STARTUP OVERLAY -->
+  <!-- ══ STARTUP OVERLAY ══ -->
   <div id="startup">
    <div id="tap-screen">
     <div class="tv-icon">📺</div>
@@ -159,70 +200,186 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0a0a;display:flex
    </div>
    <canvas id="static-cv"></canvas>
    <div id="crt-on"><div id="crt-line"></div></div>
+
    <div id="sce-screen">
     <div id="sce-text">SONY COMPUTER ENTERTAINMENT</div>
     <div id="sce-sub">PRESENTS</div>
    </div>
+
    <div id="ps-screen">
-    <div id="ps-logo"><span class="ps-p">P</span><span class="ps-s">S</span></div>
-    <div id="ps-bars">
-     <div class="ps-bar" style="background:#003087"></div>
-     <div class="ps-bar" style="background:#e4000f"></div>
-     <div class="ps-bar" style="background:#009900"></div>
-     <div class="ps-bar" style="background:#f5a623"></div>
+    <div id="ps-logo-wrap">
+     <!-- Accurate PS1-style logo using SVG -->
+     <svg id="ps-svg-mark" viewBox="0 0 310 200" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+      <defs>
+       <linearGradient id="gP" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#AABBFF"/>
+        <stop offset="30%" stop-color="#4477EE"/>
+        <stop offset="70%" stop-color="#0033BB"/>
+        <stop offset="100%" stop-color="#001566"/>
+       </linearGradient>
+       <linearGradient id="gS" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#FF9999"/>
+        <stop offset="30%" stop-color="#EE3333"/>
+        <stop offset="70%" stop-color="#BB0011"/>
+        <stop offset="100%" stop-color="#660008"/>
+       </linearGradient>
+       <linearGradient id="gW" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#FFFFFF"/>
+        <stop offset="40%" stop-color="#CCCCCC"/>
+        <stop offset="100%" stop-color="#888888"/>
+       </linearGradient>
+       <filter id="fP"><feDropShadow dx="5" dy="5" stdDeviation="4" flood-color="#001033" flood-opacity=".7"/></filter>
+       <filter id="fS"><feDropShadow dx="5" dy="5" stdDeviation="4" flood-color="#330000" flood-opacity=".7"/></filter>
+      </defs>
+      <!-- P — big bold italic, blue gradient, drop shadow -->
+      <text x="8"  y="168" font-family="Arial Black,Impact,sans-serif" font-size="190"
+            font-weight="900" font-style="italic" fill="url(#gP)" filter="url(#fP)">P</text>
+      <!-- S — overlaps P slightly, red gradient, drop shadow -->
+      <text x="120" y="178" font-family="Arial Black,Impact,sans-serif" font-size="190"
+            font-weight="900" font-style="italic" fill="url(#gS)" filter="url(#fS)">S</text>
+     </svg>
+     <!-- PlayStation wordmark -->
+     <div id="ps-wordmark">PlayStation</div>
+    </div>
+    <div id="ps-bars-wrap">
+     <div class="ps-bar" style="background:linear-gradient(180deg,#4488FF,#003087)"></div>
+     <div class="ps-bar" style="background:linear-gradient(180deg,#FF4444,#e4000f)"></div>
+     <div class="ps-bar" style="background:linear-gradient(180deg,#44CC44,#009900)"></div>
+     <div class="ps-bar" style="background:linear-gradient(180deg,#FFCC44,#f5a623)"></div>
     </div>
    </div>
+
    <div id="load-screen">
     <div id="disc"></div>
     <div id="load-txt">NOW LOADING...</div>
    </div>
   </div>
 
-  <!-- GAME -->
+  <!-- ══ GAME ══ -->
   <canvas id="gc"></canvas>
   <div id="crt-over"></div>
   <div id="vignette"></div>
+  <div id="flicker"></div>
 
+  <!-- HUD -->
   <div id="hud">
-   <div class="ht" id="htl">SCORE: <span id="ss">0</span><br>$: <span id="sc">0</span> &nbsp; MAGA: <span id="sh">0</span></div>
-   <div class="ht" id="htr">WALL-O-METER<br><span id="sw">░░░░░░░░░░ 0%</span></div>
-   <div class="ht" id="hbl">HP: <span id="shp">♥♥♥♥♥</span></div>
-   <div class="ht" id="hbr">WASD: MOVE &nbsp; Q/E: TURN<br>SPACE: JUMP &nbsp; CLICK: LOOK</div>
+   <div class="ht" id="htl">ORDERS: <span id="sord">0</span>/10<br>WALL: <span id="sw">░░░░░ 0%</span></div>
+   <div class="ht" id="htr">TARIFF TOKENS: <span id="stariff">0</span>/5<br><span id="corrupted" style="color:#550000"></span></div>
+   <div class="ht" id="hbl">HEALTH: <span id="shp">♥♥♥♥♥</span></div>
+   <div class="ht" id="hbr">WASD:MOVE &nbsp; Q/E:TURN<br>SPACE:JUMP &nbsp; CLICK:LOOK</div>
+   <div id="ticker">
+    <div id="ticker-label">BREAKING</div>
+    <div id="ticker-inner">
+     EXECUTIVE ORDER #47: ALL WALLS NOW MANDATORY ★★★ TARIFF UPDATE: EVERYTHING NOW 300% MORE EXPENSIVE ★★★ FAKE NEWS REPORTERS SPOTTED IN MANDATE DIMENSION — AUTHORITIES NOTIFIED ★★★ ECONOMISTS BAFFLED: "THE NUMBERS DON'T EXIST ANYMORE" ★★★ PRESS SECRETARY CONFIRMS: ALTERNATIVE FACTS ARE NOW LEGAL TENDER ★★★ SOURCES SAY SOURCES ARE FAKE ★★★ THE MANDATE DIMENSION GROWS STRONGER ★★★ WALL-O-METER AT CRITICAL LEVELS ★★★ DEEP STATE DEEPENS ★★★ TARIFF ON GRAVITY PROPOSED ★★★ EXPERTS AGREE: EXPERTS ARE THE PROBLEM
+    </div>
+   </div>
   </div>
 
+  <!-- ══ MENU ══ -->
   <div class="gscreen" id="smenu">
-   <div class="gtitle">TRUMP:<br>BUILD THE WALL!</div>
-   <div class="gsub">★ PS1 VOXEL EDITION ★</div>
+   <div class="gtitle">TRUMP:<br>MANDATE DIMENSION</div>
+   <div class="gsub">★ PS1 HORROR EDITION ★</div>
+   <div class="gstory">
+    WASHINGTON, 2025. THE MANDATE DIMENSION HAS CRACKED OPEN.<br>
+    EXECUTIVE ORDERS DRIFT LIKE LOST SOULS IN THE FOG.<br>
+    THE PRESS HUNTS. THE WALL AWAITS. FIVE FATES POSSIBLE.<br>
+    ONLY ONE TRUTH: THE DIMENSION ALWAYS CLAIMS ITS OWN.
+   </div>
    <div class="ibox">
-    COLLECT GOLD COINS &nbsp;&nbsp;&nbsp;+100 PTS<br>
-    COLLECT MAGA HATS &nbsp;&nbsp;&nbsp;+500 PTS<br>
-    COLLECT WALL BRICKS &nbsp;+200 PTS<br>
-    AVOID FAKE NEWS REPORTERS!<br><br>
-    BUILD ALL 15 WALL PIECES TO WIN!
+    ★ COLLECT EXECUTIVE ORDERS &nbsp;&nbsp;&nbsp;+200 PTS<br>
+    ★ COLLECT WALL BRICKS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+150 PTS<br>
+    ★ FIND TARIFF TOKENS (SECRET) &nbsp;+500 PTS<br>
+    ★ AVOID FAKE NEWS REPORTERS<br>
+    ★ FIVE POSSIBLE ENDINGS
    </div>
    <div class="blk" id="startbtn">▶ PRESS START ◀</div>
   </div>
 
-  <div class="gscreen" id="swin">
-   <div class="rbig" style="color:#FFD700">THE WALL IS BUILT!</div>
-   <div class="rsub" style="color:#44FF44">AMERICA IS GREAT AGAIN!</div>
-   <div class="rscr">FINAL SCORE: <span id="wsco">0</span></div>
+  <!-- ══ ENDINGS ══ -->
+  <!-- Ending 1: Tremendous / horror loop -->
+  <div class="gscreen" id="send1">
+   <div class="rbig" style="color:#CC8800">TREMENDOUS.<br>ABSOLUTELY TREMENDOUS.</div>
+   <div class="rsub" style="color:#666">THE WALL IS COMPLETE. ALL ORDERS SIGNED.</div>
+   <div class="rtext">
+    The wall rises from the fog. The executive orders glow in the dark.<br>
+    America is great again. You are certain of this.<br>
+    Somewhere, a dimension cracks open.<br>
+    A familiar figure stumbles through the fog toward the first executive order.<br>
+    <span style="color:#440000">THE DIMENSION ALWAYS CLAIMS ITS OWN.</span>
+   </div>
+   <div class="rscr">SCORE: <span id="s1sc">0</span> &nbsp;|&nbsp; ENDING 1/5: THE LOOP</div>
    <button class="gbtn" onclick="resetGame()">PLAY AGAIN</button>
   </div>
 
-  <div class="gscreen" id="slose">
-   <div class="rbig" style="color:#FF4444">FAKE NEWS WINS!</div>
-   <div class="rsub" style="color:#FF6666">YOU HAVE BEEN CANCELLED!</div>
-   <div class="rscr">SCORE: <span id="lsco">0</span></div>
+  <!-- Ending 2: Cancelled (health=0, many orders) -->
+  <div class="gscreen" id="send2">
+   <div class="rbig" style="color:#FF4444">YOU HAVE BEEN<br>CANCELLED.</div>
+   <div class="rsub" style="color:#880000">THE FOURTH ESTATE CONSUMED YOU.</div>
+   <div class="rtext">
+    The reporters close in. Their cameras flash in the dark fog.<br>
+    Every flash: a headline. Every headline: a wound.<br>
+    The mandates dissolve. The wall, half-built, crumbles.<br>
+    <span style="color:#660000">THEY SAID IT COULDN'T HAPPEN.</span><br>
+    <span style="color:#440000">THEY WERE RIGHT. THEN THEY WERE WRONG. THEN THEY WERE CANCELLED TOO.</span>
+   </div>
+   <div class="rscr">SCORE: <span id="s2sc">0</span> &nbsp;|&nbsp; ENDING 2/5: THE PRESS</div>
    <button class="gbtn" onclick="resetGame()">TRY AGAIN</button>
   </div>
 
-  <!-- MOBILE CONTROLS -->
+  <!-- Ending 3: Deep State (health=0, few orders) -->
+  <div class="gscreen" id="send3">
+   <div class="rbig" style="color:#884400">THE DEEP STATE<br>CONSUMED YOU.</div>
+   <div class="rsub" style="color:#662200">THEY WERE THERE ALL ALONG.</div>
+   <div class="rtext">
+    You never found enough orders. The wall was never built.<br>
+    The shadows in the fog were not reporters. They were something older.<br>
+    Something that existed before any mandate. Before any wall.<br>
+    Before any dimension cracked open.<br>
+    <span style="color:#440000">IT WAS ALWAYS THE DEEP STATE. EVEN WHEN IT WASN'T.</span>
+   </div>
+   <div class="rscr">SCORE: <span id="s3sc">0</span> &nbsp;|&nbsp; ENDING 3/5: THE DEEP STATE</div>
+   <button class="gbtn" onclick="resetGame()">TRY AGAIN</button>
+  </div>
+
+  <!-- Ending 4: The Deal (tariff tokens) -->
+  <div class="gscreen" id="send4">
+   <div class="rbig" style="color:#886600">THE GREAT DEAL<br>IS SEALED.</div>
+   <div class="rsub" style="color:#664400">TARIFFS ECHO ACROSS DIMENSIONS.</div>
+   <div class="rtext">
+    You found the tokens. Five golden coins from the fog of trade.<br>
+    The deal was made. With whom? That part is classified.<br>
+    Factories hum in the distance. The numbers don't add up but they feel tremendous.<br>
+    The reporters photograph the wall being built by workers who no longer exist.<br>
+    <span style="color:#442200">IN THE MANDATE DIMENSION, ALL DEALS ARE FINAL. FOREVER.</span>
+   </div>
+   <div class="rscr">SCORE: <span id="s4sc">0</span> &nbsp;|&nbsp; ENDING 4/5: THE DEAL</div>
+   <button class="gbtn" onclick="resetGame()">PLAY AGAIN</button>
+  </div>
+
+  <!-- Ending 5: True ending (all items) -->
+  <div class="gscreen" id="send5">
+   <div class="rbig" style="color:#440000">YOU FOUND THE TRUTH.<br>YOU WISH YOU HADN'T.</div>
+   <div class="rsub" style="color:#330000">THE MANDATE DIMENSION REVEALS ITSELF.</div>
+   <div class="rtext">
+    All orders signed. The wall complete. Five tariff tokens collected.<br>
+    The fog lifts. You see it clearly now.<br>
+    The wall doesn't keep anyone out. It keeps you in.<br>
+    The executive orders were pages from a book that writes itself.<br>
+    The reporters were never the enemy. You were never the president.<br>
+    <span style="color:#220000">THE MANDATE DIMENSION IS NOT A PLACE.</span><br>
+    <span style="color:#110000">IT IS A MIRROR.</span><br><br>
+    <span style="color:#550000">[ THE END — OR IS IT? ]</span>
+   </div>
+   <div class="rscr">SCORE: <span id="s5sc">0</span> &nbsp;|&nbsp; ENDING 5/5: THE TRUTH</div>
+   <button class="gbtn" onclick="resetGame()">ESCAPE THE DIMENSION</button>
+  </div>
+
+  <!-- ══ MOBILE CONTROLS ══ -->
   <div id="mctrl">
    <div id="joy-zone">
     <div id="joy-base"><div id="joy-stick"></div></div>
    </div>
-   <div id="btn-right-zone"></div>
+   <div id="rzone"></div>
    <div id="btn-jump">✕</div>
   </div>
 
@@ -233,92 +390,111 @@ html,body{width:100%;height:100%;overflow:hidden;background:#0a0a0a;display:flex
 <script>
 'use strict';
 // ══════════════════════════════════════════════════════════════════════
-//  TRUMP: BUILD THE WALL! — PS1 Voxel Edition
-//  Full PS1 startup sequence + retro audio + mobile controls
+//  TRUMP: MANDATE DIMENSION — PS1 Horror Satire
 // ══════════════════════════════════════════════════════════════════════
 
-// ── AUDIO ENGINE ──────────────────────────────────────────────────────
-let actx=null, masterGain=null, musicGain=null;
-let musicPlaying=false, musicTimer=null;
+const $=id=>document.getElementById(id);
+
+// ── AUDIO ─────────────────────────────────────────────────────────────
+let actx=null,masterGain=null,musicGain=null,musicPlaying=false,musicTimer=null;
 
 function initAudio(){
-  if(actx) return;
+  if(actx)return;
   actx=new(window.AudioContext||window.webkitAudioContext)();
-  masterGain=actx.createGain(); masterGain.gain.value=0.72; masterGain.connect(actx.destination);
-  musicGain=actx.createGain(); musicGain.gain.value=0.38; musicGain.connect(masterGain);
+  masterGain=actx.createGain(); masterGain.gain.value=0.7; masterGain.connect(actx.destination);
+  musicGain=actx.createGain(); musicGain.gain.value=0.4; musicGain.connect(masterGain);
 }
 
-function note(freq,startT,dur,vol=0.12,type='sine',dst){
-  if(!actx)return;
-  const o=actx.createOscillator(), g=actx.createGain();
+function sched(freq,t,dur,vol=0.1,type='sine',dst){
+  if(!actx)return null;
+  const o=actx.createOscillator(),g=actx.createGain();
   o.type=type; o.frequency.value=freq;
   o.connect(g); g.connect(dst||masterGain);
-  const t=startT;
   g.gain.setValueAtTime(0,t);
-  g.gain.linearRampToValueAtTime(vol,t+0.015);
-  g.gain.setValueAtTime(vol,Math.max(t+0.015,t+dur-0.04));
+  g.gain.linearRampToValueAtTime(vol,t+0.014);
+  g.gain.setValueAtTime(vol,Math.max(t+0.014,t+dur-0.045));
   g.gain.linearRampToValueAtTime(0,t+dur);
   o.start(t); o.stop(t+dur);
+  return o;
 }
 
-// PS1 iconic boot chord
+// Chorus note: main + two detuned copies for PS1 synth richness
+function chorusNote(freq,t,dur,vol,cents=7){
+  sched(freq,t,dur,vol*0.65,'sine');
+  sched(freq*Math.pow(2,cents/1200),t,dur,vol*0.2,'sine');
+  sched(freq*Math.pow(2,-cents/1200),t,dur,vol*0.15,'sine');
+}
+
+// PS1 Boot Chord — A-major cascade, authentic timing
 function playBootChord(){
   if(!actx)return;
   const n=actx.currentTime;
-  // low drone builds up
-  note(55,  n+0.00, 4.5, 0.28,'sine');
-  note(110, n+0.15, 4.2, 0.18,'sine');
-  // ascending cascade
-  note(165, n+0.70, 3.5, 0.13,'sine');
-  note(220, n+1.00, 3.2, 0.12,'sine');
-  note(330, n+1.35, 3.0, 0.10,'sine');
-  note(440, n+1.70, 2.8, 0.09,'sine');
-  note(550, n+2.00, 2.5, 0.07,'sine');
-  // crystalline highs
-  note(660, n+2.20, 2.5, 0.06,'sine');
-  note(880, n+2.50, 2.3, 0.05,'sine');
-  note(1100,n+2.75, 2.0, 0.035,'sine');
-  note(1320,n+3.00, 1.8, 0.025,'sine');
-  // final sustained chord
-  note(220, n+3.00, 2.2, 0.16,'sine');
-  note(330, n+3.00, 2.2, 0.13,'sine');
-  note(440, n+3.00, 2.2, 0.11,'sine');
-  note(550, n+3.00, 2.2, 0.07,'sine');
-  note(660, n+3.00, 2.2, 0.05,'sine');
+  // Low drone
+  chorusNote(55,  n+0.00, 5.0, 0.26);
+  chorusNote(110, n+0.18, 4.6, 0.16);
+  // Ascending cascade (faster than before, more PS1-accurate)
+  chorusNote(165, n+0.65, 4.0, 0.12);
+  chorusNote(220, n+0.95, 3.7, 0.11);
+  chorusNote(277, n+1.22, 3.4, 0.09); // C#4
+  chorusNote(330, n+1.48, 3.1, 0.09);
+  chorusNote(415, n+1.72, 2.8, 0.07); // Ab4 / G#4
+  chorusNote(440, n+1.95, 2.8, 0.08);
+  // High sparkle cascade
+  chorusNote(554, n+2.15, 2.5, 0.06);
+  chorusNote(659, n+2.32, 2.3, 0.055);
+  chorusNote(831, n+2.46, 2.1, 0.04);
+  chorusNote(880, n+2.58, 2.0, 0.035);
+  // Sustained final A-major chord
+  const cs=[220,277,330,415,440,554,659];
+  const vs=[0.18,0.12,0.12,0.07,0.10,0.06,0.05];
+  cs.forEach((f,i)=>chorusNote(f,n+2.85,2.4,vs[i]));
 }
 
-// Menu music — A minor chiptune loop
-const B=60/120; // beat at 120 BPM = 0.5s
-const MMEL=[
-  [440,B*0,B*.4],[523,B*.5,B*.4],[659,B*1,B*.4],[784,B*1.5,B*.35],
-  [659,B*2,B*.55],[587,B*3,B*.4],[523,B*3.5,B*.4],[440,B*4,B*.8],
-  [523,B*5,B*.4],[587,B*5.5,B*.4],[659,B*6,B*.4],[784,B*6.5,B*.35],
-  [659,B*7,B*.8],[523,B*8,B*.4],[440,B*8.5,B*.4],[392,B*9,B*.55],
-  [440,B*10,B*.4],[523,B*10.5,B*.4],[587,B*11,B*.8],
-  [523,B*12,B*.4],[440,B*12.5,B*.4],[392,B*13,B*.4],[330,B*13.5,B*.4],
-  [440,B*14,B*2]
-];
-const MBAS=[
-  [110,B*0,B*.85],[110,B*2,B*.85],[130,B*4,B*.85],[130,B*6,B*.85],
-  [87, B*8,B*.85],[87, B*10,B*.85],[110,B*12,B*.85],[98, B*14,B*.85]
-];
-const MCHD=[ {t:B*0,n:[220,277,330]},{t:B*4,n:[196,247,294]},{t:B*8,n:[175,220,261]},{t:B*12,n:[196,247,330]} ];
-const MLOOP=B*16;
+// ── HORROR AMBIENT MUSIC (Silent Hill inspired) ─────────────────────
+const HLOOP=24; // 24-second loop
 
-function schedMusic(at){
-  MMEL.forEach(([f,t,d])=>note(f,at+t,d,0.09,'square',musicGain));
-  MBAS.forEach(([f,t,d])=>note(f,at+t,d,0.17,'triangle',musicGain));
-  MCHD.forEach(c=>c.n.forEach(f=>note(f,at+c.t,B*3.5,0.042,'sine',musicGain)));
-  for(let i=1;i<16;i+=2) note(160+Math.random()*40,at+i*B,0.055,0.058,'sawtooth',musicGain);
+function schedHorror(at){
+  if(!actx)return;
+  // Sub-bass drone layers (very low, unsettling)
+  [[40,.032],[55,.025],[73,.018]].forEach(([f,v])=>{
+    sched(f,at,HLOOP,v,'sawtooth',musicGain);
+  });
+  // Slow LFO tremolo on mid drone
+  sched(110,at,HLOOP,0.015,'triangle',musicGain);
+
+  // Sparse eerie melody (Silent Hill's piano-like notes)
+  const mel=[
+    [220, 1.5, 0.8, 0.055,'triangle'],
+    [185, 4.2, 0.6, 0.045,'triangle'],
+    [196, 7.8, 1.0, 0.06, 'triangle'],
+    [165, 11.3,0.7, 0.05, 'triangle'],
+    [220, 14.5,0.8, 0.055,'triangle'],
+    [246, 16.2,0.5, 0.04, 'triangle'],
+    [220, 17.8,1.2, 0.06, 'triangle'],
+    [185, 20.5,1.5, 0.055,'triangle'],
+    [165, 23.0,1.0, 0.05, 'triangle'],
+  ];
+  mel.forEach(([f,t,d,v,type])=>sched(f,at+t,d,v,type,musicGain));
+
+  // Industrial metallic hits (random offsets)
+  [2.8,7.1,11.6,15.9,20.4].forEach(t=>{
+    const f=60+Math.random()*80;
+    sched(f,at+t,0.06,0.12,'sawtooth',musicGain);
+    sched(f*1.5,at+t+0.02,0.05,0.06,'sawtooth',musicGain);
+  });
+
+  // High-pitched anxiety drone (very quiet, unsettling)
+  sched(1100,at,HLOOP,0.008,'sine',musicGain);
+  sched(1320,at+0.3,HLOOP,0.005,'sine',musicGain);
 }
 
-function startMusic(){
+function startHorrorMusic(){
   if(!actx||musicPlaying)return;
   musicPlaying=true;
   (function loop(){
     if(!musicPlaying)return;
-    schedMusic(actx.currentTime+0.05);
-    musicTimer=setTimeout(loop,(MLOOP-0.12)*1000);
+    schedHorror(actx.currentTime+0.05);
+    musicTimer=setTimeout(loop,(HLOOP-0.15)*1000);
   })();
 }
 
@@ -328,143 +504,134 @@ function stopMusic(){
 }
 
 // SFX
-function sfxCoin(){if(!actx)return;note(660,actx.currentTime,0.06,0.22,'square');note(1320,actx.currentTime+0.07,0.09,0.17,'square');}
-function sfxHat(){if(!actx)return;[440,660,880].forEach((f,i)=>note(f,actx.currentTime+i*.08,0.1,0.17,'square'));}
-function sfxBrick(){if(!actx)return;note(220,actx.currentTime,0.1,0.22,'sawtooth');note(330,actx.currentTime+0.05,0.1,0.13,'sawtooth');}
-function sfxHit(){if(!actx)return;note(150,actx.currentTime,0.15,0.35,'sawtooth');note(75,actx.currentTime+0.1,0.2,0.25,'sine');}
-function sfxWin(){if(!actx)return;[523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>note(f,actx.currentTime,0.32,0.2,'square'),i*120));}
+function sfxOrder(){if(!actx)return;[440,554,659,880].forEach((f,i)=>setTimeout(()=>sched(f,actx.currentTime,.18,.14,'sine'),i*55));}
+function sfxBrick(){if(!actx)return;sched(130,actx.currentTime,.12,.2,'sawtooth');sched(196,actx.currentTime+.06,.1,.12,'sawtooth');}
+function sfxTariff(){if(!actx)return;[330,415,523,659,830].forEach((f,i)=>setTimeout(()=>sched(f,actx.currentTime,.25,.15,'square'),i*70));}
+function sfxHit(){if(!actx)return;sched(120,actx.currentTime,.18,.38,'sawtooth');sched(60,actx.currentTime+.12,.22,.28,'sine');}
+function sfxWin(){if(!actx)return;[523,659,784,1047,1319].forEach((f,i)=>setTimeout(()=>sched(f,actx.currentTime,.35,.22,'square'),i*130));}
 
-// ── STARTUP SEQUENCE ──────────────────────────────────────────────────
-const $=id=>document.getElementById(id);
-const tapScr=$('tap-screen'), staticCv=$('static-cv');
-const crtOn=$('crt-on'), crtLine=$('crt-line');
-const sceScr=$('sce-screen'), sceTxt=$('sce-text'), sceSub=$('sce-sub');
-const psScr=$('ps-screen'), psLogo=$('ps-logo'), psBars=$('ps-bars');
-const loadScr=$('load-screen');
-const startupEl=$('startup'), gc=$('gc');
+// ── STARTUP SEQUENCE ─────────────────────────────────────────────────
 let startupDone=false;
-
-function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
 function animStatic(ms){
   return new Promise(r=>{
-    staticCv.style.display='block';
-    const ctx=staticCv.getContext('2d');
-    staticCv.width=80; staticCv.height=60;
+    const cv=$('static-cv'); cv.style.display='block';
+    const ctx=cv.getContext('2d'); cv.width=80; cv.height=60;
     const end=Date.now()+ms;
-    (function frame(){
+    (function f(){
       const d=ctx.createImageData(80,60);
-      for(let i=0;i<d.data.length;i+=4){
-        const v=Math.random()*255|0;
-        d.data[i]=d.data[i+1]=d.data[i+2]=v; d.data[i+3]=255;
-      }
+      for(let i=0;i<d.data.length;i+=4){const v=Math.random()*255|0;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=255;}
       ctx.putImageData(d,0,0);
-      if(Date.now()<end) requestAnimationFrame(frame);
-      else{staticCv.style.display='none';r();}
+      if(Date.now()<end)requestAnimationFrame(f);else{cv.style.display='none';r();}
     })();
   });
 }
 
 async function runStartup(){
-  // 1. TV static
-  await animStatic(1300);
+  await animStatic(1400);
 
-  // 2. CRT power-on line
-  crtOn.style.display='block';
+  $('crt-on').style.display='block';
   await sleep(40);
-  crtLine.style.transition='transform .75s ease-out';
-  crtLine.style.transform='scaleY(1)';
-  await sleep(900);
-  crtOn.style.display='none';
-  crtLine.style.transform='scaleY(0.003)';
-  crtLine.style.transition='none';
+  $('crt-line').style.transition='transform .72s ease-out';
+  $('crt-line').style.transform='scaleY(1)';
+  await sleep(860);
+  $('crt-on').style.display='none';
+  $('crt-line').style.transition='none';
+  $('crt-line').style.transform='scaleY(.003)';
 
-  // 3. Sony screen + boot chord
-  sceScr.style.display='flex';
+  $('sce-screen').style.display='flex';
   await sleep(80);
-  sceTxt.style.opacity='1';
-  sceSub.style.opacity='1';
+  $('sce-text').style.opacity='1';
+  $('sce-sub').style.opacity='1';
   playBootChord();
-  await sleep(3600);
-  sceScr.style.display='none';
-  sceTxt.style.opacity='0';
-  sceSub.style.opacity='0';
+  await sleep(3700);
+  $('sce-screen').style.display='none';
+  $('sce-text').style.opacity='0';
+  $('sce-sub').style.opacity='0';
 
-  // 4. PlayStation logo
-  psScr.style.display='flex';
+  $('ps-screen').style.display='flex';
   await sleep(80);
-  psLogo.style.opacity='1';
-  await sleep(450);
-  psBars.style.opacity='1';
-  await sleep(2400);
-  psScr.style.display='none';
-  psLogo.style.opacity='0';
-  psBars.style.opacity='0';
+  $('ps-logo-wrap').style.opacity='1';
+  await sleep(500);
+  $('ps-bars-wrap').style.opacity='1';
+  await sleep(2500);
+  $('ps-screen').style.display='none';
+  $('ps-logo-wrap').style.opacity='0';
+  $('ps-bars-wrap').style.opacity='0';
 
-  // 5. Now Loading
-  loadScr.style.display='flex';
+  $('load-screen').style.display='flex';
   await sleep(2800);
-  loadScr.style.display='none';
+  $('load-screen').style.display='none';
 
-  // 6. Game on
-  startupEl.style.display='none';
-  gc.style.opacity='1';
+  $('startup').style.display='none';
+  $('gc').style.opacity='1';
   gState='menu';
   $('smenu').style.display='flex';
-  startMusic();
+  startHorrorMusic();
 }
 
 function beginStartup(){
-  if(startupDone)return;
-  startupDone=true;
-  tapScr.style.display='none';
-  initAudio();
-  runStartup();
+  if(startupDone)return; startupDone=true;
+  $('tap-screen').style.display='none';
+  initAudio(); runStartup();
 }
 
-['click','touchend'].forEach(ev=>{
-  tapScr.addEventListener(ev,e=>{e.preventDefault();beginStartup();},{once:true,passive:false});
-});
+['click','touchend'].forEach(ev=>$('tap-screen').addEventListener(ev,e=>{e.preventDefault();beginStartup();},{once:true,passive:false}));
 document.addEventListener('keydown',e=>{if(e.code==='Space'&&!startupDone)beginStartup();});
 
-// ── THREE.JS ──────────────────────────────────────────────────────────
-const RW=320,RH=240,SNAP=90;
-const renderer=new THREE.WebGLRenderer({canvas:gc,antialias:false});
-renderer.setSize(RW,RH);renderer.setPixelRatio(1);
+// ── THREE.JS SCENE ────────────────────────────────────────────────────
+const RW=320,RH=240,QS=90;
+const renderer=new THREE.WebGLRenderer({canvas:$('gc'),antialias:false});
+renderer.setSize(RW,RH); renderer.setPixelRatio(1);
 
 const scene=new THREE.Scene();
-scene.background=new THREE.Color(0x4466BB);
-scene.fog=new THREE.Fog(0x4466BB,26,68);
+// Dark horror fog (Silent Hill-style — fog is very close)
+scene.background=new THREE.Color(0x120805);
+scene.fog=new THREE.Fog(0x120805,8,38);
 
-const camera=new THREE.PerspectiveCamera(65,RW/RH,0.1,100);
+const camera=new THREE.PerspectiveCamera(68,RW/RH,.1,80);
 camera.position.set(0,4,12);
 
-scene.add(new THREE.AmbientLight(0xffffff,0.78));
-const sun=new THREE.DirectionalLight(0xffffdd,0.55);
-sun.position.set(2,5,1);scene.add(sun);
+const ambLight=new THREE.AmbientLight(0x331108,0.35);
+scene.add(ambLight);
+const playerLight=new THREE.PointLight(0xFF9944,0.9,18);
+scene.add(playerLight);
+const fogLight=new THREE.DirectionalLight(0x220806,0.2);
+fogLight.position.set(-2,5,2); scene.add(fogLight);
 
-// Materials
-function m(c){return new THREE.MeshLambertMaterial({color:c,flatShading:true});}
+// Materials — horror/desaturated palette
+function m(c,e=0,ei=0){return new THREE.MeshLambertMaterial({color:c,flatShading:true,emissive:e,emissiveIntensity:ei});}
 const M={
-  grass:m(0x44AA44),grass2:m(0x338833),stone:m(0x888888),stone2:m(0x666666),
-  gold:m(0xFFD700),goldDk:m(0xB8860B),
-  orange:m(0xFF8C00),yellow:m(0xFFEE00),navy:m(0x1a1a6e),red:m(0xCC1111),
-  white:m(0xFFFFFF),dark:m(0x1a1a1a),skin:m(0xFFCCAA),
-  wall:m(0xCCBBAA),wallDk:m(0xAA9988),
-  repC:m(0x222244),camC:m(0x080808),magaRed:m(0xBB0000),
-  glass:m(0x88BBEE),towerG:m(0xFFD700),
-  leaves:m(0x226622),trunk:m(0x664422),leafB:m(0x1A5C1A),
-  cloud:m(0xEEEEFF),coin:m(0xFFD700),brick:m(0xCCBBAA),
+  ground:m(0x111111),ground2:m(0x1a1108),
+  cracked:m(0x0e0e0e),
+  stone:m(0x2a2218),stone2:m(0x1e1a14),
+  gold:m(0xCC7700,0xAA5500,.5),goldDk:m(0x884400),
+  orange:m(0xCC5500),yellow:m(0xBB8800),
+  navy:m(0x0a0a2e),red:m(0x880808),
+  white:m(0xCCCCCC),dark:m(0x0a0a0a),
+  wall:m(0x554433),wallDk:m(0x3a2a1e),wallGlow:m(0x553322,0x330a00,.3),
+  shadow:m(0x080808),eyeGlow:m(0x110000,0xFF0000,1.2),
+  towerG:m(0x443300,0x221100,.4),towerW:m(0x1a1a1a),
+  leaves:m(0x0a1a0a),trunk:m(0x1a0e08),leafB:m(0x060e06),
+  order:m(0xEECC88,0xBB8833,.8), // Executive order — glowing paper
+  orderBg:m(0xDDCC77,0xAA7722,.6),
+  brickPc:m(0x554433,0x221108,.2),
+  tariff:m(0xFFCC00,0xDD9900,1.4),  // Tariff token — very bright
+  maga:m(0x550000,0x330000,.3),
+  cloud:m(0x0a0805),
 };
+
 function bx(mat,x,y,z,sx=1,sy=1,sz=1){
   const mesh=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),mat);
-  mesh.position.set(x,y,z);return mesh;
+  mesh.position.set(x,y,z); return mesh;
 }
 
-// ── WORLD ──────────────────────────────────────────────────────────────
+// ── WORLD ─────────────────────────────────────────────────────────────
 const WR=22;
-const worldGrp=new THREE.Group();scene.add(worldGrp);
+const worldGrp=new THREE.Group(); scene.add(worldGrp);
 const platforms=[];
+
 const PDEFS=[
   {x:-7,z:-8,w:4,d:4,h:2},{x:6,z:-6,w:3,d:3,h:3},
   {x:-11,z:4,w:5,d:3,h:2},{x:8,z:6,w:4,d:4,h:2},
@@ -476,46 +643,49 @@ const PDEFS=[
 function buildWorld(){
   while(worldGrp.children.length)worldGrp.remove(worldGrp.children[0]);
   platforms.length=0;
-  for(let x=-WR;x<WR;x++)for(let z=-WR;z<WR;z++)
-    worldGrp.add(bx((Math.abs(x)+Math.abs(z))%2===0?M.grass:M.grass2,x+.5,-.5,z+.5));
-  for(let i=-WR;i<WR;i++)for(let h=0;h<3;h++){
-    worldGrp.add(bx(M.stone,i+.5,h+.5,-WR+.5));
-    worldGrp.add(bx(M.stone,i+.5,h+.5,WR-.5));
-    worldGrp.add(bx(M.stone,-WR+.5,h+.5,i+.5));
-    worldGrp.add(bx(M.stone,WR-.5,h+.5,i+.5));
+  // Dark cracked ground
+  for(let x=-WR;x<WR;x++) for(let z=-WR;z<WR;z++){
+    const alt=(Math.abs(x)+Math.abs(z))%2===0;
+    worldGrp.add(bx(alt?M.ground:M.ground2,x+.5,-.5,z+.5));
   }
+  // Boundary walls
+  for(let i=-WR;i<WR;i++) for(let h=0;h<4;h++){
+    [[-WR+.5],[WR-.5]].forEach(([zv])=>worldGrp.add(bx(M.stone,i+.5,h+.5,zv)));
+    [[-WR+.5],[WR-.5]].forEach(([xv])=>worldGrp.add(bx(M.stone,xv,h+.5,i+.5)));
+  }
+  // Platforms
   PDEFS.forEach(p=>{
-    for(let bx2=0;bx2<p.w;bx2++)for(let bz=0;bz<p.d;bz++)for(let by=0;by<p.h;by++)
+    for(let bx2=0;bx2<p.w;bx2++) for(let bz=0;bz<p.d;bz++) for(let by=0;by<p.h;by++)
       worldGrp.add(bx(by%2===0?M.stone:M.stone2,p.x+bx2+.5,by+.5,p.z+bz+.5));
     platforms.push({x:p.x,z:p.z,w:p.w,d:p.d,h:p.h});
   });
+  // Trump Tower (ominous, dark, looming)
   buildTower(16,0,-19);
-  for(let wx=-8;wx<9;wx++)worldGrp.add(bx(M.wallDk,wx+.5,-.5,-WR+3.5));
-  [[-12,-16],[12,-14],[-16,8],[14,10],[-6,16],[8,-18],
-   [16,-6],[-18,-12],[4,18],[-16,16],[18,2],[-4,-18],[0,20],[15,15],[-18,5]
-  ].forEach(([tx,tz])=>addTree(tx,tz));
-  [[-2,18,-26],[10,16,-23],[-9,20,-29]].forEach(([cx,cy,cz])=>{
-    worldGrp.add(bx(M.cloud,cx,cy,cz,6,1.5,2));
-    worldGrp.add(bx(M.cloud,cx+2,cy+1,cz,3,1,2));
-  });
-}
-function buildTower(x,y,z){
-  for(let ty=0;ty<26;ty++){
-    const mat=ty%4===0?M.towerG:M.glass;
-    for(let tx=0;tx<5;tx++)for(let tz=0;tz<5;tz++)
-      worldGrp.add(bx(mat,x+tx,y+ty,z+tz));
-  }
-  for(let tx=1;tx<4;tx++)for(let tz=1;tz<4;tz++)worldGrp.add(bx(M.towerG,x+tx,y+26,z+tz));
-  worldGrp.add(bx(M.gold,x+1.5,y+27.5,z+1.5,3,.6,3));
-}
-function addTree(tx,tz){
-  worldGrp.add(bx(M.trunk,tx,.5,tz,.6,2,.6));
-  worldGrp.add(bx(M.leaves,tx,2.5,tz,2.5,2,2.5));
-  worldGrp.add(bx(M.leafB,tx,3.5,tz,1.5,1.2,1.5));
+  // Wall foundation
+  for(let wx=-8;wx<9;wx++) worldGrp.add(bx(M.wallDk,wx+.5,-.5,-WR+3.5));
+  // Dead trees
+  [[-12,-16],[12,-14],[-16,8],[14,10],[-6,16],[8,-18],[16,-6],[-18,-12],[4,18],[-16,16],[18,2],[-4,-18]].forEach(([tx,tz])=>addTree(tx,tz));
+  // Dark clouds
+  [[-2,12,-24],[10,10,-22],[-8,14,-27]].forEach(([cx,cy,cz])=>worldGrp.add(bx(M.cloud,cx,cy,cz,6,1.2,2)));
 }
 
-// ── TRUMP CHARACTER ───────────────────────────────────────────────────
-const pGrp=new THREE.Group();scene.add(pGrp);
+function buildTower(x,y,z){
+  for(let ty=0;ty<26;ty++){
+    const mat=ty%4===0?M.towerG:M.towerW;
+    for(let tx=0;tx<5;tx++) for(let tz=0;tz<5;tz++)
+      worldGrp.add(bx(mat,x+tx,y+ty,z+tz));
+  }
+  for(let tx=1;tx<4;tx++) for(let tz=1;tz<4;tz++) worldGrp.add(bx(M.towerG,x+tx,y+26,z+tz));
+  worldGrp.add(bx(M.gold,x+1.5,y+27.5,z+1.5,3,.5,3));
+}
+function addTree(tx,tz){
+  worldGrp.add(bx(M.trunk,tx,.5,tz,.5,2.5,.5));
+  worldGrp.add(bx(M.leaves,tx,2.5,tz,1.8,1.5,1.8));
+  worldGrp.add(bx(M.leafB,tx,3.6,tz,1,0.8,1));
+}
+
+// ── TRUMP VOXEL CHARACTER ─────────────────────────────────────────────
+const pGrp=new THREE.Group(); scene.add(pGrp);
 function buildTrump(){
   while(pGrp.children.length)pGrp.remove(pGrp.children[0]);
   pGrp.add(bx(M.navy,-.22,-.25,0,.3,.6,.4)); pGrp.add(bx(M.navy,.22,-.25,0,.3,.6,.4));
@@ -540,68 +710,87 @@ buildTrump();
 pGrp.position.set(0,1,5);
 
 // ── COLLECTIBLES ──────────────────────────────────────────────────────
-const WG=15;
-const cGrp=new THREE.Group();scene.add(cGrp);
+const cGrp=new THREE.Group(); scene.add(cGrp);
 let collectibles=[];
-function rnd(){return(Math.random()-.5)*(WR*2-7);}
+function rnd(){return(Math.random()-.5)*(WR*2-8);}
+
 function spawnCollectibles(){
   while(cGrp.children.length)cGrp.remove(cGrp.children[0]);
   collectibles=[];
-  for(let i=0;i<20;i++){const cm=bx(M.coin,rnd(),1,rnd(),.6,.6,.6);cGrp.add(cm);collectibles.push({mesh:cm,type:'coin',active:true});}
+
+  // Executive Orders — glowing document papers
   for(let i=0;i<10;i++){
     const g=new THREE.Group();
-    g.add(bx(M.magaRed,0,0,0,.9,.12,.9));
-    g.add(bx(M.magaRed,0,.28,.1,.65,.44,.62));
-    g.add(bx(M.white,0,.22,.33,.48,.12,.05));
-    g.position.set(rnd(),1.3,rnd());
-    cGrp.add(g);collectibles.push({mesh:g,type:'hat',active:true});
+    g.add(bx(M.order,0,0,0,.8,.05,.6));      // paper sheet
+    g.add(bx(M.orderBg,0,.06,0,.7,.04,.5));  // second layer
+    g.add(bx(M.gold,0,.12,0,.05,.08,.02));   // seal top
+    g.position.set(rnd(),1.2,rnd());
+    cGrp.add(g); collectibles.push({mesh:g,type:'order',active:true});
   }
-  for(let i=0;i<WG;i++){const bm=bx(M.brick,rnd(),1,rnd(),.76,.76,.76);cGrp.add(bm);collectibles.push({mesh:bm,type:'brick',active:true});}
+
+  // Wall bricks
+  for(let i=0;i<15;i++){
+    const bm=bx(M.brickPc,rnd(),1,rnd(),.76,.76,.76);
+    cGrp.add(bm); collectibles.push({mesh:bm,type:'brick',active:true});
+  }
+
+  // Tariff Tokens — 5 hidden, distinct bright gold
+  for(let i=0;i<5;i++){
+    const g=new THREE.Group();
+    g.add(bx(M.tariff,0,0,0,.55,.55,.55));
+    g.add(bx(M.tariff,.28,0,0,.1,.3,.1));   // $ sign bar
+    g.add(bx(M.tariff,-.28,0,0,.1,.3,.1));
+    g.position.set(rnd(),1.4,rnd());
+    cGrp.add(g); collectibles.push({mesh:g,type:'tariff',active:true});
+  }
 }
 spawnCollectibles();
 
-const wGrp=new THREE.Group();scene.add(wGrp);
+const wGrp=new THREE.Group(); scene.add(wGrp);
 function addWallSeg(n){
   const col=(n-1)%17,row=Math.floor((n-1)/17),wx=col-8;
   wGrp.add(bx(M.wall,wx+.5,row*2+.5,-WR+3.5));
-  wGrp.add(bx(M.wallDk,wx+.5,row*2+1.5,-WR+3.5));
+  wGrp.add(bx(M.wallGlow,wx+.5,row*2+1.5,-WR+3.5));
 }
 
-// ── ENEMIES ───────────────────────────────────────────────────────────
-const eGrp=new THREE.Group();scene.add(eGrp);
+// ── ENEMIES (Reporter Demons) ─────────────────────────────────────────
+const eGrp=new THREE.Group(); scene.add(eGrp);
 let enemies=[];
+
 function buildReporter(){
   const g=new THREE.Group();
-  g.add(bx(M.repC,0,.5,0,.7,1,.55));
-  g.add(bx(M.skin,0,1.55,0,.6,.6,.6));
-  g.add(bx(M.camC,-.55,1.5,-.25,.5,.35,.4));
-  g.add(bx(M.white,-.55,1.5,-.48,.2,.2,.06));
-  g.add(bx(M.dark,.35,1.7,-.32,.1,.25,.1));
-  g.add(bx(M.white,.35,1.85,-.32,.18,.18,.18));
-  g.add(bx(M.dark,-.18,-.2,0,.27,.6,.4));
-  g.add(bx(M.dark,.18,-.2,0,.27,.6,.4));
+  g.add(bx(M.shadow,0,.5,0,.7,1,.55));       // dark body
+  g.add(bx(M.shadow,0,1.55,0,.6,.6,.6));     // head
+  g.add(bx(M.eyeGlow,-.18,1.65,-.32,.12,.1,.06)); // glowing red eye L
+  g.add(bx(M.eyeGlow,.18,1.65,-.32,.12,.1,.06));  // glowing red eye R
+  g.add(bx(M.dark,-.55,1.5,-.25,.5,.35,.4)); // camera
+  g.add(bx(M.eyeGlow,-.55,1.5,-.48,.18,.18,.04)); // lens glow
+  g.add(bx(M.shadow,-.18,-.2,0,.27,.6,.4));
+  g.add(bx(M.shadow,.18,-.2,0,.27,.6,.4));
   return g;
 }
+
 function spawnEnemies(){
   while(eGrp.children.length)eGrp.remove(eGrp.children[0]);
   enemies=[];
   for(let i=0;i<8;i++){
     let ex,ez;
     do{ex=rnd();ez=rnd();}while(Math.hypot(ex,ez-5)<8);
-    const r=buildReporter();r.position.set(ex,1,ez);
-    eGrp.add(r);enemies.push({mesh:r,speed:1.8+Math.random()*1.5,active:true});
+    const r=buildReporter(); r.position.set(ex,1,ez);
+    eGrp.add(r); enemies.push({mesh:r,speed:1.5+Math.random()*1.8,active:true});
   }
 }
 spawnEnemies();
 
 // ── PLAYER ────────────────────────────────────────────────────────────
-const GV=-24,JV=9,SPD=6,CD=6,CH=3;
+const GV=-24,JV=9,SPD=6,CD=6,CH=3.2;
 const P={pos:new THREE.Vector3(0,1,5),vel:new THREE.Vector3(0,0,0),
   yaw:0,pitch:0,onGround:true,invincible:0,flashT:0};
 
 // ── GAME STATE ────────────────────────────────────────────────────────
 let gState='startup';
-let score=0,coins=0,hats=0,wallPcs=0,hp=5;
+let score=0,ordersCollected=0,wallPcs=0,tariffTokens=0,hp=5;
+let corruption=0; // 0-1, increases with orders/wall, affects world
 
 // ── INPUT ─────────────────────────────────────────────────────────────
 const K={};
@@ -612,44 +801,34 @@ document.addEventListener('keydown',e=>{
   if(e.code==='Space'){e.preventDefault();if(gState==='menu')startPlaying();}
 });
 document.addEventListener('keyup',e=>K[e.code]=false);
-gc.addEventListener('click',()=>{if(gState==='playing')gc.requestPointerLock();});
-document.addEventListener('pointerlockchange',()=>{mouse.locked=document.pointerLockElement===gc;});
+$('gc').addEventListener('click',()=>{if(gState==='playing')$('gc').requestPointerLock();});
+document.addEventListener('pointerlockchange',()=>{mouse.locked=document.pointerLockElement===$('gc');});
 document.addEventListener('mousemove',e=>{if(mouse.locked){mouse.dx+=e.movementX;mouse.dy+=e.movementY;}});
 
 $('startbtn').addEventListener('click',()=>{if(gState==='menu')startPlaying();});
 $('startbtn').addEventListener('touchend',e=>{e.preventDefault();if(gState==='menu')startPlaying();},{passive:false});
 
 // ── MOBILE JOYSTICK ───────────────────────────────────────────────────
-const joyZone=$('joy-zone'), joyStick=$('joy-stick'), joyBase=$('joy-base');
 const JOY={active:false,id:null,ox:0,oy:0,x:0,y:0};
-const JR=38;
+const JR=36;
 
 function updateJoy(cx,cy){
-  const dx=cx-JOY.ox, dy=cy-JOY.oy;
-  const dist=Math.hypot(dx,dy), cap=Math.min(dist,JR);
-  const ang=Math.atan2(dy,dx);
-  const nx=Math.cos(ang)*cap, ny=Math.sin(ang)*cap;
+  const dx=cx-JOY.ox,dy=cy-JOY.oy,dist=Math.hypot(dx,dy),cap=Math.min(dist,JR),ang=Math.atan2(dy,dx);
+  const nx=Math.cos(ang)*cap,ny=Math.sin(ang)*cap;
   JOY.x=nx/JR; JOY.y=ny/JR;
-  joyStick.style.transform=`translate(calc(-50% + ${nx}px),calc(-50% + ${ny}px))`;
+  $('joy-stick').style.transform=`translate(calc(-50% + ${nx}px),calc(-50% + ${ny}px))`;
 }
-function resetJoy(){JOY.active=false;JOY.x=0;JOY.y=0;joyStick.style.transform='translate(-50%,-50%)';}
+function resetJoy(){JOY.active=false;JOY.x=0;JOY.y=0;$('joy-stick').style.transform='translate(-50%,-50%)';}
 
-joyZone.addEventListener('touchstart',e=>{
+$('joy-zone').addEventListener('touchstart',e=>{
   e.preventDefault();
-  const t=e.changedTouches[0];
-  const br=joyBase.getBoundingClientRect();
-  JOY.active=true;JOY.id=t.identifier;
-  JOY.ox=br.left+br.width/2;JOY.oy=br.top+br.height/2;
+  const t=e.changedTouches[0],br=$('joy-base').getBoundingClientRect();
+  JOY.active=true;JOY.id=t.identifier;JOY.ox=br.left+br.width/2;JOY.oy=br.top+br.height/2;
   updateJoy(t.clientX,t.clientY);
 },{passive:false});
-joyZone.addEventListener('touchmove',e=>{
-  e.preventDefault();
-  for(const t of e.changedTouches)if(t.identifier===JOY.id)updateJoy(t.clientX,t.clientY);
-},{passive:false});
-joyZone.addEventListener('touchend',e=>{e.preventDefault();resetJoy();},{passive:false});
-joyZone.addEventListener('touchcancel',e=>{e.preventDefault();resetJoy();},{passive:false});
+$('joy-zone').addEventListener('touchmove',e=>{e.preventDefault();for(const t of e.changedTouches)if(t.identifier===JOY.id)updateJoy(t.clientX,t.clientY);},{passive:false});
+['touchend','touchcancel'].forEach(ev=>$('joy-zone').addEventListener(ev,e=>{e.preventDefault();resetJoy();},{passive:false}));
 
-// Jump button + right zone
 function doJump(e){
   e.preventDefault();
   if(gState==='menu'){startPlaying();return;}
@@ -657,66 +836,45 @@ function doJump(e){
 }
 $('btn-jump').addEventListener('touchstart',doJump,{passive:false});
 $('btn-jump').addEventListener('mousedown',doJump,{passive:false});
-$('btn-right-zone').addEventListener('touchstart',doJump,{passive:false});
+$('rzone').addEventListener('touchstart',doJump,{passive:false});
 
-// ── GROUND CHECK ──────────────────────────────────────────────────────
+// ── PHYSICS ───────────────────────────────────────────────────────────
 function groundAt(x,z){
   for(const p of platforms)if(x>=p.x&&x<p.x+p.w&&z>=p.z&&z<p.z+p.d)return p.h;
   return 0;
 }
 
-// ── PLAYER UPDATE ─────────────────────────────────────────────────────
 function updatePlayer(dt){
-  if(mouse.locked){
-    P.yaw-=mouse.dx*.003;
-    P.pitch-=mouse.dy*.003;
-    P.pitch=Math.max(-.45,Math.min(.5,P.pitch));
-  }
+  if(mouse.locked){P.yaw-=mouse.dx*.003;P.pitch-=mouse.dy*.003;P.pitch=Math.max(-.45,Math.min(.5,P.pitch));}
   mouse.dx=0;mouse.dy=0;
-
-  // Turn: keyboard Q/E/arrows or joystick x
   if(K['KeyQ']||K['ArrowLeft'])P.yaw+=2*dt;
   if(K['KeyE']||K['ArrowRight'])P.yaw-=2*dt;
   if(JOY.active)P.yaw-=JOY.x*2.5*dt;
-
-  // Move
   let mx=0,mz=0;
   if(K['KeyW']||K['ArrowUp'])mz=-1;
   if(K['KeyS']||K['ArrowDown'])mz=1;
   if(K['KeyA'])mx=-1;
   if(K['KeyD'])mx=1;
   if(JOY.active)mz=JOY.y;
-
   const c=Math.cos(P.yaw),s=Math.sin(P.yaw);
   P.vel.x=(mx*c-mz*s)*SPD;
   P.vel.z=(mx*s+mz*c)*SPD;
-
   if(K['Space']&&P.onGround){P.vel.y=JV;P.onGround=false;}
-
   P.vel.y+=GV*dt;
-  P.pos.x+=P.vel.x*dt;
-  P.pos.y+=P.vel.y*dt;
-  P.pos.z+=P.vel.z*dt;
-
+  P.pos.x+=P.vel.x*dt; P.pos.y+=P.vel.y*dt; P.pos.z+=P.vel.z*dt;
   const gy=groundAt(P.pos.x,P.pos.z)+.75;
   if(P.pos.y<gy){P.pos.y=gy;P.vel.y=0;P.onGround=true;}
-
   const B=WR-1.8;
   P.pos.x=Math.max(-B,Math.min(B,P.pos.x));
   P.pos.z=Math.max(-B,Math.min(B,P.pos.z));
-
-  const moving=(Math.abs(mx)+Math.abs(mz)+Math.abs(JOY.y))>0.05;
+  const moving=(Math.abs(mx)+Math.abs(mz)+Math.abs(JOY.y))>.05;
   const bob=moving&&P.onGround?Math.sin(Date.now()*.009)*.07:0;
   pGrp.position.set(P.pos.x,P.pos.y+bob,P.pos.z);
   pGrp.rotation.y=P.yaw+Math.PI;
-
-  if(P.invincible>0){
-    P.invincible-=dt;P.flashT+=dt;
-    pGrp.visible=Math.floor(P.flashT*8)%2===0;
-  }else{pGrp.visible=true;P.flashT=0;}
+  if(P.invincible>0){P.invincible-=dt;P.flashT+=dt;pGrp.visible=Math.floor(P.flashT*8)%2===0;}
+  else{pGrp.visible=true;P.flashT=0;}
 }
 
-// ── CAMERA ────────────────────────────────────────────────────────────
 function updateCamera(){
   const tx=P.pos.x-Math.sin(P.yaw)*CD;
   const ty=P.pos.y+CH+P.pitch*3;
@@ -726,9 +884,36 @@ function updateCamera(){
   camera.position.z+=(tz-camera.position.z)*.14;
   camera.lookAt(P.pos.x,P.pos.y+1,P.pos.z);
   // PS1 vertex snap
-  camera.position.x=Math.round(camera.position.x*SNAP)/SNAP;
-  camera.position.y=Math.round(camera.position.y*SNAP)/SNAP;
-  camera.position.z=Math.round(camera.position.z*SNAP)/SNAP;
+  camera.position.x=Math.round(camera.position.x*QS)/QS;
+  camera.position.y=Math.round(camera.position.y*QS)/QS;
+  camera.position.z=Math.round(camera.position.z*QS)/QS;
+  // Player light follows player
+  playerLight.position.copy(P.pos);
+  playerLight.position.y+=1.8;
+}
+
+// ── HORROR WORLD UPDATE (corruption) ──────────────────────────────────
+let flickerT=0;
+function updateHorror(dt,t){
+  // Corruption darkens the world
+  corruption=Math.min(1,(ordersCollected/10)*.5+(wallPcs/15)*.5);
+  // Flicker ambient light (Silent Hill light flicker)
+  flickerT+=dt;
+  const flicker=0.35+Math.sin(t*7.3)*.05+Math.sin(t*13.7)*.03;
+  ambLight.intensity=flicker*(1-corruption*.6);
+  playerLight.intensity=0.9-corruption*.3+Math.sin(t*5.1)*.1;
+  // Enemy speed scales with corruption
+  enemies.forEach(e=>{e.speed=Math.min(5,e.speed+(corruption*.002));});
+  // Fog gets closer as corruption rises
+  scene.fog.near=Math.max(5,8-corruption*4);
+  scene.fog.far=Math.max(20,38-corruption*15);
+  // Flicker HTML overlay (very subtle)
+  const fv=Math.random()<.015?Math.random()*.12:0;
+  $('flicker').style.background=`rgba(0,0,0,${fv})`;
+  // Update corrupted HUD
+  if(corruption>.7) $('corrupted').textContent='⚠ DIMENSION UNSTABLE';
+  else if(corruption>.4) $('corrupted').textContent='THE MANDATE GROWS';
+  else $('corrupted').textContent='';
 }
 
 // ── ENEMIES ───────────────────────────────────────────────────────────
@@ -737,16 +922,17 @@ function updateEnemies(dt){
     if(!e.active)return;
     const d=new THREE.Vector3().subVectors(P.pos,e.mesh.position);
     const dist=d.length();
-    if(dist<22){
+    if(dist<24){
       d.normalize();
       e.mesh.position.x+=d.x*e.speed*dt;
       e.mesh.position.z+=d.z*e.speed*dt;
       e.mesh.position.y=1;
       e.mesh.rotation.y=Math.atan2(d.x,d.z)+Math.PI;
-      if(e.mesh.children[2])e.mesh.children[2].rotation.y=Math.sin(Date.now()*.003)*.3;
+      // Lens flicker
+      if(e.mesh.children[5])e.mesh.children[5].material.emissiveIntensity=.8+Math.sin(Date.now()*.01)*.8;
       if(dist<1.3&&P.invincible<=0){
-        hp--;P.invincible=1.5;sfxHit();updateHUD();
-        if(hp<=0)endGame('lose');
+        hp--;P.invincible=1.6;sfxHit();updateHUD();
+        if(hp<=0)triggerEnding();
       }
     }
   });
@@ -756,13 +942,14 @@ function updateEnemies(dt){
 function checkPickups(){
   collectibles.forEach(c=>{
     if(!c.active)return;
-    if(P.pos.distanceTo(c.mesh.position)<1.1){
-      c.active=false;cGrp.remove(c.mesh);
-      if(c.type==='coin'){coins++;score+=100;sfxCoin();}
-      if(c.type==='hat'){hats++;score+=500;sfxHat();}
-      if(c.type==='brick'){wallPcs++;score+=200;sfxBrick();addWallSeg(wallPcs);}
+    if(P.pos.distanceTo(c.mesh.position)<1.15){
+      c.active=false; cGrp.remove(c.mesh);
+      if(c.type==='order'){ordersCollected++;score+=200;sfxOrder();}
+      if(c.type==='brick'){wallPcs++;score+=150;sfxBrick();addWallSeg(wallPcs);}
+      if(c.type==='tariff'){tariffTokens++;score+=500;sfxTariff();}
       updateHUD();
-      if(wallPcs>=WG)endGame('win');
+      if(wallPcs>=15&&ordersCollected>=10&&tariffTokens>=5)triggerEnding();
+      else if(wallPcs>=15)triggerEnding();
     }
   });
 }
@@ -771,16 +958,44 @@ function animPickups(t){
   collectibles.forEach((c,i)=>{
     if(!c.active)return;
     c.mesh.position.y=.9+Math.sin(t*2+i*.7)*.22;
-    c.mesh.rotation.y=t*.8+i;
+    c.mesh.rotation.y=t*(c.type==='tariff'?2:.8)+i;
   });
 }
 
 // ── HUD ───────────────────────────────────────────────────────────────
 function updateHUD(){
-  $('ss').textContent=score; $('sc').textContent=coins; $('sh').textContent=hats;
-  const pct=Math.floor((wallPcs/WG)*100), f=Math.floor(pct/10);
+  $('sord').textContent=ordersCollected;
+  const pct=Math.floor((wallPcs/15)*100),f=Math.floor(pct/10);
   $('sw').textContent='▓'.repeat(f)+'░'.repeat(10-f)+' '+pct+'%';
   $('shp').textContent='♥'.repeat(hp)+'♡'.repeat(Math.max(0,5-hp));
+  $('stariff').textContent=tariffTokens;
+}
+
+// ── ENDINGS ───────────────────────────────────────────────────────────
+function showEnding(id,scoreEl){
+  gState=id; stopMusic();
+  document.querySelectorAll('.gscreen').forEach(s=>s.style.display='none');
+  $(id).style.display='flex';
+  $(scoreEl).textContent=score;
+}
+
+function triggerEnding(){
+  // True ending: all items
+  if(wallPcs>=15&&ordersCollected>=10&&tariffTokens>=5){showEnding('send5','s5sc'); sfxWin(); return;}
+  // Tariff ending: tokens found
+  if(tariffTokens>=5&&wallPcs>=10){showEnding('send4','s4sc'); sfxWin(); return;}
+  // Wall complete
+  if(wallPcs>=15){
+    if(hp>=4&&ordersCollected>=8) showEnding('send1','s1sc');
+    else showEnding('send1','s1sc');
+    sfxWin(); return;
+  }
+  // Health gone
+  if(hp<=0){
+    if(ordersCollected>=6) showEnding('send2','s2sc');
+    else showEnding('send3','s3sc');
+    return;
+  }
 }
 
 // ── GAME FLOW ─────────────────────────────────────────────────────────
@@ -788,39 +1003,37 @@ function startPlaying(){
   $('smenu').style.display='none';
   stopMusic();
   gState='playing';
-}
-
-function endGame(r){
-  gState=r;
-  if(r==='win'){$('wsco').textContent=score;$('swin').style.display='flex';sfxWin();}
-  else{$('lsco').textContent=score;$('slose').style.display='flex';}
+  initAudio();
+  startHorrorMusic();
 }
 
 function resetGame(){
-  score=0;coins=0;hats=0;wallPcs=0;hp=5;
+  score=0;ordersCollected=0;wallPcs=0;tariffTokens=0;hp=5;corruption=0;
   P.pos.set(0,1,5);P.vel.set(0,0,0);P.yaw=0;P.pitch=0;P.invincible=0;P.flashT=0;P.onGround=true;
   while(wGrp.children.length)wGrp.remove(wGrp.children[0]);
-  spawnCollectibles();spawnEnemies();updateHUD();
-  $('swin').style.display='none';$('slose').style.display='none';
+  scene.fog.near=8; scene.fog.far=38;
+  spawnCollectibles(); spawnEnemies(); updateHUD();
+  document.querySelectorAll('.gscreen').forEach(s=>s.style.display='none');
+  stopMusic(); startHorrorMusic();
   gState='playing';
 }
 
 // ── MAIN LOOP ─────────────────────────────────────────────────────────
-buildWorld();updateHUD();
-
+buildWorld(); updateHUD();
 let lastT=0;
 function loop(ts){
   requestAnimationFrame(loop);
-  const dt=Math.min((ts-lastT)/1000,.05);
-  lastT=ts;
+  const dt=Math.min((ts-lastT)/1000,.05); lastT=ts;
   const t=ts/1000;
   if(gState==='playing'){
-    updatePlayer(dt);updateCamera();updateEnemies(dt);animPickups(t);checkPickups();
+    updatePlayer(dt); updateCamera(); updateEnemies(dt);
+    animPickups(t); checkPickups(); updateHorror(dt,t);
   } else if(gState==='menu'){
-    camera.position.x=Math.sin(t*.12)*9;
-    camera.position.y=4.5;
-    camera.position.z=Math.cos(t*.12)*9+4;
+    camera.position.x=Math.sin(t*.1)*10;
+    camera.position.y=5+Math.sin(t*.07)*1;
+    camera.position.z=Math.cos(t*.1)*10+4;
     camera.lookAt(0,1,0);
+    playerLight.position.set(Math.sin(t*.1)*6,3,Math.cos(t*.1)*6);
   }
   renderer.render(scene,camera);
 }
